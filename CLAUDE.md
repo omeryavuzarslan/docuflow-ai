@@ -34,7 +34,7 @@ uv sync                              # install dependencies
 uv run pytest                        # tests
 uv run ruff check . && uv run ruff format .
 uv run mypy backend data_generator
-uv run python -m data_generator --seed 42 --sets 5
+uv run python -m data_generator --seed 42 --sets 8
 ```
 
 ## Engineering rules
@@ -123,12 +123,16 @@ Goals:
   - duplicate invoice: copy an existing invoice with a new document id.
 - Rendering: Jinja2 HTML templates -> PDF (WeasyPrint; if its system libraries are a
   problem on this OS, use Playwright `page.pdf()`).
-- 2 visually different templates, 5 document sets, error types: quantity mismatch,
+- 2 visually different templates, 8 document sets, error types: quantity mismatch,
   unit price mismatch, line total error, VAT error, total error, duplicate invoice.
-- At least 2 of the 5 sets are clean (no injected errors), to measure false positives.
+- At least 2 of the 8 sets are clean (no injected errors), to measure false positives.
+  v1 has exactly one injected error per erroneous set (2 clean + 6 single-error sets), so
+  errors cannot interact and every detection maps to one injected error. At least one
+  clean set has a partial delivery (DN qty < PO qty), a deliberate false-positive trap.
+  Multi-error sets come with the 30-set advanced dataset.
 - Ground-truth JSON: Decimals serialised as strings, keys in a stable order.
 - UK conventions: GBP, 20% standard VAT, DD/MM/YYYY dates.
-- Deterministic: `python -m data_generator --seed 42 --sets 5` produces byte-identical
+- Deterministic: `python -m data_generator --seed 42 --sets 8` produces byte-identical
   ground-truth JSON and PDFs with identical content (PDF metadata such as creation date may
   differ). No `datetime.now()` or unseeded randomness: all dates and random values derive
   from the seed (seed Faker too, if used).
