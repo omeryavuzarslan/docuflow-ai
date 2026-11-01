@@ -1,0 +1,142 @@
+{#- Modern layout: sans-serif, coloured header band, different labels and column order,
+    totals in a side card. Deliberately unlike "classic" so extraction cannot rely on
+    one fixed layout. -#}
+{%- set is_po = doc.doc_type == "purchase_order" -%}
+{%- set is_dn = doc.doc_type == "delivery_note" -%}
+{%- set is_inv = doc.doc_type == "invoice" -%}
+{%- set issuer = doc.buyer if is_po else doc.supplier -%}
+{%- set recipient = doc.supplier if is_po else doc.buyer -%}
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document_id }}</title>
+<style>
+  @page { size: A4; margin: 0 0 16mm; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 9.5pt; color: #1f2937; margin: 0; }
+  .band { background: #0f4c5c; color: #fff; padding: 14mm 16mm 8mm; display: flex; justify-content: space-between; }
+  .band .doc-type { font-size: 11pt; text-transform: uppercase; letter-spacing: 3px; opacity: .85; }
+  .band .issuer { font-size: 18pt; font-weight: 600; margin-top: 4px; }
+  .band .contact { text-align: right; font-size: 8.5pt; line-height: 1.5; }
+  .content { padding: 8mm 16mm 0; }
+  /* Tables, not flex/grid: WeasyPrint lays tables out reliably within the page width. */
+  table.head { width: 100%; border-collapse: collapse; margin-bottom: 10mm; }
+  table.head > tbody > tr > td { vertical-align: top; padding: 0; }
+  .label { font-size: 7.5pt; text-transform: uppercase; color: #6b7280; letter-spacing: 1px; }
+  table.facts { margin-left: auto; border-collapse: collapse; }
+  table.facts td { padding: 0 0 4mm 10mm; vertical-align: top; }
+  table.facts .value { font-weight: 600; margin-top: 2px; white-space: nowrap; }
+  table.lines { width: 100%; border-collapse: collapse; }
+  table.lines th { font-size: 7.5pt; text-transform: uppercase; color: #6b7280; text-align: left; border-bottom: 2px solid #0f4c5c; padding: 6px 4px; }
+  table.lines td { padding: 6px 4px; border-bottom: 1px solid #e5e7eb; }
+  table.lines tbody tr:nth-child(even) td { background: #f3f6f7; }
+  .num { text-align: right; white-space: nowrap; }
+  .muted { color: #6b7280; font-size: 8pt; }
+  .summary { display: flex; justify-content: space-between; margin-top: 8mm; }
+  .note { width: 55%; font-size: 8.5pt; color: #4b5563; }
+  .card { width: 38%; background: #f3f6f7; padding: 4mm 5mm; }
+  .card .row { display: flex; justify-content: space-between; padding: 2px 0; }
+  .card .due { border-top: 1px solid #0f4c5c; margin-top: 4px; padding-top: 6px; font-size: 12pt; font-weight: 700; color: #0f4c5c; }
+</style>
+</head>
+<body>
+<div class="band">
+  <div>
+    <div class="doc-type">{% if is_po %}Purchase Order{% elif is_dn %}Delivery Note{% else %}Tax Invoice{% endif %}</div>
+    <div class="issuer">{{ issuer.name }}</div>
+  </div>
+  <div class="contact">
+    {{ issuer.address.line1 }}<br>
+    {% if issuer.address.line2 %}{{ issuer.address.line2 }}<br>{% endif %}
+    {{ issuer.address.city }}, {{ issuer.address.postcode }}<br>
+    VAT No. {{ issuer.vat_number }}
+  </div>
+</div>
+
+<div class="content">
+  <table class="head"><tr>
+    <td>
+      <div class="label">{% if is_po %}Order from{% elif is_dn %}Ship to{% else %}Bill to{% endif %}</div>
+      <div><strong>{{ recipient.name }}</strong></div>
+      <div>{{ recipient.address.line1 }}</div>
+      {% if recipient.address.line2 %}<div>{{ recipient.address.line2 }}</div>{% endif %}
+      <div>{{ recipient.address.city }}, {{ recipient.address.postcode }}</div>
+      <div class="muted">VAT No. {{ recipient.vat_number }}</div>
+    </td>
+    <td>
+      {% if is_po %}
+      {% set facts = [("Order #", doc.po_number), ("Date", doc.issue_date | uk_date)] %}
+      {% elif is_dn %}
+      {% set facts = [("Delivery #", doc.dn_number), ("Shipped", doc.delivery_date | uk_date), ("PO ref", doc.po_number)] %}
+      {% else %}
+      {% set facts = [("Invoice #", doc.invoice_number), ("Issued", doc.issue_date | uk_date), ("Due", doc.due_date | uk_date), ("PO ref", doc.po_number)] %}
+      {% endif %}
+      <table class="facts">
+        {% for row in facts | batch(2) %}
+        <tr>
+          {% for label, value in row %}
+          <td><div class="label">{{ label }}</div><div class="value">{{ value }}</div></td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </table>
+    </td>
+  </tr></table>
+
+  <table class="lines">
+    <thead>
+      <tr>
+        <th>Description</th><th>Code</th>
+        {% if is_dn %}
+        <th class="num">Quantity</th>
+        {% else %}
+        <th class="num">Qty</th><th class="num">Price</th><th class="num">Amount</th>
+        {% if is_inv %}<th class="num">VAT</th>{% endif %}
+        <th class="num">Rate</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for line in doc.lines %}
+      <tr>
+        <td>{{ line.description }}</td><td class="muted">{{ line.sku }}</td>
+        {% if is_dn %}
+        <td class="num">{{ line.quantity_delivered | qty }}</td>
+        {% else %}
+        <td class="num">{{ line.quantity | qty }}</td>
+        <td class="num">{{ line.unit_price | price }}</td>
+        <td class="num">{{ line.line_net | money }}</td>
+        {% if is_inv %}<td class="num">{{ line.line_vat | money }}</td>{% endif %}
+        <td class="num">{{ line.vat_rate | vat_rate }}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="summary">
+    <div class="note">
+      {% if is_po %}
+      Quote order # {{ doc.po_number }} on every delivery and invoice.
+      {% elif is_dn %}
+      Please check goods on arrival and report any shortage within 48 hours.
+      {% else %}
+      {% if doc.delivery_note_numbers %}Delivery ref: {{ doc.delivery_note_numbers | join(", ") }}<br>{% endif %}
+      Payment due within 30 days. Bank transfer only, quoting invoice #.
+      {% endif %}
+    </div>
+    {% if is_po %}
+    <div class="card">
+      <div class="row due"><span>Order value (net)</span><span>{{ doc.net_total | money }}</span></div>
+    </div>
+    {% elif is_inv %}
+    <div class="card">
+      <div class="row"><span>Net</span><span>{{ doc.net_total | money }}</span></div>
+      <div class="row"><span>VAT</span><span>{{ doc.vat_total | money }}</span></div>
+      <div class="row due"><span>Amount due</span><span>{{ doc.gross_total | money }}</span></div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>

@@ -1,4 +1,4 @@
-"""python -m data_generator --seed 42 --sets 8 [--out DIR] [--force]"""
+"""python -m data_generator --seed 42 --sets 8 [--out DIR] [--force] [--no-pdf]"""
 
 import argparse
 import sys
@@ -21,11 +21,18 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--sets", type=int, default=MIN_SETS, help=f"minimum {MIN_SETS}")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--force", action="store_true", help="replace existing output")
+    parser.add_argument("--no-pdf", action="store_true", help="ground-truth JSON only")
     args = parser.parse_args(argv)
 
     try:
         sets = generate(args.seed, args.sets)
-        root = write_dataset(sets, seed=args.seed, out_dir=args.out, force=args.force)
+        root = write_dataset(
+            sets,
+            seed=args.seed,
+            out_dir=args.out,
+            force=args.force,
+            render_pdfs=not args.no_pdf,
+        )
     except (ValueError, FileExistsError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

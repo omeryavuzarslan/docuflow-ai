@@ -27,3 +27,10 @@ Updated at the end of each session.
   confused with a legitimate rounding method. Output byte-identical across processes.
   1053 tests passing (property-style checks over 30-50 seeds).
 - Next: PDF rendering (Jinja2 + WeasyPrint, 2 templates); design to be approved first.
+- PDF rendering (branch `feat/pdf-rendering`): Jinja2 + WeasyPrint, `classic` and `modern`
+  templates with different labels, column order and layout. PDFs show documents exactly as
+  stored (injected errors included). Output, including PDFs, is byte-identical across runs;
+  manifest maps document_id -> PDF file. macOS: uv's Python needs Homebrew's lib dir on the
+  dyld fallback path, set in `render._import_weasyprint`. Modern header uses tables because
+  WeasyPrint's flex/grid overflowed the page (found by viewing the PDFs; text tests missed it).
+- Week 1 done. Next: roadmap step 2, Docling parsing (+ simulated scans with OCR).
