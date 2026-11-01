@@ -19,3 +19,11 @@ Updated at the end of each session.
   ADR-0001 records the rounding decision and the multi-method VAT rule for step 4.
   37 tests passing; ruff and mypy strict clean.
 - Next: data generator v1 (design to be approved first).
+- Data generator v1, ground-truth JSON (branch `feat/data-generator`): 8 sets (2 clean +
+  one set per error type; changed from 5 sets so errors never interact), per-set seeded
+  RNG streams (adding sets never changes earlier ones), hand-written catalogue with
+  sub-penny prices and fractional quantities, partial delivery as a false-positive trap,
+  validated `evolve` instead of `model_copy`, arithmetic errors >= 50p so they cannot be
+  confused with a legitimate rounding method. Output byte-identical across processes.
+  1053 tests passing (property-style checks over 30-50 seeds).
+- Next: PDF rendering (Jinja2 + WeasyPrint, 2 templates); design to be approved first.
