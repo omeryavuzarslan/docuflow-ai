@@ -31,11 +31,16 @@ explain every design decision in an interview.
 
 ```
 uv sync                              # install dependencies
-uv run pytest                        # tests
+uv run pytest                        # tests (fast; skips `slow`)
+uv run pytest -m slow                # Docling model tests (~30 s)
 uv run ruff check . && uv run ruff format .
-uv run mypy backend data_generator
+uv run mypy backend data_generator eval
 uv run python -m data_generator --seed 42 --sets 8
+uv run python -m eval.runners.parse_eval --dataset data_generator/output/seed-42
 ```
+
+macOS needs `brew install pango` for WeasyPrint. Docling downloads ~500 MB of models to
+`~/.cache/huggingface` on first use.
 
 ## Engineering rules
 

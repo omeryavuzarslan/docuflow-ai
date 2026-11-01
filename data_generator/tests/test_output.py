@@ -86,6 +86,9 @@ def test_pdfs_are_written_and_listed_in_the_manifest(tmp_path: Path) -> None:
         assert entry["files"]
         for name in entry["files"].values():
             assert (root / entry["set_id"] / name).read_bytes().startswith(b"%PDF")
+        for name in entry["scans"].values():
+            assert (root / entry["set_id"] / name).read_bytes().startswith(b"%PDF")
+        assert entry["scans"].keys() == entry["files"].keys()
     duplicate_set = manifest["sets"][7]
     assert duplicate_set["errors"] == ["duplicate_invoice"]
     assert sorted(duplicate_set["files"].values()) == ["dn.pdf", "inv-1.pdf", "inv-2.pdf", "po.pdf"]
