@@ -1,0 +1,619 @@
+{
+  "parser": "docling 2.145.0",
+  "dataset": "data_generator/output/seed-42",
+  "warm_up_seconds": 20.6,
+  "summary": [
+    {
+      "variant": "digital",
+      "template": "all",
+      "documents": 25,
+      "value_recall": 1.0,
+      "line_table_found": 1.0,
+      "median_seconds": 1.33
+    },
+    {
+      "variant": "digital",
+      "template": "classic",
+      "documents": 12,
+      "value_recall": 1.0,
+      "line_table_found": 1.0,
+      "median_seconds": 1.51
+    },
+    {
+      "variant": "digital",
+      "template": "modern",
+      "documents": 13,
+      "value_recall": 1.0,
+      "line_table_found": 1.0,
+      "median_seconds": 1.14
+    },
+    {
+      "variant": "scan",
+      "template": "all",
+      "documents": 25,
+      "value_recall": 0.9879,
+      "line_table_found": 1.0,
+      "median_seconds": 3.78
+    },
+    {
+      "variant": "scan",
+      "template": "classic",
+      "documents": 12,
+      "value_recall": 0.9808,
+      "line_table_found": 1.0,
+      "median_seconds": 3.88
+    },
+    {
+      "variant": "scan",
+      "template": "modern",
+      "documents": 13,
+      "value_recall": 0.9937,
+      "line_table_found": 1.0,
+      "median_seconds": 3.78
+    }
+  ],
+  "documents": [
+    {
+      "set_id": "set-001",
+      "document_id": "set-001-po",
+      "template": "classic",
+      "variant": "digital",
+      "found": 27,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 1.64,
+      "missed": []
+    },
+    {
+      "set_id": "set-001",
+      "document_id": "set-001-po",
+      "template": "classic",
+      "variant": "scan",
+      "found": 27,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 4.22,
+      "missed": []
+    },
+    {
+      "set_id": "set-001",
+      "document_id": "set-001-dn",
+      "template": "classic",
+      "variant": "digital",
+      "found": 15,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 1.51,
+      "missed": []
+    },
+    {
+      "set_id": "set-001",
+      "document_id": "set-001-dn",
+      "template": "classic",
+      "variant": "scan",
+      "found": 15,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 3.65,
+      "missed": []
+    },
+    {
+      "set_id": "set-001",
+      "document_id": "set-001-inv-1",
+      "template": "classic",
+      "variant": "digital",
+      "found": 37,
+      "total": 37,
+      "line_table_found": true,
+      "seconds": 1.82,
+      "missed": []
+    },
+    {
+      "set_id": "set-001",
+      "document_id": "set-001-inv-1",
+      "template": "classic",
+      "variant": "scan",
+      "found": 37,
+      "total": 37,
+      "line_table_found": true,
+      "seconds": 5.21,
+      "missed": []
+    },
+    {
+      "set_id": "set-002",
+      "document_id": "set-002-po",
+      "template": "modern",
+      "variant": "digital",
+      "found": 31,
+      "total": 31,
+      "line_table_found": true,
+      "seconds": 1.48,
+      "missed": []
+    },
+    {
+      "set_id": "set-002",
+      "document_id": "set-002-po",
+      "template": "modern",
+      "variant": "scan",
+      "found": 31,
+      "total": 31,
+      "line_table_found": true,
+      "seconds": 4.67,
+      "missed": []
+    },
+    {
+      "set_id": "set-002",
+      "document_id": "set-002-dn",
+      "template": "modern",
+      "variant": "digital",
+      "found": 17,
+      "total": 17,
+      "line_table_found": true,
+      "seconds": 0.95,
+      "missed": []
+    },
+    {
+      "set_id": "set-002",
+      "document_id": "set-002-dn",
+      "template": "modern",
+      "variant": "scan",
+      "found": 17,
+      "total": 17,
+      "line_table_found": true,
+      "seconds": 3.78,
+      "missed": []
+    },
+    {
+      "set_id": "set-002",
+      "document_id": "set-002-inv-1",
+      "template": "modern",
+      "variant": "digital",
+      "found": 42,
+      "total": 42,
+      "line_table_found": true,
+      "seconds": 1.61,
+      "missed": []
+    },
+    {
+      "set_id": "set-002",
+      "document_id": "set-002-inv-1",
+      "template": "modern",
+      "variant": "scan",
+      "found": 42,
+      "total": 42,
+      "line_table_found": true,
+      "seconds": 5.38,
+      "missed": []
+    },
+    {
+      "set_id": "set-003",
+      "document_id": "set-003-po",
+      "template": "classic",
+      "variant": "digital",
+      "found": 19,
+      "total": 19,
+      "line_table_found": true,
+      "seconds": 1.18,
+      "missed": []
+    },
+    {
+      "set_id": "set-003",
+      "document_id": "set-003-po",
+      "template": "classic",
+      "variant": "scan",
+      "found": 18,
+      "total": 19,
+      "line_table_found": true,
+      "seconds": 3.88,
+      "missed": [
+        "WH-3009:£4.78"
+      ]
+    },
+    {
+      "set_id": "set-003",
+      "document_id": "set-003-dn",
+      "template": "classic",
+      "variant": "digital",
+      "found": 11,
+      "total": 11,
+      "line_table_found": true,
+      "seconds": 0.95,
+      "missed": []
+    },
+    {
+      "set_id": "set-003",
+      "document_id": "set-003-dn",
+      "template": "classic",
+      "variant": "scan",
+      "found": 11,
+      "total": 11,
+      "line_table_found": true,
+      "seconds": 3.23,
+      "missed": []
+    },
+    {
+      "set_id": "set-003",
+      "document_id": "set-003-inv-1",
+      "template": "classic",
+      "variant": "digital",
+      "found": 27,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 1.56,
+      "missed": []
+    },
+    {
+      "set_id": "set-003",
+      "document_id": "set-003-inv-1",
+      "template": "classic",
+      "variant": "scan",
+      "found": 27,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 4.72,
+      "missed": []
+    },
+    {
+      "set_id": "set-004",
+      "document_id": "set-004-po",
+      "template": "modern",
+      "variant": "digital",
+      "found": 19,
+      "total": 19,
+      "line_table_found": true,
+      "seconds": 1.14,
+      "missed": []
+    },
+    {
+      "set_id": "set-004",
+      "document_id": "set-004-po",
+      "template": "modern",
+      "variant": "scan",
+      "found": 19,
+      "total": 19,
+      "line_table_found": true,
+      "seconds": 3.88,
+      "missed": []
+    },
+    {
+      "set_id": "set-004",
+      "document_id": "set-004-dn",
+      "template": "modern",
+      "variant": "digital",
+      "found": 11,
+      "total": 11,
+      "line_table_found": true,
+      "seconds": 0.91,
+      "missed": []
+    },
+    {
+      "set_id": "set-004",
+      "document_id": "set-004-dn",
+      "template": "modern",
+      "variant": "scan",
+      "found": 11,
+      "total": 11,
+      "line_table_found": true,
+      "seconds": 3.57,
+      "missed": []
+    },
+    {
+      "set_id": "set-004",
+      "document_id": "set-004-inv-1",
+      "template": "modern",
+      "variant": "digital",
+      "found": 27,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 1.15,
+      "missed": []
+    },
+    {
+      "set_id": "set-004",
+      "document_id": "set-004-inv-1",
+      "template": "modern",
+      "variant": "scan",
+      "found": 27,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 4.62,
+      "missed": []
+    },
+    {
+      "set_id": "set-005",
+      "document_id": "set-005-po",
+      "template": "classic",
+      "variant": "digital",
+      "found": 27,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 1.53,
+      "missed": []
+    },
+    {
+      "set_id": "set-005",
+      "document_id": "set-005-po",
+      "template": "classic",
+      "variant": "scan",
+      "found": 26,
+      "total": 27,
+      "line_table_found": true,
+      "seconds": 4.51,
+      "missed": [
+        "WH-3003:£0.027"
+      ]
+    },
+    {
+      "set_id": "set-005",
+      "document_id": "set-005-dn",
+      "template": "classic",
+      "variant": "digital",
+      "found": 15,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 1.34,
+      "missed": []
+    },
+    {
+      "set_id": "set-005",
+      "document_id": "set-005-dn",
+      "template": "classic",
+      "variant": "scan",
+      "found": 15,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 3.73,
+      "missed": []
+    },
+    {
+      "set_id": "set-005",
+      "document_id": "set-005-inv-1",
+      "template": "classic",
+      "variant": "digital",
+      "found": 37,
+      "total": 37,
+      "line_table_found": true,
+      "seconds": 2.0,
+      "missed": []
+    },
+    {
+      "set_id": "set-005",
+      "document_id": "set-005-inv-1",
+      "template": "classic",
+      "variant": "scan",
+      "found": 35,
+      "total": 37,
+      "line_table_found": true,
+      "seconds": 5.61,
+      "missed": [
+        "WH-3004:£7.70",
+        "WH-3003:£0.027"
+      ]
+    },
+    {
+      "set_id": "set-006",
+      "document_id": "set-006-po",
+      "template": "modern",
+      "variant": "digital",
+      "found": 35,
+      "total": 35,
+      "line_table_found": true,
+      "seconds": 1.74,
+      "missed": []
+    },
+    {
+      "set_id": "set-006",
+      "document_id": "set-006-po",
+      "template": "modern",
+      "variant": "scan",
+      "found": 35,
+      "total": 35,
+      "line_table_found": true,
+      "seconds": 4.88,
+      "missed": []
+    },
+    {
+      "set_id": "set-006",
+      "document_id": "set-006-dn",
+      "template": "modern",
+      "variant": "digital",
+      "found": 19,
+      "total": 19,
+      "line_table_found": true,
+      "seconds": 0.99,
+      "missed": []
+    },
+    {
+      "set_id": "set-006",
+      "document_id": "set-006-dn",
+      "template": "modern",
+      "variant": "scan",
+      "found": 17,
+      "total": 19,
+      "line_table_found": true,
+      "seconds": 3.64,
+      "missed": [
+        "CL-2005:CL-2005",
+        "CL-2005:7"
+      ]
+    },
+    {
+      "set_id": "set-006",
+      "document_id": "set-006-inv-1",
+      "template": "modern",
+      "variant": "digital",
+      "found": 47,
+      "total": 47,
+      "line_table_found": true,
+      "seconds": 1.75,
+      "missed": []
+    },
+    {
+      "set_id": "set-006",
+      "document_id": "set-006-inv-1",
+      "template": "modern",
+      "variant": "scan",
+      "found": 47,
+      "total": 47,
+      "line_table_found": true,
+      "seconds": 5.5,
+      "missed": []
+    },
+    {
+      "set_id": "set-007",
+      "document_id": "set-007-po",
+      "template": "classic",
+      "variant": "digital",
+      "found": 15,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 0.92,
+      "missed": []
+    },
+    {
+      "set_id": "set-007",
+      "document_id": "set-007-po",
+      "template": "classic",
+      "variant": "scan",
+      "found": 14,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 3.77,
+      "missed": [
+        "WH-3002:£0.0183"
+      ]
+    },
+    {
+      "set_id": "set-007",
+      "document_id": "set-007-dn",
+      "template": "classic",
+      "variant": "digital",
+      "found": 9,
+      "total": 9,
+      "line_table_found": true,
+      "seconds": 1.4,
+      "missed": []
+    },
+    {
+      "set_id": "set-007",
+      "document_id": "set-007-dn",
+      "template": "classic",
+      "variant": "scan",
+      "found": 9,
+      "total": 9,
+      "line_table_found": true,
+      "seconds": 3.0,
+      "missed": []
+    },
+    {
+      "set_id": "set-007",
+      "document_id": "set-007-inv-1",
+      "template": "classic",
+      "variant": "digital",
+      "found": 22,
+      "total": 22,
+      "line_table_found": true,
+      "seconds": 1.33,
+      "missed": []
+    },
+    {
+      "set_id": "set-007",
+      "document_id": "set-007-inv-1",
+      "template": "classic",
+      "variant": "scan",
+      "found": 22,
+      "total": 22,
+      "line_table_found": true,
+      "seconds": 3.76,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-po",
+      "template": "modern",
+      "variant": "digital",
+      "found": 15,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 1.09,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-po",
+      "template": "modern",
+      "variant": "scan",
+      "found": 15,
+      "total": 15,
+      "line_table_found": true,
+      "seconds": 3.24,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-dn",
+      "template": "modern",
+      "variant": "digital",
+      "found": 9,
+      "total": 9,
+      "line_table_found": true,
+      "seconds": 1.04,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-dn",
+      "template": "modern",
+      "variant": "scan",
+      "found": 9,
+      "total": 9,
+      "line_table_found": true,
+      "seconds": 3.16,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-inv-1",
+      "template": "modern",
+      "variant": "digital",
+      "found": 22,
+      "total": 22,
+      "line_table_found": true,
+      "seconds": 1.07,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-inv-1",
+      "template": "modern",
+      "variant": "scan",
+      "found": 22,
+      "total": 22,
+      "line_table_found": true,
+      "seconds": 3.62,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-inv-2",
+      "template": "modern",
+      "variant": "digital",
+      "found": 22,
+      "total": 22,
+      "line_table_found": true,
+      "seconds": 1.25,
+      "missed": []
+    },
+    {
+      "set_id": "set-008",
+      "document_id": "set-008-inv-2",
+      "template": "modern",
+      "variant": "scan",
+      "found": 22,
+      "total": 22,
+      "line_table_found": true,
+      "seconds": 3.68,
+      "missed": []
+    }
+  ]
+}

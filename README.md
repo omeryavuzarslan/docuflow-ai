@@ -14,6 +14,6 @@ PDF rendering uses WeasyPrint, which needs Pango. On macOS: `brew install pango`
 uv sync
 uv run pytest
 uv run ruff check . && uv run ruff format .
-uv run mypy backend data_generator
+uv run mypy backend data_generator eval
 uv run python -m data_generator --seed 42 --sets 8   # writes data_generator/output/
 ```

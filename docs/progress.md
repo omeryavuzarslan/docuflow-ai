@@ -34,3 +34,12 @@ Updated at the end of each session.
   dyld fallback path, set in `render._import_weasyprint`. Modern header uses tables because
   WeasyPrint's flex/grid overflowed the page (found by viewing the PDFs; text tests missed it).
 - Week 1 done. Next: roadmap step 2, Docling parsing (+ simulated scans with OCR).
+- Docling parsing (branch `feat/docling-parsing`): `backend/app/ingestion` wraps Docling
+  behind our own ParsedDocument model (text blocks + tables with cells, top-left page
+  coordinates, sha256, parser version). Auto OCR when a PDF has no text layer (RapidOCR via
+  Docling "auto"; EasyOCR is not bundled in docling 2.145). Simulated scans per document
+  (`*.scan.pdf`, seeded, byte-identical). Parse eval: digital 100% value recall, scans 98.8%
+  (OCR letter/digit and punctuation errors); see docs/experiments.md. Slow Docling tests are
+  marked `slow` and skipped by default. Disk ran nearly full during model download; cleared
+  the uv cache (~2.6 GB).
+- Next: roadmap step 3, LLM structured extraction + extraction eval (choose provider/model).
