@@ -1,0 +1,131 @@
+{#- Classic layout: serif type, title top right, bordered table, boxed totals. -#}
+{%- set is_po = doc.doc_type == "purchase_order" -%}
+{%- set is_dn = doc.doc_type == "delivery_note" -%}
+{%- set is_inv = doc.doc_type == "invoice" -%}
+{%- set issuer = doc.buyer if is_po else doc.supplier -%}
+{%- set recipient = doc.supplier if is_po else doc.buyer -%}
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>{{ doc.document_id }}</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  body { font-family: Georgia, "Times New Roman", serif; font-size: 10pt; color: #111; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .issuer-name { font-size: 15pt; font-weight: bold; }
+  .title { font-size: 22pt; letter-spacing: 2px; text-align: right; margin: 0; }
+  .meta { margin-top: 6px; border-collapse: collapse; margin-left: auto; }
+  .meta td { padding: 2px 0 2px 12px; }
+  .meta td:first-child { font-weight: bold; text-align: right; }
+  .parties { display: flex; gap: 40px; margin: 22px 0 16px; }
+  .party h3 { font-size: 9pt; text-transform: uppercase; margin: 0 0 4px; border-bottom: 1px solid #111; }
+  table.lines { width: 100%; border-collapse: collapse; }
+  table.lines th, table.lines td { border: 1px solid #555; padding: 4px 6px; }
+  table.lines th { background: #eee; text-align: left; }
+  .num { text-align: right; white-space: nowrap; }
+  .totals { margin: 12px 0 0 auto; border: 2px solid #111; border-collapse: collapse; }
+  .totals td { padding: 4px 10px; }
+  .totals tr.grand td { font-weight: bold; border-top: 2px solid #111; }
+  .footer { margin-top: 28px; font-size: 9pt; }
+  .sign { margin-top: 40px; display: flex; gap: 60px; }
+  .sign div { border-top: 1px solid #111; width: 200px; padding-top: 4px; }
+</style>
+</head>
+<body>
+<div class="top">
+  <div>
+    <div class="issuer-name">{{ issuer.name }}</div>
+    <div>{{ issuer.address.line1 }}</div>
+    {% if issuer.address.line2 %}<div>{{ issuer.address.line2 }}</div>{% endif %}
+    <div>{{ issuer.address.city }} {{ issuer.address.postcode }}</div>
+    <div>VAT Reg. No: {{ issuer.vat_number }}</div>
+  </div>
+  <div>
+    <h1 class="title">{% if is_po %}PURCHASE ORDER{% elif is_dn %}DELIVERY NOTE{% else %}INVOICE{% endif %}</h1>
+    <table class="meta">
+      {% if is_po %}
+      <tr><td>PO Number:</td><td>{{ doc.po_number }}</td></tr>
+      <tr><td>Order Date:</td><td>{{ doc.issue_date | uk_date }}</td></tr>
+      {% elif is_dn %}
+      <tr><td>Delivery Note No:</td><td>{{ doc.dn_number }}</td></tr>
+      <tr><td>Delivery Date:</td><td>{{ doc.delivery_date | uk_date }}</td></tr>
+      <tr><td>Your Order Ref:</td><td>{{ doc.po_number }}</td></tr>
+      {% else %}
+      <tr><td>Invoice Number:</td><td>{{ doc.invoice_number }}</td></tr>
+      <tr><td>Invoice Date:</td><td>{{ doc.issue_date | uk_date }}</td></tr>
+      <tr><td>Due Date:</td><td>{{ doc.due_date | uk_date }}</td></tr>
+      <tr><td>Purchase Order:</td><td>{{ doc.po_number }}</td></tr>
+      {% if doc.delivery_note_numbers %}
+      <tr><td>Delivery Note:</td><td>{{ doc.delivery_note_numbers | join(", ") }}</td></tr>
+      {% endif %}
+      {% endif %}
+    </table>
+  </div>
+</div>
+
+<div class="parties">
+  <div class="party">
+    <h3>{% if is_po %}Supplier{% elif is_dn %}Deliver To{% else %}Invoice To{% endif %}</h3>
+    <div><strong>{{ recipient.name }}</strong></div>
+    <div>{{ recipient.address.line1 }}</div>
+    {% if recipient.address.line2 %}<div>{{ recipient.address.line2 }}</div>{% endif %}
+    <div>{{ recipient.address.city }} {{ recipient.address.postcode }}</div>
+    <div>VAT Reg. No: {{ recipient.vat_number }}</div>
+  </div>
+</div>
+
+<table class="lines">
+  <thead>
+    <tr>
+      <th>#</th><th>Item Code</th><th>Description</th>
+      {% if is_dn %}
+      <th class="num">Qty Delivered</th>
+      {% else %}
+      <th class="num">Qty</th><th class="num">Unit Price</th><th class="num">VAT</th><th class="num">Net Amount</th>
+      {% if is_inv %}<th class="num">VAT Amount</th>{% endif %}
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for line in doc.lines %}
+    <tr>
+      <td>{{ line.line_no }}</td><td>{{ line.sku }}</td><td>{{ line.description }}</td>
+      {% if is_dn %}
+      <td class="num">{{ line.quantity_delivered | qty }}</td>
+      {% else %}
+      <td class="num">{{ line.quantity | qty }}</td>
+      <td class="num">{{ line.unit_price | price }}</td>
+      <td class="num">{{ line.vat_rate | vat_rate }}</td>
+      <td class="num">{{ line.line_net | money }}</td>
+      {% if is_inv %}<td class="num">{{ line.line_vat | money }}</td>{% endif %}
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if is_po %}
+<table class="totals">
+  <tr class="grand"><td>Order Total (excl. VAT)</td><td class="num">{{ doc.net_total | money }}</td></tr>
+</table>
+{% elif is_inv %}
+<table class="totals">
+  <tr><td>Subtotal</td><td class="num">{{ doc.net_total | money }}</td></tr>
+  <tr><td>VAT</td><td class="num">{{ doc.vat_total | money }}</td></tr>
+  <tr class="grand"><td>Total Due ({{ doc.currency }})</td><td class="num">{{ doc.gross_total | money }}</td></tr>
+</table>
+{% endif %}
+
+<div class="footer">
+  {% if is_po %}
+  <p>Please quote the PO number on all delivery notes and invoices.</p>
+  {% elif is_dn %}
+  <p>Goods received in good condition.</p>
+  <div class="sign"><div>Received by (print name)</div><div>Signature</div></div>
+  {% else %}
+  <p>Payment terms: 30 days from invoice date. Please quote the invoice number with your payment.</p>
+  {% endif %}
+</div>
+</body>
+</html>
