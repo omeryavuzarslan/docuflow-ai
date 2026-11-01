@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+
+# Tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Secrets: API keys live in .env, never in git
+.env
+.env.*
+!.env.example
+
+# Generated data (reproducible from the seed)
+data_generator/output/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
