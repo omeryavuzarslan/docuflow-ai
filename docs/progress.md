@@ -42,4 +42,18 @@ Updated at the end of each session.
   (OCR letter/digit and punctuation errors); see docs/experiments.md. Slow Docling tests are
   marked `slow` and skipped by default. Disk ran nearly full during model download; cleared
   the uv cache (~2.6 GB).
-- Next: roadmap step 3, LLM structured extraction + extraction eval (choose provider/model).
+- Step 3 decision: LLM provider is Claude (Anthropic API). Main model `claude-opus-5-5`;
+  `claude-sonnet-5-5` and `claude-haiku-5-5` proposed as cost comparisons (not yet confirmed).
+- Step 3 design (proposed, awaiting OK; no code yet):
+  - one `messages.parse()` call per document returns doc type + fields; amounts copied as
+    printed strings, Python converts to Decimal and builds the domain model (LLM does no math);
+  - provenance: Python locates each extracted value in the ParsedDocument (page + bbox);
+    not found => field flagged unverified (also a hallucination check);
+  - LLM wrapper in backend/app/llm with a disk cache keyed by (file sha256, prompt version,
+    model); versioned prompts; document text treated as data (prompt-injection rule);
+  - eval: doc-type accuracy, header field accuracy, line field accuracy, per digital/scan and
+    per model, with cost and latency;
+  - unit tests without API calls; one live test marked `slow`, skipped without a key.
+- Blocker for live runs: no ANTHROPIC_API_KEY on this machine. User to create a key and put
+  `ANTHROPIC_API_KEY=...` in `.env` (gitignored).
+- Next: user confirms design + comparison models, then implement on `feat/llm-extraction`.
