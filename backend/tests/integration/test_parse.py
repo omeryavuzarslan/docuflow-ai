@@ -73,3 +73,12 @@ def test_scanned_pdf_uses_ocr(pdfs: dict[str, Path], invoice: Invoice) -> None:
     found = sum(line.sku in text for line in invoice.lines)
     assert found >= 0.75 * len(invoice.lines)
     assert parsed.tables()
+
+
+@pytest.mark.slow
+def test_page_header_content_is_kept(invoice: Invoice, tmp_path: Path) -> None:
+    # The modern template prints the issuer's address and VAT number in a header band,
+    # which Docling labels as page furniture.
+    path = tmp_path / "modern.pdf"
+    path.write_bytes(render_pdf(invoice, "modern"))
+    assert invoice.supplier.vat_number in parse_pdf(path).full_text()
