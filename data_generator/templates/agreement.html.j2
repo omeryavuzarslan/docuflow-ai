@@ -1,0 +1,41 @@
+{#- Supplier agreement: plain legal layout, numbered clauses, price schedule as a table. -#}
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>{{ a.agreement_number }}</title>
+<style>
+  @page { size: A4; margin: 22mm 20mm; @bottom-right { content: "Page " counter(page) " of " counter(pages); font-size: 8pt; } }
+  body { font-family: Georgia, "Times New Roman", serif; font-size: 10.5pt; line-height: 1.45; color: #111; }
+  h1 { font-size: 16pt; text-align: center; margin: 0 0 4px; letter-spacing: 1px; }
+  .ref { text-align: center; margin-bottom: 18px; }
+  h2 { font-size: 11pt; margin: 16px 0 4px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 9.5pt; }
+  th, td { border: 1px solid #555; padding: 3px 6px; text-align: left; }
+  td.num { text-align: right; white-space: nowrap; }
+  .sign { margin-top: 36px; display: flex; gap: 60px; }
+  .sign div { border-top: 1px solid #111; width: 220px; padding-top: 4px; font-size: 9pt; }
+</style>
+</head>
+<body>
+<h1>FRAMEWORK SUPPLY AGREEMENT</h1>
+<div class="ref">{{ a.agreement_number }} &middot; {{ a.supplier.name }} and {{ a.buyer.name }}</div>
+{% for section in a.sections if not section.heading.startswith("Schedule") %}
+<h2>{{ section.number }}. {{ section.heading }}</h2>
+<p>{{ section.text }}</p>
+{% endfor %}
+<div class="sign"><div>For {{ a.supplier.name }}</div><div>For {{ a.buyer.name }}</div></div>
+{% for section in a.sections if section.heading.startswith("Schedule") %}
+<h2 style="page-break-before: always">{{ section.heading }}</h2>
+<p>Agreed unit prices, excluding VAT.</p>
+<table>
+  <thead><tr><th>Item Code</th><th>Description</th><th>Unit Price</th></tr></thead>
+  <tbody>
+  {% for item in a.price_list %}
+    <tr><td>{{ item.sku }}</td><td>{{ item.description }}</td><td class="num">{{ item.unit_price | price }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+</body>
+</html>

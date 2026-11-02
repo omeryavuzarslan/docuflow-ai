@@ -87,4 +87,11 @@ Updated at the end of each session.
   `X-Owner-Id`; other owners get 404. Migration: `corrections.seq` (ordering). Shared test
   fakes in `backend/tests/integration/db/fakes.py`. Tried live: /docs page and
   GET /discrepancies on the demo data return the 6 findings.
-- Next: commit + PR for 5c; then roadmap step 6 (RAG v1: eval set first).
+- Step 5c merged (PR #10). Step 5 complete.
+- Step 6 plan (approved): local embedding model (bge-small, free) and supplier agreements
+  as the RAG corpus (pulled forward from the advanced stage). Split into 6a agreements,
+  6b chunking + embeddings + pgvector retrieval, 6c retrieval eval set + experiment.
+- 6a (branch `feat/supplier-agreements`): SupplierAgreement domain model (typed terms,
+  price list, prose sections), generator with one agreement per supplier/buyer pair
+  (15, varied phrasing per clause), PDF template, dataset output under `agreements/`.
+- Next: 6b.
