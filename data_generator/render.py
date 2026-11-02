@@ -16,6 +16,7 @@ from types import ModuleType
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 
+from backend.app.domain.agreements import SupplierAgreement
 from backend.app.domain.document_set import DocumentSet
 from backend.app.domain.documents import DeliveryNote, Invoice, PurchaseOrder
 from data_generator.plan import TEMPLATES
@@ -84,6 +85,12 @@ def render_pdf(document: Document, template: str) -> bytes:
     html = render_html(document, template)
     weasyprint = _import_weasyprint()
     pdf: bytes = weasyprint.HTML(string=html, base_url=str(TEMPLATE_DIR)).write_pdf()
+    return pdf
+
+
+def render_agreement_pdf(agreement: SupplierAgreement) -> bytes:
+    html = _environment().get_template("agreement.html.j2").render(a=agreement)
+    pdf: bytes = _import_weasyprint().HTML(string=html, base_url=str(TEMPLATE_DIR)).write_pdf()
     return pdf
 
 

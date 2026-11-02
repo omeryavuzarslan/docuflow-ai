@@ -5,6 +5,7 @@ import sys
 from collections.abc import Sequence
 from pathlib import Path
 
+from data_generator.agreements import build_agreements
 from data_generator.generate import generate
 from data_generator.output import write_dataset
 from data_generator.plan import MIN_SETS
@@ -26,19 +27,21 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         sets = generate(args.seed, args.sets)
+        agreements = build_agreements(args.seed)
         root = write_dataset(
             sets,
             seed=args.seed,
             out_dir=args.out,
             force=args.force,
             render_pdfs=not args.no_pdf,
+            agreements=agreements,
         )
     except (ValueError, FileExistsError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2
 
     clean = sum(doc_set.is_clean for doc_set in sets)
-    print(f"Wrote {len(sets)} sets ({clean} clean) to {root}")
+    print(f"Wrote {len(sets)} sets ({clean} clean) and {len(agreements)} agreements to {root}")
     for doc_set in sets:
         errors = ", ".join(e.type.value for e in doc_set.errors) or "clean"
         print(f"  {doc_set.set_id}  {doc_set.template:<8} {errors}")
