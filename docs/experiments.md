@@ -2,6 +2,40 @@
 
 Every component has to earn its place with a measured result. Newest first.
 
+## 2026-11-02 — Discrepancy detection: rules alone and end to end
+
+**Question.** Do the rules (R1–R8, ADR-0002) find the injected errors without false alarms,
+on perfect data and after PDF parsing + LLM extraction?
+
+**Setup.** A finding is a hit when (document_id, type) matches an injected error. Runner:
+`eval/runners/discrepancy_eval.py`.
+- *Rules alone:* 100 generated sets (seed 7; 16 clean incl. partial deliveries, 84 errors).
+- *End to end:* seed-42 PDFs -> Docling (parse-v2) -> Haiku 5.5 (extract-v2, cached, $0) ->
+  rules. Documents whose extraction could not be converted go to human review.
+
+| run | precision | recall | false alarms | notes |
+|---|---|---|---|---|
+| rules alone (100 sets) | 100% | 100% (84/84) | 0 | 0 on clean sets |
+| end to end, digital | 100% | 100% (6/6) | 0 | |
+| end to end, scan (first try) | 62.5% | 83.3% (5/6) | 3 | |
+| end to end, scan (final) | **100%** | 83.3% (5/6) | **0** | the 1 miss is in a document already sent to review |
+
+**What the first scan run showed.** All three false alarms were *knock-on* effects of OCR:
+- the scanned PO of set-002 lost its supplier block, went to review, and its delivery note
+  and invoice were then flagged as "no matching PO";
+- set-006's delivery note was read with SKU `CL.-2005`, so the invoice line `CL-2005` looked
+  undelivered and R1 fired.
+
+**Fixes.** Checks that depend on a document under review are held rather than run, and SKUs
+are compared on letters and digits only (ADR-0002). Both have unit tests.
+
+**Conclusions.**
+- The rules are exact on correct data (also checked by a 40-seed property test in CI).
+- End to end on digital PDFs: every error found, no false alarms.
+- On scans the system does not raise false alarms; what it cannot read goes to a person
+  (2 of 25 documents), and the one missed error is inside one of those.
+- Limits: 6 injected errors per end-to-end run is small; one scan level; synthetic layouts.
+
 ## 2026-11-02 — Extraction v2: parser keeps page headers, prompt v2 (Haiku 5.5)
 
 **Question.** Do the parse-v2 and prompt-v2 fixes remove the v1 failures?

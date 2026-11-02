@@ -56,5 +56,10 @@ Updated at the end of each session.
   - Results (docs/experiments.md): v1 all three models, $1.95; v2 Haiku: digital 100% of
     documents fully correct, scans 80%, $0.0007/doc. Default extractor: Haiku 5.5.
   - API spend so far ~$2.04 of $5 credit.
-- Next: commit + PR for step 3; then roadmap step 4 (matching + rule engine), design first.
-  Optional later: re-run Sonnet/Opus on v2 (~$2), stronger OCR for scans.
+- Step 4, matching + rules (branch `feat/matching-rules`): `backend/app/matching` (PO +
+  supplier VAT grouping, SKU keys ignoring punctuation), `backend/app/validation` (R1-R8, M1,
+  Discrepancy model, held checks for documents under review), ADR-0002 (tolerances per HMRC
+  VAT Notice 700 17.5, known limits), `eval/runners/discrepancy_eval.py` (truth and
+  end-to-end modes, cache-only, $0). Results: rules alone 100%/100% on 100 sets; end to end
+  digital 100%/100%; scans 100% precision, 5/6 recall (miss is in a reviewed document).
+- Next: commit + PR for step 4; then roadmap step 5 (Postgres + FastAPI + worker).

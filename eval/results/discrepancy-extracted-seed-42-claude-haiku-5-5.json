@@ -1,0 +1,154 @@
+[
+  {
+    "mode": "extracted",
+    "held": [],
+    "dataset": "data_generator/output/seed-42",
+    "model": "claude-haiku-5-5",
+    "prompt_version": "extract-v2",
+    "variant": "digital",
+    "sent_to_review": [],
+    "injected": 6,
+    "predicted": 6,
+    "true_positives": 6,
+    "precision": 1.0,
+    "recall": 1.0,
+    "false_positives": [],
+    "missed": [],
+    "per_type": {
+      "duplicate_invoice": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "line_total_error": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "quantity_mismatch": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "total_error": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "unit_price_mismatch": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "vat_error": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      }
+    },
+    "missed_but_in_review": []
+  },
+  {
+    "mode": "extracted",
+    "held": [
+      "set-002-dn: matching held, PO PO-2026-00220 is under review",
+      "set-002-inv-1: matching held, PO PO-2026-00220 is under review"
+    ],
+    "dataset": "data_generator/output/seed-42",
+    "model": "claude-haiku-5-5",
+    "prompt_version": "extract-v2",
+    "variant": "scan",
+    "sent_to_review": [
+      {
+        "document_id": "set-002-po",
+        "errors": [
+          "supplier.name: missing",
+          "supplier.vat_number: missing",
+          "supplier.address_line1: missing",
+          "supplier.city: missing",
+          "supplier.postcode: missing"
+        ]
+      },
+      {
+        "document_id": "set-005-inv-1",
+        "errors": [
+          "lines[0].line_vat: missing"
+        ]
+      }
+    ],
+    "injected": 6,
+    "predicted": 5,
+    "true_positives": 5,
+    "precision": 1.0,
+    "recall": 0.8333,
+    "false_positives": [],
+    "missed": [
+      [
+        "set-005-inv-1",
+        "line_total_error"
+      ]
+    ],
+    "per_type": {
+      "duplicate_invoice": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "line_total_error": {
+        "injected": 1,
+        "found": 0,
+        "false_alarms": 0,
+        "recall": 0.0,
+        "precision": 1.0
+      },
+      "quantity_mismatch": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "total_error": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "unit_price_mismatch": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "vat_error": {
+        "injected": 1,
+        "found": 1,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      }
+    },
+    "missed_but_in_review": [
+      [
+        "set-005-inv-1",
+        "line_total_error"
+      ]
+    ]
+  }
+]
