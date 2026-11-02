@@ -23,6 +23,7 @@ from sqlalchemy import (
     JSON,
     BigInteger,
     Boolean,
+    Computed,
     Date,
     DateTime,
     ForeignKey,
@@ -36,7 +37,7 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import JSONB, TSVECTOR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 MONEY = Numeric(12, 2)
@@ -313,6 +314,7 @@ class ChunkRow(_Owned, _Timestamps, Base):
     __tablename__ = "chunks"
     __table_args__ = (
         # Approximate nearest-neighbour index for cosine distance.
+        Index("ix_chunks_tsv_gin", "tsv", postgresql_using="gin"),
         Index(
             "ix_chunks_embedding_hnsw",
             "embedding",
@@ -331,6 +333,11 @@ class ChunkRow(_Owned, _Timestamps, Base):
     heading: Mapped[str] = mapped_column(Text)
     body: Mapped[str] = mapped_column(Text)  # shown to people
     text: Mapped[str] = mapped_column(Text)  # embedded: context + heading + body
+    # For keyword search: `text` plus codes without hyphens (see rag/retrieve.py).
+    search_text: Mapped[str] = mapped_column(Text, server_default="")
+    tsv: Mapped[Any] = mapped_column(
+        TSVECTOR, Computed("to_tsvector('english', search_text)", persisted=True)
+    )
     page: Mapped[int] = mapped_column(Integer)
     bbox: Mapped[dict[str, Any]] = mapped_column(Json)
     embedding: Mapped[list[float]] = mapped_column(Vector(EMBEDDING_DIM))

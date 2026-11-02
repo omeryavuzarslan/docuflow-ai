@@ -2,6 +2,52 @@
 
 Every component has to earn its place with a measured result. Newest first.
 
+## 2026-11-02 — Retrieval v2: hybrid search, code matching, metadata context, type filter
+
+**Question.** Does adding keyword search (Postgres FTS, fused with RRF) help, especially for
+questions that name exact codes, and what do the context line and a document-type filter add?
+
+**Setup.** Same corpus and 120 clause questions as v1, plus 31 *lookup* questions that name a
+code: an agreement price by SKU (15), an invoice total by invoice number (8), a PO date by PO
+number (8). Structure chunks. Exact nearest neighbours in the eval (HNSW is approximate and
+its rebuilt graph ranks some ties differently between runs; production keeps the index).
+Ties broken by document and chunk order, so two runs give identical tables. Raw:
+`eval/results/retrieval-seed-42-{metadata,first-lines}.json`. Cost: $0.
+
+Two fixes went in first, both found by inspecting misses:
+- *Codes*: Postgres's English parser splits "OF-1004" into "of" (a stop word) and "-1004",
+  and "INV-2026-00379" into fragments matching every 2026 number. Chunks and queries now also
+  carry each code without hyphens as one word; hybrid adds a third ranked list of chunks
+  containing the question's exact codes (FTS ranking has no IDF, so one decisive code
+  otherwise loses to a chunk repeating both company names).
+- *Context line for POs/DNs/invoices* is built from the extracted fields ("Invoice
+  INV-2026-00379 · Fenwick ... to Ashcombe Hotels ... · 04/02/2026 · for PO-...") instead of
+  the page's first lines (the supplier's address). Agreements keep their title line.
+  Also fixed: header-less tables (totals) no longer use their first row as column names.
+
+| retrieval | clauses R@1 | clauses R@5 | lookups R@1 | lookups R@5 | lookups MRR |
+|---|---|---|---|---|---|
+| dense | **69.2%** | 94.2% | 9.7% | 32.3% | 0.184 |
+| keyword (FTS + code tokens) | 7.5% | 43.3% | 16.1% | 80.7% | 0.415 |
+| hybrid (RRF: dense + keyword + codes) | 54.2% | 93.3% | 58.1% | **100%** | 0.761 |
+| **hybrid + document-type filter** | 65.0% | **100%** | **74.2%** | **100%** | **0.841** |
+| same, context from first lines | 65.0% | 100% | 74.2% | 74.2% | 0.751 |
+
+**Findings.**
+- Dense retrieval cannot find exact identifiers (lookups R@5 32%): an embedding of "OF-1004"
+  is not meaningfully different from "OF-1007". Keyword search can; fused, they cover both.
+- The metadata context line was needed for lookups (R@5 74% -> 100%), but on its own it *hurt*
+  clause questions (dense R@1 74.2% in v1 -> 69.2%): every invoice chunk now names both
+  companies, so invoices compete with agreements. Filtering by document type removes that
+  competition. That filter is the query router's job (step 7b); the "+ type filter" row is
+  the upper bound of a perfect router.
+- Fusion trades rank-1 precision for recall (clauses R@1 69% dense vs 54-65% hybrid). For
+  answer generation, which reads the top 5, recall@5 is what counts: 100% / 100%.
+  A reranker could recover rank-1 precision later (advanced stage).
+
+**Decision.** Default retrieval: structure chunks, metadata context for extracted documents,
+hybrid search, top 5, restricted to the document types the router chooses.
+
 ## 2026-11-02 — Retrieval v1: chunking strategies (dense, bge-small, pgvector)
 
 **Question.** Does structure-aware chunking beat fixed-size windows, and what is the

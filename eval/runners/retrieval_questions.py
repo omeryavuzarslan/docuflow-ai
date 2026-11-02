@@ -13,7 +13,8 @@ from dataclasses import dataclass
 from decimal import Decimal
 
 from backend.app.domain.agreements import SupplierAgreement
-from data_generator.render import format_price
+from backend.app.domain.document_set import DocumentSet
+from data_generator.render import format_date, format_money, format_price
 
 QUESTIONS_PER_AGREEMENT = 8
 _SPAN = 30  # characters of context kept on each side of the fact
@@ -26,6 +27,7 @@ class Question:
     question: str
     document_id: str
     evidence: tuple[str, ...]
+    doc_type: str = "other"  # type of the answering document (agreements are "other")
 
 
 def _norm(text: str) -> str:
@@ -146,6 +148,53 @@ def build_questions(agreements: tuple[SupplierAgreement, ...], seed: int) -> lis
                     evidence=evidence,
                 )
             )
+    return questions
+
+
+def build_lookup_questions(
+    agreements: tuple[SupplierAgreement, ...], sets: list[DocumentSet], seed: int
+) -> list[Question]:
+    """Questions that name an exact code: a SKU, an invoice number, a PO number. These are
+    where keyword search should help dense retrieval most."""
+    rng = random.Random(f"{seed}:lookup-questions")
+    questions: list[Question] = []
+    for a in agreements:
+        item = rng.choice(a.price_list)
+        questions.append(
+            Question(
+                id=f"{a.document_id}:sku_price",
+                kind="sku_price",
+                question=(
+                    f"What is the agreed unit price for item {item.sku} between "
+                    f"{a.buyer.name} and {a.supplier.name}?"
+                ),
+                document_id=a.document_id,
+                evidence=(item.sku, format_price(item.unit_price)),
+            )
+        )
+    for doc_set in sets:
+        invoice = doc_set.invoices[0]  # a duplicate shares its number, so it is skipped
+        questions.append(
+            Question(
+                id=f"{invoice.document_id}:invoice_total",
+                kind="invoice_total",
+                question=f"What is the total amount due on invoice {invoice.invoice_number}?",
+                document_id=invoice.document_id,
+                evidence=(format_money(invoice.gross_total),),
+                doc_type="invoice",
+            )
+        )
+        po = doc_set.purchase_order
+        questions.append(
+            Question(
+                id=f"{po.document_id}:po_date",
+                kind="po_date",
+                question=f"On what date was purchase order {po.po_number} issued?",
+                document_id=po.document_id,
+                evidence=(format_date(po.issue_date),),
+                doc_type="purchase_order",
+            )
+        )
     return questions
 
 

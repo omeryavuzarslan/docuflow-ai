@@ -108,4 +108,9 @@ Updated at the end of each session.
   structure+context: Recall@1 74.2%, Recall@5 96.7%, MRR 0.835; no context: ~0; fixed windows:
   Recall@1 21.7%. Biggest remaining miss: minimum-order questions retrieve PO headers.
   Step 6 complete.
-- Next: roadmap step 7 (hybrid search FTS + RRF, query router, cited answers).
+- 6c merged (PR #13). Step 6 complete.
+- 7a (branch `feat/hybrid-search`): Postgres FTS (`chunks.search_text` + generated tsvector +
+  GIN, migration), code tokens without hyphens, code-match list, RRF hybrid, doc-type filter,
+  metadata context line for extracted documents, header-less table fix, deterministic ties.
+  Eval: hybrid + type filter -> Recall@5 100% on both clause and code questions (exact NN).
+- Next: 7b query router (Haiku, structured output, fixed SQL functions), then 7c answers.

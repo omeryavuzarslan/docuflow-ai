@@ -58,3 +58,34 @@ def test_fixed_strategy_can_be_indexed_for_comparison(session: Session) -> None:
     index_document(session, document, agreement_like(), EMBEDDER, strategy="fixed")
     kinds = set(session.scalars(select(ChunkRow.kind)))
     assert kinds == {"fixed"}
+
+
+def test_keyword_search_finds_an_exact_code(session: Session) -> None:
+    from backend.app.rag.retrieve import keyword_search
+
+    index_document(
+        session, _document(session, "owner-a", "agreement-001"), agreement_like(), EMBEDDER
+    )
+    hits = keyword_search(session, "owner-a", "What is the agreed price of OF-1002?", k=3)
+    assert "OF-1002" in hits[0].body
+    assert keyword_search(session, "owner-b", "OF-1002", k=3) == []  # owner-scoped
+
+
+def test_hybrid_combines_both_and_respects_doc_type_filter(session: Session) -> None:
+    from backend.app.rag.retrieve import hybrid_search
+
+    agreement = _document(session, "owner-a", "agreement-001")
+    agreement.doc_type = "other"
+    index_document(session, agreement, agreement_like(), EMBEDDER)
+    invoice = _document(session, "owner-a", "invoice-1")
+    invoice.doc_type = "invoice"
+    index_document(session, invoice, agreement_like(), EMBEDDER)
+
+    hits = hybrid_search(session, "owner-a", "payment terms invoice days", EMBEDDER, k=5)
+    assert hits[0].heading == "4. Invoicing and payment"
+    assert [h.score for h in hits] == sorted((h.score for h in hits), reverse=True)
+
+    only_agreements = hybrid_search(
+        session, "owner-a", "payment", EMBEDDER, k=50, doc_types=["other"]
+    )
+    assert only_agreements and {h.document_id for h in only_agreements} == {"agreement-001"}

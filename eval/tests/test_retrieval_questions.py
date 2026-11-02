@@ -57,3 +57,19 @@ def test_rank_and_metrics() -> None:
     assert recall_at(ranks, 1) == 0.25
     assert recall_at(ranks, 5) == 0.75
     assert mean_reciprocal_rank(ranks) == (1 + 1 / 3 + 0 + 1 / 2) / 4
+
+
+def test_lookup_questions_name_their_code_and_cover_every_set() -> None:
+    from data_generator.generate import generate
+    from eval.runners.retrieval_questions import build_lookup_questions
+
+    sets = list(generate(42, 8))
+    questions = build_lookup_questions(AGREEMENTS, sets, seed=42)
+    assert len(questions) == len(AGREEMENTS) + 2 * len(sets)
+    assert build_lookup_questions(AGREEMENTS, sets, seed=42) == questions
+    for q in questions:
+        code = q.evidence[0] if q.kind == "sku_price" else None
+        if code:
+            assert code in q.question
+    invoice_q = next(q for q in questions if q.kind == "invoice_total")
+    assert sets[0].invoices[0].invoice_number in invoice_q.question
