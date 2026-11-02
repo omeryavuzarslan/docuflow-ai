@@ -39,6 +39,8 @@ uv run mypy backend data_generator eval
 uv run python -m data_generator --seed 42 --sets 8
 uv run python -m eval.runners.parse_eval --dataset data_generator/output/seed-42
 uv run --env-file .env python -m eval.runners.extraction_eval --dataset data_generator/output/seed-42 --estimate
+uv run python -m eval.runners.discrepancy_eval truth --seed 7 --sets 100
+uv run python -m eval.runners.discrepancy_eval extracted --dataset data_generator/output/seed-42
 ```
 
 macOS needs `brew install pango` for WeasyPrint. Docling downloads ~500 MB of models to
