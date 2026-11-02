@@ -1,0 +1,59 @@
+[
+  {
+    "mode": "truth",
+    "seed": 7,
+    "sets": 100,
+    "injected": 84,
+    "predicted": 84,
+    "true_positives": 84,
+    "precision": 1.0,
+    "recall": 1.0,
+    "false_positives": [],
+    "missed": [],
+    "per_type": {
+      "duplicate_invoice": {
+        "injected": 14,
+        "found": 14,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "line_total_error": {
+        "injected": 14,
+        "found": 14,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "quantity_mismatch": {
+        "injected": 14,
+        "found": 14,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "total_error": {
+        "injected": 14,
+        "found": 14,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "unit_price_mismatch": {
+        "injected": 14,
+        "found": 14,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      },
+      "vat_error": {
+        "injected": 14,
+        "found": 14,
+        "false_alarms": 0,
+        "recall": 1.0,
+        "precision": 1.0
+      }
+    },
+    "false_alarms_on_clean_sets": 0
+  }
+]
