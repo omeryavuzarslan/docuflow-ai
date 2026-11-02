@@ -58,3 +58,12 @@ def test_fixed_chunks_cover_the_text_with_overlap_and_no_context() -> None:
     assert chunks[1].body[:20] == chunks[0].body[-20:]  # overlap
     joined = chunks[0].body + "".join(c.body[20:] for c in chunks[1:])
     assert "Payment terms are 60 days" in joined
+
+
+def test_without_context_only_the_prefix_differs() -> None:
+    with_context = structure_chunks(agreement_like())
+    without = structure_chunks(agreement_like(), with_context=False)
+    assert [c.body for c in without] == [c.body for c in with_context]
+    assert not any(
+        c.text.startswith("FRAMEWORK SUPPLY AGREEMENT · SA-2025-001") for c in without[1:]
+    )

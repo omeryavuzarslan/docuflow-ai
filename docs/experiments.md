@@ -2,6 +2,55 @@
 
 Every component has to earn its place with a measured result. Newest first.
 
+## 2026-11-02 — Retrieval v1: chunking strategies (dense, bge-small, pgvector)
+
+**Question.** Does structure-aware chunking beat fixed-size windows, and what is the
+document-context prefix on every chunk worth?
+
+**Setup.** Corpus: 15 supplier agreements (near-identical apart from parties and terms) plus
+the 25 digital POs, delivery notes and invoices of `seed-42` as distractors, all parsed with
+Docling (parse-v2). 120 questions (8 per agreement, sampled from 11 templates), each labelled
+with its agreement and a short evidence span built from the typed terms, before any retrieval
+code ran; a test checks every label. A hit is relevant if it comes from the right agreement
+and contains the evidence. Embeddings: local `BAAI/bge-small-en-v1.5` (384-d). Search: the
+production `search` (pgvector, owner-scoped), k = 10. Runner:
+`eval/runners/retrieval_eval.py`. Raw: `eval/results/retrieval-seed-42.json`. Cost: $0.
+
+| strategy | chunks | Recall@1 | Recall@5 | Recall@10 | MRR |
+|---|---|---|---|---|---|
+| **structure + context line** | 494 | **74.2%** | **96.7%** | **98.3%** | **0.835** |
+| structure, no context line | 494 | 0.0% | 0.0% | 4.2% | 0.006 |
+| fixed 500-char windows (100 overlap) | 145 | 21.7% | 30.0% | 33.3% | 0.256 |
+
+Median search latency ≈ 20 ms for all three.
+
+**Why the context line matters so much.** The questions name both companies ("How many days
+does Harbour & Hale have to pay invoices from Kestrel?"). Without the prefix only section 1
+("Parties and term") contains those names, so in 77 of 120 questions the top hit was the
+*right agreement's wrong clause*. Fixed windows fail the same way: the window with the
+names wins. The prefix lets one chunk carry both "who" and "what".
+
+**Where structure + context still misses (31 questions not at rank 1).**
+- *Minimum order value* (recall@1 0.10): the question ("smallest order Harbour & Hale may place
+  with Kestrel") matches the header chunks of the purchase orders, which carry both company
+  names and the word "order".
+- *Price fixed period* 0.55, *late interest* 0.64: near-duplicate wording across clauses of
+  the same contract.
+- Docling reads the modern template's letter-spaced titles as "DEL I VERY NOTE"; harmless here,
+  but it degrades keyword search later.
+
+**Conclusions.**
+- Structure-aware chunks with a document-context prefix are the default; both parts earn their
+  place (fixed: 3x lower Recall@1; no prefix: unusable on near-identical contracts).
+- 97% of answers are in the top 5, which is what an answer-generation step (step 7) consumes.
+- Next levers, to measure in step 7: a query router / document-type filter (agreement questions
+  should not compete with POs), hybrid search (Postgres FTS + RRF) for exact terms such as SKUs
+  and numbers.
+
+**Limits.** Template questions with both names spelled out are easier than real users' questions;
+one embedding model; synthetic agreements. Paraphrased and under-specified questions (no company
+names) are planned with the step 7 router.
+
 ## 2026-11-02 — Discrepancy detection: rules alone and end to end
 
 **Question.** Do the rules (R1–R8, ADR-0002) find the injected errors without false alarms,

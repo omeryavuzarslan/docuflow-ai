@@ -102,4 +102,10 @@ Updated at the end of each session.
   owner-scoped `search`, `index_document`; the worker indexes every processed document;
   documents of type "other" (agreements) are `done`, not `needs_review`. Slow test: the real
   model finds the right clause of the right contract among 15 near-identical agreements.
-- Next: 6c retrieval eval set (Recall@K, MRR) and the structure-vs-fixed experiment.
+- 6b merged (PR #12).
+- 6c (branch `feat/retrieval-eval`): 120 labelled questions over the 15 agreements (labels
+  verified by tests), retrieval eval through the production pgvector search with 3 strategies.
+  structure+context: Recall@1 74.2%, Recall@5 96.7%, MRR 0.835; no context: ~0; fixed windows:
+  Recall@1 21.7%. Biggest remaining miss: minimum-order questions retrieve PO headers.
+  Step 6 complete.
+- Next: roadmap step 7 (hybrid search FTS + RRF, query router, cited answers).

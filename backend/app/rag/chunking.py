@@ -7,6 +7,8 @@ structure  One chunk per section (a heading and the text under it) and one per t
            reference, e.g. "FRAMEWORK SUPPLY AGREEMENT · SA-2025-001 · Kestrel ... and
            Harbour & Hale ..."): fifteen agreements have near-identical payment clauses, and
            without that line a correct clause from the wrong contract looks just as good.
+structure_no_context
+           The same chunks without the context line, to measure what that line is worth.
 fixed      The usual baseline: the plain text cut into overlapping windows of N characters.
 
 `text` is what gets embedded; `body` is the part shown to a person.
@@ -18,7 +20,7 @@ from typing import Literal
 from backend.app.domain.types import DomainModel
 from backend.app.ingestion.models import BBox, ParsedDocument, Table, TextBlock
 
-Strategy = Literal["structure", "fixed"]
+Strategy = Literal["structure", "structure_no_context", "fixed"]
 SKIPPED_LABELS = {"page_footer"}
 CONTEXT_MAX_CHARS = 200
 
@@ -34,7 +36,9 @@ class Chunk(DomainModel):
 
 
 def chunk(parsed: ParsedDocument, strategy: Strategy = "structure") -> list[Chunk]:
-    return structure_chunks(parsed) if strategy == "structure" else fixed_chunks(parsed)
+    if strategy == "fixed":
+        return fixed_chunks(parsed)
+    return structure_chunks(parsed, with_context=strategy == "structure")
 
 
 def _elements(parsed: ParsedDocument) -> list[TextBlock | Table]:
@@ -51,8 +55,8 @@ def document_context(parsed: ParsedDocument) -> str:
     return " · ".join(" ".join(p.split()) for p in parts)[:CONTEXT_MAX_CHARS]
 
 
-def structure_chunks(parsed: ParsedDocument) -> list[Chunk]:
-    context = document_context(parsed)
+def structure_chunks(parsed: ParsedDocument, with_context: bool = True) -> list[Chunk]:
+    context = document_context(parsed) if with_context else ""
     chunks: list[Chunk] = []
     heading: str = ""
     body: list[str] = []
