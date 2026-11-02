@@ -1,0 +1,2354 @@
+{
+  "dataset": "data_generator/output/seed-42",
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "context": "first-lines",
+  "nearest_neighbours": "exact",
+  "documents": 40,
+  "questions": {
+    "clauses": 120,
+    "lookups": 31
+  },
+  "k": 10,
+  "results": [
+    {
+      "strategy": "structure",
+      "group": "clauses",
+      "chunks": 512,
+      "mode": "dense",
+      "questions": 120,
+      "recall@1": 0.7167,
+      "recall@5": 0.9583,
+      "recall@10": 0.9833,
+      "mrr": 0.8116,
+      "median_search_ms": 20.9,
+      "by_kind_recall@1": {
+        "late_interest": 0.643,
+        "lead_time": 0.778,
+        "minimum_order": 0.1,
+        "payment_terms": 0.889,
+        "price_cap": 0.875,
+        "price_fixed": 0.545,
+        "price_list": 1.0,
+        "price_notice": 1.0,
+        "returns_window": 0.692,
+        "shortage_window": 0.75,
+        "termination": 0.667
+      },
+      "not_first": [
+        {
+          "id": "agreement-001:minimum_order",
+          "rank": null,
+          "question": "What is the smallest order Harbour & Hale Retail plc may place with Kestrel Office Supplies Ltd?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "Harbour & Hale Retail plc"
+        },
+        {
+          "id": "agreement-002:price_fixed",
+          "rank": 2,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-002",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-002:minimum_order",
+          "rank": 4,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-003:minimum_order",
+          "rank": 4,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-003:termination",
+          "rank": 3,
+          "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-005:minimum_order",
+          "rank": 5,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-007:lead_time",
+          "rank": 2,
+          "question": "How quickly does BrightWay Hygiene Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-007:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Harbour & Hale Retail plc may place with BrightWay Hygiene Ltd?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-007:shortage_window",
+          "rank": 2,
+          "question": "How soon must Harbour & Hale Retail plc tell BrightWay Hygiene Ltd about missing or damaged goods?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-008:returns_window",
+          "rank": 2,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to BrightWay Hygiene Ltd?",
+          "top_document": "set-006-dn",
+          "top_heading": "BrightWay Hygiene Ltd DEL I VERY NOTE"
+        },
+        {
+          "id": "agreement-008:late_interest",
+          "rank": 3,
+          "question": "What interest can BrightWay Hygiene Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "set-006-inv-1",
+          "top_heading": "BrightWay Hygiene Ltd TAX I NVO I CE"
+        },
+        {
+          "id": "agreement-008:minimum_order",
+          "rank": 5,
+          "question": "What is the smallest order Linden Logistics Ltd may place with BrightWay Hygiene Ltd?",
+          "top_document": "set-006-dn",
+          "top_heading": "BrightWay Hygiene Ltd DEL I VERY NOTE"
+        },
+        {
+          "id": "agreement-009:minimum_order",
+          "rank": 4,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-010:returns_window",
+          "rank": 8,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "set-004-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-010:payment_terms",
+          "rank": 2,
+          "question": "How many days does Harbour & Hale Retail plc have to pay invoices from Fenwick Industrial Supplies Ltd?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "Harbour & Hale Retail plc"
+        },
+        {
+          "id": "agreement-010:termination",
+          "rank": 2,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "Harbour & Hale Retail plc"
+        },
+        {
+          "id": "agreement-010:late_interest",
+          "rank": 2,
+          "question": "What interest can Fenwick Industrial Supplies Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "Harbour & Hale Retail plc"
+        },
+        {
+          "id": "agreement-010:shortage_window",
+          "rank": 2,
+          "question": "How soon must Harbour & Hale Retail plc tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "set-004-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-010:price_fixed",
+          "rank": 6,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "Harbour & Hale Retail plc"
+        },
+        {
+          "id": "agreement-010:lead_time",
+          "rank": 2,
+          "question": "How quickly does Fenwick Industrial Supplies Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "set-004-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-012:late_interest",
+          "rank": 5,
+          "question": "What interest can Fenwick Industrial Supplies Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "Ashcombe Hotels Ltd"
+        },
+        {
+          "id": "agreement-012:returns_window",
+          "rank": 5,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "Ashcombe Hotels Ltd"
+        },
+        {
+          "id": "agreement-012:minimum_order",
+          "rank": null,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Fenwick Industrial Supplies Ltd?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "Ashcombe Hotels Ltd"
+        },
+        {
+          "id": "agreement-012:price_fixed",
+          "rank": 5,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "Ashcombe Hotels Ltd"
+        },
+        {
+          "id": "agreement-012:termination",
+          "rank": 2,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "Ashcombe Hotels Ltd"
+        },
+        {
+          "id": "agreement-013:termination",
+          "rank": 2,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Harbour & Hale Retail plc?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-013:shortage_window",
+          "rank": 2,
+          "question": "How soon must Harbour & Hale Retail plc tell Northgate Packaging Ltd about missing or damaged goods?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-013:price_fixed",
+          "rank": 2,
+          "question": "For how long are Northgate Packaging Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-013:returns_window",
+          "rank": 2,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Northgate Packaging Ltd?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-014:price_fixed",
+          "rank": 5,
+          "question": "For how long are Northgate Packaging Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "Linden Logistics Ltd"
+        },
+        {
+          "id": "agreement-014:late_interest",
+          "rank": 5,
+          "question": "What interest can Northgate Packaging Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "Linden Logistics Ltd"
+        },
+        {
+          "id": "agreement-014:minimum_order",
+          "rank": 9,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Northgate Packaging Ltd?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "Linden Logistics Ltd"
+        },
+        {
+          "id": "agreement-014:price_cap",
+          "rank": 3,
+          "question": "By how much may Northgate Packaging Ltd raise its prices to Linden Logistics Ltd at a review?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "Linden Logistics Ltd"
+        },
+        {
+          "id": "agreement-015:late_interest",
+          "rank": 2,
+          "question": "What interest can Northgate Packaging Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-015",
+          "top_heading": "2. Orders and delivery"
+        }
+      ]
+    },
+    {
+      "strategy": "structure",
+      "group": "lookups",
+      "chunks": 512,
+      "mode": "dense",
+      "questions": 31,
+      "recall@1": 0.0323,
+      "recall@5": 0.2903,
+      "recall@10": 0.4516,
+      "mrr": 0.1181,
+      "median_search_ms": 23.3,
+      "by_kind_recall@1": {
+        "invoice_total": 0.0,
+        "po_date": 0.0,
+        "sku_price": 0.067
+      },
+      "not_first": [
+        {
+          "id": "agreement-001:sku_price",
+          "rank": null,
+          "question": "What is the agreed unit price for item OF-1010 between Harbour & Hale Retail plc and Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-001",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-002:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1008 between Linden Logistics Ltd and Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-003:sku_price",
+          "rank": null,
+          "question": "What is the agreed unit price for item OF-1003 between Ashcombe Hotels Ltd and Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-004:sku_price",
+          "rank": 10,
+          "question": "What is the agreed unit price for item OF-1002 between Harbour & Hale Retail plc and Paperline Direct Ltd?",
+          "top_document": "agreement-004",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-005:sku_price",
+          "rank": 5,
+          "question": "What is the agreed unit price for item OF-1010 between Linden Logistics Ltd and Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-006:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1007 between Ashcombe Hotels Ltd and Paperline Direct Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-007:sku_price",
+          "rank": 5,
+          "question": "What is the agreed unit price for item CL-2009 between Harbour & Hale Retail plc and BrightWay Hygiene Ltd?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-009:sku_price",
+          "rank": 5,
+          "question": "What is the agreed unit price for item CL-2005 between Ashcombe Hotels Ltd and BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-010:sku_price",
+          "rank": null,
+          "question": "What is the agreed unit price for item WH-3005 between Harbour & Hale Retail plc and Fenwick Industrial Supplies Ltd?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "Harbour & Hale Retail plc"
+        },
+        {
+          "id": "agreement-011:sku_price",
+          "rank": 10,
+          "question": "What is the agreed unit price for item WH-3001 between Linden Logistics Ltd and Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-011",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "agreement-012:sku_price",
+          "rank": null,
+          "question": "What is the agreed unit price for item WH-3003 between Ashcombe Hotels Ltd and Fenwick Industrial Supplies Ltd?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "Ashcombe Hotels Ltd"
+        },
+        {
+          "id": "agreement-013:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item WH-3004 between Harbour & Hale Retail plc and Northgate Packaging Ltd?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-014:sku_price",
+          "rank": null,
+          "question": "What is the agreed unit price for item WH-3001 between Linden Logistics Ltd and Northgate Packaging Ltd?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "Linden Logistics Ltd"
+        },
+        {
+          "id": "agreement-015:sku_price",
+          "rank": 8,
+          "question": "What is the agreed unit price for item WH-3010 between Ashcombe Hotels Ltd and Northgate Packaging Ltd?",
+          "top_document": "agreement-015",
+          "top_heading": "Schedule 1: Price list"
+        },
+        {
+          "id": "set-001-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00117?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-001-po:po_date",
+          "rank": 7,
+          "question": "On what date was purchase order PO-2026-00117 issued?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "set-002-inv-1:invoice_total",
+          "rank": 5,
+          "question": "What is the total amount due on invoice INV-2026-00220?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-002-po:po_date",
+          "rank": null,
+          "question": "On what date was purchase order PO-2026-00220 issued?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-003-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00379?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-003-po:po_date",
+          "rank": null,
+          "question": "On what date was purchase order PO-2026-00379 issued?",
+          "top_document": "set-001-po",
+          "top_heading": "PURCHASE ORDER"
+        },
+        {
+          "id": "set-004-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00441?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-004-po:po_date",
+          "rank": 7,
+          "question": "On what date was purchase order PO-2026-00441 issued?",
+          "top_document": "set-001-po",
+          "top_heading": "PURCHASE ORDER"
+        },
+        {
+          "id": "set-005-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00513?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-005-po:po_date",
+          "rank": 2,
+          "question": "On what date was purchase order PO-2026-00513 issued?",
+          "top_document": "set-001-po",
+          "top_heading": "PURCHASE ORDER"
+        },
+        {
+          "id": "set-006-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00653?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-006-po:po_date",
+          "rank": null,
+          "question": "On what date was purchase order PO-2026-00653 issued?",
+          "top_document": "set-001-po",
+          "top_heading": "PURCHASE ORDER"
+        },
+        {
+          "id": "set-007-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00739?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-007-po:po_date",
+          "rank": null,
+          "question": "On what date was purchase order PO-2026-00739 issued?",
+          "top_document": "set-001-po",
+          "top_heading": "PURCHASE ORDER"
+        },
+        {
+          "id": "set-008-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00860?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-008-po:po_date",
+          "rank": null,
+          "question": "On what date was purchase order PO-2026-00860 issued?",
+          "top_document": "set-001-po",
+          "top_heading": "PURCHASE ORDER"
+        }
+      ]
+    },
+    {
+      "strategy": "structure",
+      "group": "clauses",
+      "chunks": 512,
+      "mode": "keyword",
+      "questions": 120,
+      "recall@1": 0.0833,
+      "recall@5": 0.5333,
+      "recall@10": 0.7917,
+      "mrr": 0.2368,
+      "median_search_ms": 13.0,
+      "by_kind_recall@1": {
+        "late_interest": 0.0,
+        "lead_time": 0.0,
+        "minimum_order": 0.0,
+        "payment_terms": 0.0,
+        "price_cap": 0.375,
+        "price_fixed": 0.0,
+        "price_list": 0.5,
+        "price_notice": 0.1,
+        "returns_window": 0.0,
+        "shortage_window": 0.0,
+        "termination": 0.0
+      },
+      "not_first": [
+        {
+          "id": "agreement-001:minimum_order",
+          "rank": null,
+          "question": "What is the smallest order Harbour & Hale Retail plc may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-001:returns_window",
+          "rank": null,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-001",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-001:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-001:price_fixed",
+          "rank": 7,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-001",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-001:price_list",
+          "rank": 4,
+          "question": "What unit price did Harbour & Hale Retail plc agree with Kestrel Office Supplies Ltd for Whiteboard markers, assorted, pack of 4?",
+          "top_document": "agreement-001",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-001:price_notice",
+          "rank": 4,
+          "question": "How much notice must Kestrel Office Supplies Ltd give Harbour & Hale Retail plc before increasing prices?",
+          "top_document": "agreement-001",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-001:lead_time",
+          "rank": 6,
+          "question": "How quickly does Kestrel Office Supplies Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-001:late_interest",
+          "rank": 4,
+          "question": "What interest can Kestrel Office Supplies Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "agreement-001",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-002:price_list",
+          "rank": 3,
+          "question": "What unit price did Linden Logistics Ltd agree with Kestrel Office Supplies Ltd for Whiteboard markers, assorted, pack of 4?",
+          "top_document": "agreement-002",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-002:price_fixed",
+          "rank": 8,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-002",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-002:returns_window",
+          "rank": 8,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-002:late_interest",
+          "rank": 9,
+          "question": "What interest can Kestrel Office Supplies Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "agreement-002",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-002:lead_time",
+          "rank": 4,
+          "question": "How quickly does Kestrel Office Supplies Ltd have to deliver an order placed by Linden Logistics Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:shortage_window",
+          "rank": 4,
+          "question": "How soon must Linden Logistics Ltd tell Kestrel Office Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-002",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-002:minimum_order",
+          "rank": 9,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:payment_terms",
+          "rank": 4,
+          "question": "How many days does Linden Logistics Ltd have to pay invoices from Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-003:price_fixed",
+          "rank": 6,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-003",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-003:minimum_order",
+          "rank": 7,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:price_list",
+          "rank": 3,
+          "question": "What unit price did Ashcombe Hotels Ltd agree with Kestrel Office Supplies Ltd for Whiteboard markers, assorted, pack of 4?",
+          "top_document": "agreement-003",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-003:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:late_interest",
+          "rank": 6,
+          "question": "What interest can Kestrel Office Supplies Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-003",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-003:payment_terms",
+          "rank": 7,
+          "question": "How many days does Ashcombe Hotels Ltd have to pay invoices from Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-003:lead_time",
+          "rank": 4,
+          "question": "How quickly does Kestrel Office Supplies Ltd have to deliver an order placed by Ashcombe Hotels Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:shortage_window",
+          "rank": 4,
+          "question": "How soon must Ashcombe Hotels Ltd tell Kestrel Office Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-003",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-004:price_fixed",
+          "rank": 7,
+          "question": "For how long are Paperline Direct Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-004",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-004:price_cap",
+          "rank": 4,
+          "question": "By how much may Paperline Direct Ltd raise its prices to Harbour & Hale Retail plc at a review?",
+          "top_document": "agreement-004",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-004:lead_time",
+          "rank": 7,
+          "question": "How quickly does Paperline Direct Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:shortage_window",
+          "rank": 7,
+          "question": "How soon must Harbour & Hale Retail plc tell Paperline Direct Ltd about missing or damaged goods?",
+          "top_document": "agreement-004",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-004:returns_window",
+          "rank": null,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Paperline Direct Ltd?",
+          "top_document": "agreement-004",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-004:late_interest",
+          "rank": 10,
+          "question": "What interest can Paperline Direct Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "agreement-004",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-004:price_notice",
+          "rank": 4,
+          "question": "How much notice must Paperline Direct Ltd give Harbour & Hale Retail plc before increasing prices?",
+          "top_document": "agreement-004",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-005:minimum_order",
+          "rank": 6,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-005:returns_window",
+          "rank": 4,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-005:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-005:payment_terms",
+          "rank": 5,
+          "question": "How many days does Linden Logistics Ltd have to pay invoices from Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-005:price_cap",
+          "rank": 4,
+          "question": "By how much may Paperline Direct Ltd raise its prices to Linden Logistics Ltd at a review?",
+          "top_document": "agreement-005",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-005:lead_time",
+          "rank": 3,
+          "question": "How quickly does Paperline Direct Ltd have to deliver an order placed by Linden Logistics Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-005:shortage_window",
+          "rank": 4,
+          "question": "How soon must Linden Logistics Ltd tell Paperline Direct Ltd about missing or damaged goods?",
+          "top_document": "agreement-005",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-006:shortage_window",
+          "rank": 4,
+          "question": "How soon must Ashcombe Hotels Ltd tell Paperline Direct Ltd about missing or damaged goods?",
+          "top_document": "agreement-006",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-006:price_cap",
+          "rank": 5,
+          "question": "By how much may Paperline Direct Ltd raise its prices to Ashcombe Hotels Ltd at a review?",
+          "top_document": "agreement-006",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-006:lead_time",
+          "rank": 3,
+          "question": "How quickly does Paperline Direct Ltd have to deliver an order placed by Ashcombe Hotels Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-006:payment_terms",
+          "rank": 4,
+          "question": "How many days does Ashcombe Hotels Ltd have to pay invoices from Paperline Direct Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-006:late_interest",
+          "rank": 4,
+          "question": "What interest can Paperline Direct Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-006",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-006:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-006:returns_window",
+          "rank": 4,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to Paperline Direct Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-007:price_cap",
+          "rank": 4,
+          "question": "By how much may BrightWay Hygiene Ltd raise its prices to Harbour & Hale Retail plc at a review?",
+          "top_document": "agreement-007",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-007:lead_time",
+          "rank": 7,
+          "question": "How quickly does BrightWay Hygiene Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-007:minimum_order",
+          "rank": null,
+          "question": "What is the smallest order Harbour & Hale Retail plc may place with BrightWay Hygiene Ltd?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-007:payment_terms",
+          "rank": 6,
+          "question": "How many days does Harbour & Hale Retail plc have to pay invoices from BrightWay Hygiene Ltd?",
+          "top_document": "agreement-007",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-007:late_interest",
+          "rank": 4,
+          "question": "What interest can BrightWay Hygiene Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "agreement-007",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-007:shortage_window",
+          "rank": null,
+          "question": "How soon must Harbour & Hale Retail plc tell BrightWay Hygiene Ltd about missing or damaged goods?",
+          "top_document": "agreement-007",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-007:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between BrightWay Hygiene Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-007",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-008:price_notice",
+          "rank": 3,
+          "question": "How much notice must BrightWay Hygiene Ltd give Linden Logistics Ltd before increasing prices?",
+          "top_document": "agreement-008",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-008:shortage_window",
+          "rank": 5,
+          "question": "How soon must Linden Logistics Ltd tell BrightWay Hygiene Ltd about missing or damaged goods?",
+          "top_document": "agreement-008",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-008:returns_window",
+          "rank": 5,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to BrightWay Hygiene Ltd?",
+          "top_document": "agreement-008",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-008:late_interest",
+          "rank": 8,
+          "question": "What interest can BrightWay Hygiene Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "agreement-008",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-008:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between BrightWay Hygiene Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-008",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-008:minimum_order",
+          "rank": 7,
+          "question": "What is the smallest order Linden Logistics Ltd may place with BrightWay Hygiene Ltd?",
+          "top_document": "agreement-008",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-009:minimum_order",
+          "rank": 7,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-009:returns_window",
+          "rank": null,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-009:late_interest",
+          "rank": 4,
+          "question": "What interest can BrightWay Hygiene Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-009",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-009:lead_time",
+          "rank": 4,
+          "question": "How quickly does BrightWay Hygiene Ltd have to deliver an order placed by Ashcombe Hotels Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-009:price_fixed",
+          "rank": 4,
+          "question": "For how long are BrightWay Hygiene Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-009",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-010:returns_window",
+          "rank": null,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-010",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-010:payment_terms",
+          "rank": 4,
+          "question": "How many days does Harbour & Hale Retail plc have to pay invoices from Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-010",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-010:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-010",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:late_interest",
+          "rank": 6,
+          "question": "What interest can Fenwick Industrial Supplies Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "agreement-010",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-010:shortage_window",
+          "rank": null,
+          "question": "How soon must Harbour & Hale Retail plc tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-010",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-010:price_fixed",
+          "rank": 7,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-010",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-010:lead_time",
+          "rank": 6,
+          "question": "How quickly does Fenwick Industrial Supplies Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "agreement-010",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:price_notice",
+          "rank": 4,
+          "question": "How much notice must Fenwick Industrial Supplies Ltd give Harbour & Hale Retail plc before increasing prices?",
+          "top_document": "agreement-010",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:payment_terms",
+          "rank": 7,
+          "question": "How many days does Linden Logistics Ltd have to pay invoices from Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:returns_window",
+          "rank": null,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:price_list",
+          "rank": 4,
+          "question": "What unit price did Linden Logistics Ltd agree with Fenwick Industrial Supplies Ltd for Polypropylene twine, per kg?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:price_fixed",
+          "rank": 9,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:price_notice",
+          "rank": 4,
+          "question": "How much notice must Fenwick Industrial Supplies Ltd give Linden Logistics Ltd before increasing prices?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:shortage_window",
+          "rank": null,
+          "question": "How soon must Linden Logistics Ltd tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:price_cap",
+          "rank": 5,
+          "question": "By how much may Fenwick Industrial Supplies Ltd raise its prices to Linden Logistics Ltd at a review?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:late_interest",
+          "rank": 4,
+          "question": "What interest can Fenwick Industrial Supplies Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-012:price_notice",
+          "rank": 3,
+          "question": "How much notice must Fenwick Industrial Supplies Ltd give Ashcombe Hotels Ltd before increasing prices?",
+          "top_document": "agreement-012",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-012:late_interest",
+          "rank": 9,
+          "question": "What interest can Fenwick Industrial Supplies Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-012",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-012:returns_window",
+          "rank": null,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-012:minimum_order",
+          "rank": 8,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:price_fixed",
+          "rank": 8,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-012",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-012:price_list",
+          "rank": 4,
+          "question": "What unit price did Ashcombe Hotels Ltd agree with Fenwick Industrial Supplies Ltd for Polypropylene twine, per kg?",
+          "top_document": "agreement-012",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-012:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:shortage_window",
+          "rank": null,
+          "question": "How soon must Ashcombe Hotels Ltd tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-012",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:price_notice",
+          "rank": 4,
+          "question": "How much notice must Northgate Packaging Ltd give Harbour & Hale Retail plc before increasing prices?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-013",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-013:late_interest",
+          "rank": 4,
+          "question": "What interest can Northgate Packaging Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:shortage_window",
+          "rank": 4,
+          "question": "How soon must Harbour & Hale Retail plc tell Northgate Packaging Ltd about missing or damaged goods?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:price_fixed",
+          "rank": null,
+          "question": "For how long are Northgate Packaging Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:price_list",
+          "rank": 4,
+          "question": "What unit price did Harbour & Hale Retail plc agree with Northgate Packaging Ltd for Polypropylene twine, per kg?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:payment_terms",
+          "rank": 7,
+          "question": "How many days does Harbour & Hale Retail plc have to pay invoices from Northgate Packaging Ltd?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:returns_window",
+          "rank": 4,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Northgate Packaging Ltd?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-014:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-014",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-014:price_fixed",
+          "rank": 4,
+          "question": "For how long are Northgate Packaging Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-014",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-014:price_notice",
+          "rank": 3,
+          "question": "How much notice must Northgate Packaging Ltd give Linden Logistics Ltd before increasing prices?",
+          "top_document": "agreement-014",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-014:late_interest",
+          "rank": 5,
+          "question": "What interest can Northgate Packaging Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "agreement-014",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-014:returns_window",
+          "rank": 4,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Northgate Packaging Ltd?",
+          "top_document": "agreement-014",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-014:minimum_order",
+          "rank": 6,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Northgate Packaging Ltd?",
+          "top_document": "agreement-014",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-014:shortage_window",
+          "rank": 3,
+          "question": "How soon must Linden Logistics Ltd tell Northgate Packaging Ltd about missing or damaged goods?",
+          "top_document": "agreement-014",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-015:payment_terms",
+          "rank": 3,
+          "question": "How many days does Ashcombe Hotels Ltd have to pay invoices from Northgate Packaging Ltd?",
+          "top_document": "agreement-015",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-015:price_notice",
+          "rank": 3,
+          "question": "How much notice must Northgate Packaging Ltd give Ashcombe Hotels Ltd before increasing prices?",
+          "top_document": "agreement-015",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-015:late_interest",
+          "rank": 6,
+          "question": "What interest can Northgate Packaging Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-015",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-015:price_fixed",
+          "rank": 4,
+          "question": "For how long are Northgate Packaging Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-015",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-015:returns_window",
+          "rank": 4,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to Northgate Packaging Ltd?",
+          "top_document": "agreement-015",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-015:termination",
+          "rank": null,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-015",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-015:minimum_order",
+          "rank": 4,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Northgate Packaging Ltd?",
+          "top_document": "agreement-015",
+          "top_heading": "1. Parties and term"
+        }
+      ]
+    },
+    {
+      "strategy": "structure",
+      "group": "lookups",
+      "chunks": 512,
+      "mode": "keyword",
+      "questions": 31,
+      "recall@1": 0.1613,
+      "recall@5": 0.7097,
+      "recall@10": 0.871,
+      "mrr": 0.3455,
+      "median_search_ms": 6.1,
+      "by_kind_recall@1": {
+        "invoice_total": 0.0,
+        "po_date": 0.125,
+        "sku_price": 0.267
+      },
+      "not_first": [
+        {
+          "id": "agreement-001:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1010 between Harbour & Hale Retail plc and Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-001",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-002:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1008 between Linden Logistics Ltd and Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-003:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1003 between Ashcombe Hotels Ltd and Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-004:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1002 between Harbour & Hale Retail plc and Paperline Direct Ltd?",
+          "top_document": "agreement-004",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-005:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1010 between Linden Logistics Ltd and Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-006:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item OF-1007 between Ashcombe Hotels Ltd and Paperline Direct Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-007:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item CL-2009 between Harbour & Hale Retail plc and BrightWay Hygiene Ltd?",
+          "top_document": "agreement-007",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-010:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item WH-3005 between Harbour & Hale Retail plc and Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-010",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-011:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item WH-3001 between Linden Logistics Ltd and Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-011",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-012:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item WH-3003 between Ashcombe Hotels Ltd and Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "agreement-013:sku_price",
+          "rank": 4,
+          "question": "What is the agreed unit price for item WH-3004 between Harbour & Hale Retail plc and Northgate Packaging Ltd?",
+          "top_document": "agreement-013",
+          "top_heading": "FRAMEWORK SUPPLY AGREEMENT"
+        },
+        {
+          "id": "set-001-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00117?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-001-po:po_date",
+          "rank": 4,
+          "question": "On what date was purchase order PO-2026-00117 issued?",
+          "top_document": "set-001-dn",
+          "top_heading": "Kestrel Office Supplies Ltd DELIVERY NOTE"
+        },
+        {
+          "id": "set-002-inv-1:invoice_total",
+          "rank": 6,
+          "question": "What is the total amount due on invoice INV-2026-00220?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-003-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00379?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-003-po:po_date",
+          "rank": 5,
+          "question": "On what date was purchase order PO-2026-00379 issued?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "set-004-inv-1:invoice_total",
+          "rank": 6,
+          "question": "What is the total amount due on invoice INV-2026-00441?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-004-po:po_date",
+          "rank": 2,
+          "question": "On what date was purchase order PO-2026-00441 issued?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "set-005-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00513?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-005-po:po_date",
+          "rank": 6,
+          "question": "On what date was purchase order PO-2026-00513 issued?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "set-006-inv-1:invoice_total",
+          "rank": 6,
+          "question": "What is the total amount due on invoice INV-2026-00653?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-006-po:po_date",
+          "rank": 2,
+          "question": "On what date was purchase order PO-2026-00653 issued?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "set-007-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00739?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-007-po:po_date",
+          "rank": 5,
+          "question": "On what date was purchase order PO-2026-00739 issued?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "set-008-inv-1:invoice_total",
+          "rank": 7,
+          "question": "What is the total amount due on invoice INV-2026-00860?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-008-po:po_date",
+          "rank": 2,
+          "question": "On what date was purchase order PO-2026-00860 issued?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        }
+      ]
+    },
+    {
+      "strategy": "structure",
+      "group": "clauses",
+      "chunks": 512,
+      "mode": "hybrid",
+      "questions": 120,
+      "recall@1": 0.6083,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.7529,
+      "median_search_ms": 38.1,
+      "by_kind_recall@1": {
+        "late_interest": 0.571,
+        "lead_time": 0.778,
+        "minimum_order": 0.1,
+        "payment_terms": 0.889,
+        "price_cap": 1.0,
+        "price_fixed": 0.455,
+        "price_list": 1.0,
+        "price_notice": 1.0,
+        "returns_window": 0.385,
+        "shortage_window": 0.75,
+        "termination": 0.0
+      },
+      "not_first": [
+        {
+          "id": "agreement-001:minimum_order",
+          "rank": 4,
+          "question": "What is the smallest order Harbour & Hale Retail plc may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-001:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:price_fixed",
+          "rank": 2,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:returns_window",
+          "rank": 2,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:late_interest",
+          "rank": 2,
+          "question": "What interest can Kestrel Office Supplies Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:minimum_order",
+          "rank": 4,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:price_fixed",
+          "rank": 2,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:late_interest",
+          "rank": 2,
+          "question": "What interest can Kestrel Office Supplies Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:payment_terms",
+          "rank": 2,
+          "question": "How many days does Ashcombe Hotels Ltd have to pay invoices from Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:price_fixed",
+          "rank": 2,
+          "question": "For how long are Paperline Direct Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:returns_window",
+          "rank": 4,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Paperline Direct Ltd?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:late_interest",
+          "rank": 3,
+          "question": "What interest can Paperline Direct Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-005:minimum_order",
+          "rank": 2,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "7. Governing law"
+        },
+        {
+          "id": "agreement-005:termination",
+          "rank": 3,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "7. Governing law"
+        },
+        {
+          "id": "agreement-006:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-007:lead_time",
+          "rank": 2,
+          "question": "How quickly does BrightWay Hygiene Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-007:minimum_order",
+          "rank": 2,
+          "question": "What is the smallest order Harbour & Hale Retail plc may place with BrightWay Hygiene Ltd?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-007:shortage_window",
+          "rank": 3,
+          "question": "How soon must Harbour & Hale Retail plc tell BrightWay Hygiene Ltd about missing or damaged goods?",
+          "top_document": "set-008-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-007:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between BrightWay Hygiene Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-007",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-008:returns_window",
+          "rank": 2,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to BrightWay Hygiene Ltd?",
+          "top_document": "set-006-dn",
+          "top_heading": "BrightWay Hygiene Ltd DEL I VERY NOTE"
+        },
+        {
+          "id": "agreement-008:late_interest",
+          "rank": 3,
+          "question": "What interest can BrightWay Hygiene Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "set-006-inv-1",
+          "top_heading": "BrightWay Hygiene Ltd TAX I NVO I CE"
+        },
+        {
+          "id": "agreement-008:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between BrightWay Hygiene Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-008",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-008:minimum_order",
+          "rank": 2,
+          "question": "What is the smallest order Linden Logistics Ltd may place with BrightWay Hygiene Ltd?",
+          "top_document": "set-006-po",
+          "top_heading": ""
+        },
+        {
+          "id": "agreement-009:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-009:returns_window",
+          "rank": 3,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:returns_window",
+          "rank": 5,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "set-004-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-010:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-010",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:lead_time",
+          "rank": 2,
+          "question": "How quickly does Fenwick Industrial Supplies Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+          "top_document": "set-004-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-011:returns_window",
+          "rank": 4,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-011",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-011:price_fixed",
+          "rank": 2,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-011",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-011:shortage_window",
+          "rank": 2,
+          "question": "How soon must Linden Logistics Ltd tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-011",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:late_interest",
+          "rank": 2,
+          "question": "What interest can Fenwick Industrial Supplies Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:returns_window",
+          "rank": 4,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:price_fixed",
+          "rank": 2,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-013:termination",
+          "rank": 5,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-013",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-013:shortage_window",
+          "rank": 2,
+          "question": "How soon must Harbour & Hale Retail plc tell Northgate Packaging Ltd about missing or damaged goods?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-013:price_fixed",
+          "rank": 5,
+          "question": "For how long are Northgate Packaging Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-013:returns_window",
+          "rank": 2,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Northgate Packaging Ltd?",
+          "top_document": "set-002-po",
+          "top_heading": "Harbour & Hale Retail plc PURCHASE ORDER"
+        },
+        {
+          "id": "agreement-014:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-014",
+          "top_heading": "7. Governing law"
+        },
+        {
+          "id": "agreement-014:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Northgate Packaging Ltd?",
+          "top_document": "agreement-014",
+          "top_heading": "7. Governing law"
+        },
+        {
+          "id": "agreement-015:late_interest",
+          "rank": 2,
+          "question": "What interest can Northgate Packaging Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-015",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-015:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-015",
+          "top_heading": "1. Parties and term"
+        }
+      ]
+    },
+    {
+      "strategy": "structure",
+      "group": "lookups",
+      "chunks": 512,
+      "mode": "hybrid",
+      "questions": 31,
+      "recall@1": 0.6452,
+      "recall@5": 0.7742,
+      "recall@10": 0.7742,
+      "mrr": 0.6909,
+      "median_search_ms": 48.7,
+      "by_kind_recall@1": {
+        "invoice_total": 0.0,
+        "po_date": 0.625,
+        "sku_price": 1.0
+      },
+      "not_first": [
+        {
+          "id": "set-001-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00117?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-001-po:po_date",
+          "rank": 3,
+          "question": "On what date was purchase order PO-2026-00117 issued?",
+          "top_document": "set-001-dn",
+          "top_heading": "Kestrel Office Supplies Ltd DELIVERY NOTE"
+        },
+        {
+          "id": "set-002-inv-1:invoice_total",
+          "rank": 4,
+          "question": "What is the total amount due on invoice INV-2026-00220?",
+          "top_document": "set-002-inv-1",
+          "top_heading": "Northgate Packaging Ltd TAX I NVO I CE"
+        },
+        {
+          "id": "set-003-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00379?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-003-po:po_date",
+          "rank": 3,
+          "question": "On what date was purchase order PO-2026-00379 issued?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-004-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00441?",
+          "top_document": "set-004-inv-1",
+          "top_heading": "Fenwick Industrial Supplies Ltd"
+        },
+        {
+          "id": "set-005-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00513?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-005-po:po_date",
+          "rank": 2,
+          "question": "On what date was purchase order PO-2026-00513 issued?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-006-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00653?",
+          "top_document": "set-006-inv-1",
+          "top_heading": "BrightWay Hygiene Ltd TAX I NVO I CE"
+        },
+        {
+          "id": "set-007-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00739?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-008-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00860?",
+          "top_document": "set-008-inv-1",
+          "top_heading": "BrightWay Hygiene Ltd TAX I NVO I CE"
+        }
+      ]
+    },
+    {
+      "strategy": "structure",
+      "group": "clauses",
+      "chunks": 512,
+      "mode": "hybrid + type filter",
+      "questions": 120,
+      "recall@1": 0.65,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr": 0.7764,
+      "median_search_ms": 35.2,
+      "by_kind_recall@1": {
+        "late_interest": 0.643,
+        "lead_time": 1.0,
+        "minimum_order": 0.4,
+        "payment_terms": 0.889,
+        "price_cap": 1.0,
+        "price_fixed": 0.364,
+        "price_list": 1.0,
+        "price_notice": 1.0,
+        "returns_window": 0.462,
+        "shortage_window": 0.667,
+        "termination": 0.0
+      },
+      "not_first": [
+        {
+          "id": "agreement-001:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Harbour & Hale Retail plc may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-001:returns_window",
+          "rank": 4,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-001:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-001",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:price_fixed",
+          "rank": 2,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:returns_window",
+          "rank": 2,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:late_interest",
+          "rank": 2,
+          "question": "What interest can Kestrel Office Supplies Ltd charge Linden Logistics Ltd on late payments?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-002:minimum_order",
+          "rank": 4,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-002",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:price_fixed",
+          "rank": 2,
+          "question": "For how long are Kestrel Office Supplies Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:late_interest",
+          "rank": 2,
+          "question": "What interest can Kestrel Office Supplies Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-003:payment_terms",
+          "rank": 2,
+          "question": "How many days does Ashcombe Hotels Ltd have to pay invoices from Kestrel Office Supplies Ltd?",
+          "top_document": "agreement-003",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:price_fixed",
+          "rank": 2,
+          "question": "For how long are Paperline Direct Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:returns_window",
+          "rank": 4,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Paperline Direct Ltd?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-004:late_interest",
+          "rank": 3,
+          "question": "What interest can Paperline Direct Ltd charge Harbour & Hale Retail plc on late payments?",
+          "top_document": "agreement-004",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-005:minimum_order",
+          "rank": 2,
+          "question": "What is the smallest order Linden Logistics Ltd may place with Paperline Direct Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "7. Governing law"
+        },
+        {
+          "id": "agreement-005:termination",
+          "rank": 3,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-005",
+          "top_heading": "7. Governing law"
+        },
+        {
+          "id": "agreement-006:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Paperline Direct Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-006",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-007:shortage_window",
+          "rank": 2,
+          "question": "How soon must Harbour & Hale Retail plc tell BrightWay Hygiene Ltd about missing or damaged goods?",
+          "top_document": "agreement-007",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-007:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between BrightWay Hygiene Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-007",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-008:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between BrightWay Hygiene Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-008",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-009:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-009:returns_window",
+          "rank": 3,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to BrightWay Hygiene Ltd?",
+          "top_document": "agreement-009",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:returns_window",
+          "rank": 4,
+          "question": "Until when can Harbour & Hale Retail plc send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-010",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-010",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:shortage_window",
+          "rank": 2,
+          "question": "How soon must Harbour & Hale Retail plc tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-010",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-010:price_fixed",
+          "rank": 2,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-010",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-011:returns_window",
+          "rank": 4,
+          "question": "Until when can Linden Logistics Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-011",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-011:price_fixed",
+          "rank": 2,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+          "top_document": "agreement-011",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-011:shortage_window",
+          "rank": 2,
+          "question": "How soon must Linden Logistics Ltd tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-011",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:late_interest",
+          "rank": 2,
+          "question": "What interest can Fenwick Industrial Supplies Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:returns_window",
+          "rank": 4,
+          "question": "Until when can Ashcombe Hotels Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:minimum_order",
+          "rank": 3,
+          "question": "What is the smallest order Ashcombe Hotels Ltd may place with Fenwick Industrial Supplies Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:price_fixed",
+          "rank": 2,
+          "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Ashcombe Hotels Ltd fixed?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Fenwick Industrial Supplies Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-012:shortage_window",
+          "rank": 3,
+          "question": "How soon must Ashcombe Hotels Ltd tell Fenwick Industrial Supplies Ltd about missing or damaged goods?",
+          "top_document": "agreement-012",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-013:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Harbour & Hale Retail plc?",
+          "top_document": "agreement-013",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-013:price_fixed",
+          "rank": 4,
+          "question": "For how long are Northgate Packaging Ltd's prices to Harbour & Hale Retail plc fixed?",
+          "top_document": "agreement-013",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-014:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Linden Logistics Ltd?",
+          "top_document": "agreement-014",
+          "top_heading": "7. Governing law"
+        },
+        {
+          "id": "agreement-015:late_interest",
+          "rank": 2,
+          "question": "What interest can Northgate Packaging Ltd charge Ashcombe Hotels Ltd on late payments?",
+          "top_document": "agreement-015",
+          "top_heading": "1. Parties and term"
+        },
+        {
+          "id": "agreement-015:termination",
+          "rank": 4,
+          "question": "How much notice ends the agreement between Northgate Packaging Ltd and Ashcombe Hotels Ltd?",
+          "top_document": "agreement-015",
+          "top_heading": "1. Parties and term"
+        }
+      ]
+    },
+    {
+      "strategy": "structure",
+      "group": "lookups",
+      "chunks": 512,
+      "mode": "hybrid + type filter",
+      "questions": 31,
+      "recall@1": 0.7419,
+      "recall@5": 0.7419,
+      "recall@10": 0.8065,
+      "mrr": 0.7509,
+      "median_search_ms": 40.0,
+      "by_kind_recall@1": {
+        "invoice_total": 0.0,
+        "po_date": 1.0,
+        "sku_price": 1.0
+      },
+      "not_first": [
+        {
+          "id": "set-001-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00117?",
+          "top_document": "set-001-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-002-inv-1:invoice_total",
+          "rank": 6,
+          "question": "What is the total amount due on invoice INV-2026-00220?",
+          "top_document": "set-002-inv-1",
+          "top_heading": "Northgate Packaging Ltd TAX I NVO I CE"
+        },
+        {
+          "id": "set-003-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00379?",
+          "top_document": "set-003-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-004-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00441?",
+          "top_document": "set-004-inv-1",
+          "top_heading": "Fenwick Industrial Supplies Ltd"
+        },
+        {
+          "id": "set-005-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00513?",
+          "top_document": "set-005-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-006-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00653?",
+          "top_document": "set-006-inv-1",
+          "top_heading": "BrightWay Hygiene Ltd TAX I NVO I CE"
+        },
+        {
+          "id": "set-007-inv-1:invoice_total",
+          "rank": null,
+          "question": "What is the total amount due on invoice INV-2026-00739?",
+          "top_document": "set-007-inv-1",
+          "top_heading": "INVOICE"
+        },
+        {
+          "id": "set-008-inv-1:invoice_total",
+          "rank": 9,
+          "question": "What is the total amount due on invoice INV-2026-00860?",
+          "top_document": "set-008-inv-1",
+          "top_heading": "BrightWay Hygiene Ltd TAX I NVO I CE"
+        }
+      ]
+    }
+  ]
+}

@@ -35,16 +35,35 @@ class Chunk(DomainModel):
     bbox: BBox
 
 
-def chunk(parsed: ParsedDocument, strategy: Strategy = "structure") -> list[Chunk]:
+def chunk(
+    parsed: ParsedDocument, strategy: Strategy = "structure", context: str | None = None
+) -> list[Chunk]:
+    """`context` overrides the context line (e.g. one built from extracted metadata)."""
     if strategy == "fixed":
         return fixed_chunks(parsed)
-    return structure_chunks(parsed, with_context=strategy == "structure")
+    return structure_chunks(parsed, with_context=strategy == "structure", context=context)
 
 
 def _elements(parsed: ParsedDocument) -> list[TextBlock | Table]:
     return [
         e for e in parsed.elements if not (isinstance(e, TextBlock) and e.label in SKIPPED_LABELS)
     ]
+
+
+def metadata_context(
+    doc_type: str, number: str, supplier: str, buyer: str, date: str, reference: str = ""
+) -> str:
+    """A context line from extracted fields, for documents whose first lines do not identify
+    them (an invoice starts with the supplier's address, not its number)."""
+    kind = {
+        "invoice": "Invoice",
+        "purchase_order": "Purchase order",
+        "delivery_note": "Delivery note",
+    }.get(doc_type, "Document")
+    parts = [f"{kind} {number}".strip(), f"{supplier} to {buyer}", date]
+    if reference:
+        parts.append(f"for {reference}")
+    return " · ".join(p for p in parts if p.strip())
 
 
 def document_context(parsed: ParsedDocument) -> str:
@@ -55,8 +74,13 @@ def document_context(parsed: ParsedDocument) -> str:
     return " · ".join(" ".join(p.split()) for p in parts)[:CONTEXT_MAX_CHARS]
 
 
-def structure_chunks(parsed: ParsedDocument, with_context: bool = True) -> list[Chunk]:
-    context = document_context(parsed) if with_context else ""
+def structure_chunks(
+    parsed: ParsedDocument, with_context: bool = True, context: str | None = None
+) -> list[Chunk]:
+    if not with_context:
+        context = ""
+    elif context is None:
+        context = document_context(parsed)
     chunks: list[Chunk] = []
     heading: str = ""
     body: list[str] = []
@@ -86,7 +110,12 @@ def structure_chunks(parsed: ParsedDocument, with_context: bool = True) -> list[
             flush()
             body, first = [], None
             rows = element.rows()
-            header, data = (rows[0], rows[1:]) if len(rows) > 1 else ([], rows)
+            # Use the first row as column names only if the parser marked it as a header:
+            # a totals table ("Subtotal | £736.63") has none.
+            has_header = len(rows) > 1 and all(
+                cell.is_header for cell in element.cells if cell.row == 0
+            )
+            header, data = (rows[0], rows[1:]) if has_header else ([], rows)
             for row in data:
                 cells = [
                     f"{h}: {v}" if h else v

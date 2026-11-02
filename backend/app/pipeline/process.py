@@ -36,6 +36,7 @@ from backend.app.extraction.schema import ExtractedDocument
 from backend.app.ingestion.models import ParsedDocument
 from backend.app.jobs.queue import enqueue
 from backend.app.llm.client import LLMClient
+from backend.app.rag.chunking import metadata_context
 from backend.app.rag.embeddings import Embedder
 from backend.app.rag.index import index_document
 from backend.app.storage import save_file
@@ -125,7 +126,7 @@ def process_document(session: Session, document_id: str, owner_id: str, services
 
     _store_result(session, document, record.raw)
     if services.embedder is not None:
-        index_document(session, document, parsed, services.embedder)
+        index_document(session, document, parsed, services.embedder, context=_context(record.raw))
     revalidate_owner(session, owner_id)
 
 
@@ -192,6 +193,21 @@ def _store_result(session: Session, document: DocumentRow, raw: ExtractedDocumen
     else:
         document.status = "needs_review"
     session.flush()
+
+
+def _context(raw: ExtractedDocument) -> str | None:
+    """Context line for search chunks from the extraction; None lets the chunker use the
+    document's own first lines (right for agreements and other text documents)."""
+    if raw.doc_type == "other" or not raw.document_number:
+        return None
+    return metadata_context(
+        raw.doc_type,
+        raw.document_number,
+        raw.supplier.name,
+        raw.buyer.name,
+        raw.issue_date,
+        raw.po_reference,
+    )
 
 
 def _latest_extraction(session: Session, document_id: str) -> ExtractionRow | None:
