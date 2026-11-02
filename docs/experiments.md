@@ -2,6 +2,77 @@
 
 Every component has to earn its place with a measured result. Newest first.
 
+## 2026-11-02 — Extraction v2: parser keeps page headers, prompt v2 (Haiku 5.5)
+
+**Question.** Do the parse-v2 and prompt-v2 fixes remove the v1 failures?
+
+**Setup.** As v1, with parse-v2 (Docling body + furniture layers) and `extract-v2`. Haiku 5.5
+only, to verify the fix cheaply. Raw: `eval/results/extraction-seed-42-extract-v2.json`.
+
+| model | variant | type | header | lines | docs fully correct | unverified | $/doc | median s |
+|---|---|---|---|---|---|---|---|---|
+| Haiku 5.5 | digital | 100% | **100.0%** (v1 90.9%) | 100.0% | **100%** (v1 48%) | 1.8% | 0.0007 | 3.2 |
+| Haiku 5.5 | scan | 100% | **97.7%** (v1 93.6%) | 99.5% | **80%** (v1 48%) | 2.4% | 0.0007 | 3.0 |
+
+Cost of the run: $0.035.
+
+**Remaining errors (all on scans, 8 fields in 5 documents):** OCR misreads copied through
+(`plc` read as `ple`, 3×), the issuer block of one scanned PO not recognised, one table cell
+OCR left empty (correctly reported as empty, not guessed), and one SKU with OCR punctuation
+noise (`CL.-2005`) that the model dropped together with its quantity.
+
+**Conclusions.**
+- On digital PDFs the pipeline is now exact: every field of every document, at $0.0007 per
+  document with the cheapest model.
+- Scans are the remaining gap, and it is an OCR gap: the model copies what OCR produced.
+  Candidates for later: a stronger OCR engine or higher scan DPI (measure parse recall first),
+  and human review of fields that fail conversion or provenance lookup.
+- Model choice: Haiku 5.5 as the default extractor. Sonnet/Opus did not beat it on v1 beyond
+  noise and cost 19-37× more; re-run them on v2 only if the budget allows.
+
+## 2026-11-02 — Extraction v1: Claude Haiku 5.5 vs Sonnet 5.5 vs Opus 5.5
+
+**Question.** How accurately does one structured-output call classify and extract each
+document, and is the cheaper model good enough?
+
+**Setup.** Dataset `seed-42` (25 documents × digital/scan), parse-v1 (Docling body layer
+only), prompt `extract-v1`, `messages.parse()` with the `ExtractedDocument` schema, effort
+`low`, no fallbacks. Fields are compared after parsing (`£1,234.56` == 1234.56); lines are
+matched by SKU; the truth is the document as written, injected errors included.
+Runner: `eval/runners/extraction_eval.py`. Raw: `eval/results/extraction-seed-42-extract-v1.json`.
+
+| model | variant | type | header | lines | docs fully correct | unverified | $/doc | median s |
+|---|---|---|---|---|---|---|---|---|
+| Haiku 5.5 | digital | 100% | 90.9% | 100.0% | 48% | 1.2% | 0.0007 | 3.2 |
+| Haiku 5.5 | scan | 100% | 93.6% | 99.5% | 48% | 2.5% | 0.0007 | 3.6 |
+| Sonnet 5.5 | digital | 100% | 92.7% | 100.0% | 48% | 1.0% | 0.0131 | 4.2 |
+| Sonnet 5.5 | scan | 100% | 95.5% | 99.8% | 60% | 2.6% | 0.0131 | 4.3 |
+| Opus 5.5 | digital | 100% | 92.3% | 100.0% | 48% | 1.2% | 0.0262 | 6.0 |
+| Opus 5.5 | scan | 100% | 95.5% | 99.8% | 60% | 3.5% | 0.0263 | 5.9 |
+
+Cost of the run: $1.95 (150 calls).
+
+**What went wrong, and it was not the models.** All three models failed on the same fields,
+and digital PDFs scored *worse* than scans: a sign of a pipeline problem, not a reading one.
+73 of the ~100 wrong fields were a missing supplier/buyer VAT number (and some names) on
+the `modern` template. Docling labels that template's coloured header band as a page header
+("furniture") and our parser dropped that layer, so the issuer's address and VAT number never
+reached the LLM. With the issuer missing, the models sometimes assigned the remaining
+company to the wrong role on purchase orders. Other errors: OCR `plc` -> `ple` copied
+as-is, and one model wrote the string `"null"` for an empty cell, because the v1 prompt said
+"use null" while the schema uses empty strings.
+
+**Fixes (parse-v2, extract-v2).**
+- Parser keeps Docling's furniture layer (page headers/footers). Regression test added.
+- Prompt v2: empty string for absent values, never "null"; issuer details often sit in a
+  header or footer. v1 is kept unchanged so these results stay reproducible.
+- LLM cache key now includes the hash of the text sent, not only the file hash: otherwise
+  a parser change would have silently served stale v1 answers for the same file.
+
+**Takeaways so far.** Document type: 100% for every model. Line items: ≥99.5% even on scans.
+Sonnet matched Opus at half the price; Haiku was close at ~1/37 of Opus's cost. Final model
+choice waits for the v2 run.
+
 ## 2026-11-01 — Parsing: Docling on digital PDFs and simulated scans
 
 **Question.** Does Docling recover the values we need from our PDFs, and how much do scans
