@@ -62,4 +62,10 @@ Updated at the end of each session.
   VAT Notice 700 17.5, known limits), `eval/runners/discrepancy_eval.py` (truth and
   end-to-end modes, cache-only, $0). Results: rules alone 100%/100% on 100 sets; end to end
   digital 100%/100%; scans 100% precision, 5/6 recall (miss is in a reviewed document).
-- Next: commit + PR for step 4; then roadmap step 5 (Postgres + FastAPI + worker).
+- Step 4 merged (PR #7).
+- Step 5a, database (branch `feat/database`): docker-compose with pgvector/pgvector:0.8.0-pg17
+  on port 5433 (+ `docuflow_test` database), SQLAlchemy 2 models for 12 tables, hand-written
+  domain <-> row mapping, Alembic with the initial migration, DB integration tests (schema
+  matches migrations, round trip of every document type, owner-scoped uniqueness, raw vs
+  corrected kept apart), `.env.example`, ADR-0003. DB tests skip when the database is down.
+- Next: 5b job queue + processing pipeline (worker), then 5c FastAPI endpoints.

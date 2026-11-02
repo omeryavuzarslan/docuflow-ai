@@ -11,7 +11,10 @@ pipeline.
 PDF rendering uses WeasyPrint, which needs Pango. On macOS: `brew install pango`.
 
 ```
+cp .env.example .env            # then fill in ANTHROPIC_API_KEY
+docker compose up -d db
 uv sync
+uv run --env-file .env alembic upgrade head
 uv run pytest
 uv run ruff check . && uv run ruff format .
 uv run mypy backend data_generator eval
