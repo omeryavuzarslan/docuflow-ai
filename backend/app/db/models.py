@@ -20,10 +20,12 @@ from typing import Any
 from sqlalchemy import (
     ARRAY,
     JSON,
+    BigInteger,
     Boolean,
     Date,
     DateTime,
     ForeignKey,
+    Identity,
     Integer,
     MetaData,
     Numeric,
@@ -78,6 +80,9 @@ class DocumentRow(_Owned, _Timestamps, Base):
     __table_args__ = (UniqueConstraint("owner_id", "sha256", name="uq_documents_owner_sha256"),)
 
     id: Mapped[str] = mapped_column(String(64), primary_key=True, default=_uuid)
+    # Arrival order. Timestamps can tie (one transaction, one now()); this cannot. Used to
+    # decide which of two identical invoices is the original.
+    received_seq: Mapped[int] = mapped_column(BigInteger, Identity(), unique=True)
     filename: Mapped[str] = mapped_column(String(255))
     sha256: Mapped[str] = mapped_column(String(64))
     storage_path: Mapped[str | None] = mapped_column(String(512))
@@ -121,7 +126,10 @@ class ExtractionRow(_Owned, _Timestamps, Base):
     provenance: Mapped[dict[str, Any]] = mapped_column(Json)
     input_tokens: Mapped[int] = mapped_column(Integer)
     output_tokens: Mapped[int] = mapped_column(Integer)
-    cost_usd: Mapped[Decimal] = mapped_column(USD_COST)
+    cost_usd: Mapped[Decimal] = mapped_column(USD_COST)  # cost of the original API call
+    # True when served from the LLM cache: nothing was spent for this row, so spend reports
+    # must sum cost_usd over cached = false only.
+    cached: Mapped[bool] = mapped_column(Boolean, server_default="false")
 
 
 class CorrectionRow(_Owned, _Timestamps, Base):

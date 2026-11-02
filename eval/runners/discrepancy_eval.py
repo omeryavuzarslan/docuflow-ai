@@ -26,7 +26,7 @@ from typing import Any
 
 from backend.app.domain.document_set import DocumentSet
 from backend.app.extraction.extract import PROMPT_VERSION, extract_document
-from backend.app.llm.client import LLMClient, LLMError
+from backend.app.llm.client import CacheOnlyClient, LLMClient
 from backend.app.validation.models import IncompleteDocument
 from backend.app.validation.rules import Document, validate
 from data_generator.generate import generate
@@ -93,20 +93,9 @@ def run_truth(seed: int, n_sets: int) -> dict[str, Any]:
     return {"mode": "truth", "seed": seed, "sets": n_sets, **result}
 
 
-class _CacheOnly:
-    """Stands in for the Anthropic client: this eval must never spend money."""
-
-    @property
-    def messages(self) -> "_CacheOnly":
-        return self
-
-    def parse(self, **_: Any) -> Any:
-        raise LLMError("response not cached; run eval.runners.extraction_eval first")
-
-
 def run_extracted(dataset: Path, model: str, variant: str) -> dict[str, Any]:
     manifest = json.loads((dataset / "manifest.json").read_text())
-    llm = LLMClient(cache_dir=CACHE / "llm", anthropic_client=_CacheOnly())
+    llm = LLMClient(cache_dir=CACHE / "llm", anthropic_client=CacheOnlyClient())
     sets, documents, review = [], [], []
     incomplete: list[IncompleteDocument] = []
     for entry in manifest["sets"]:

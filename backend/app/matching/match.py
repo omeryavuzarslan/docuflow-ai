@@ -7,7 +7,7 @@ and an invoice quoting our PO number from a different company is not for that or
 """
 
 from collections import defaultdict
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from dataclasses import dataclass, field
 from decimal import Decimal
 
@@ -48,8 +48,13 @@ def order_key(po_number: str, supplier_vat: str) -> tuple[str, str]:
     return ("".join(po_number.split()).upper(), "".join(supplier_vat.split()).upper())
 
 
-def match_documents(documents: Iterable[Document]) -> MatchResult:
+def match_documents(
+    documents: Iterable[Document], received_order: Mapping[str, int] | None = None
+) -> MatchResult:
+    """`received_order` ({document_id: arrival rank}) breaks ties between invoices with the
+    same date; without it, ties fall back to the document id."""
     docs = list(documents)
+    order = received_order or {}
     orders: dict[tuple[str, str], PurchaseOrder] = {}
     for doc in docs:
         if isinstance(doc, PurchaseOrder):
@@ -73,13 +78,14 @@ def match_documents(documents: Iterable[Document]) -> MatchResult:
         MatchGroup(
             purchase_order=po,
             delivery_notes=tuple(notes[key]),
-            invoices=tuple(sorted(invoices[key], key=_invoice_order)),
+            invoices=tuple(sorted(invoices[key], key=lambda i: invoice_order(i, order))),
         )
         for key, po in orders.items()
     )
     return MatchResult(groups=groups, unmatched=tuple(unmatched))
 
 
-def _invoice_order(invoice: Invoice) -> tuple[object, str]:
-    # Earliest first, so "already invoiced" and "duplicate of" mean the same thing every run.
-    return (invoice.issue_date, invoice.document_id)
+def invoice_order(invoice: Invoice, received_order: Mapping[str, int]) -> tuple[object, ...]:
+    """Earliest invoice date first, then earliest received, so "already invoiced" and
+    "duplicate of" mean the same thing on every run."""
+    return (invoice.issue_date, received_order.get(invoice.document_id, 0), invoice.document_id)

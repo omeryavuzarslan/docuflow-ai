@@ -12,9 +12,9 @@ from collections.abc import Iterator
 import pytest
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import Engine, create_engine, text
+from sqlalchemy import Connection, Engine, create_engine, text
 from sqlalchemy.exc import OperationalError
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
 TEST_DATABASE_URL = os.environ.get(
     "TEST_DATABASE_URL", "postgresql+psycopg://docuflow:docuflow@localhost:5433/docuflow_test"
@@ -43,15 +43,29 @@ def engine() -> Iterator[Engine]:
 
 
 @pytest.fixture
-def session(engine: Engine) -> Iterator[Session]:
+def connection(engine: Engine) -> Iterator[Connection]:
     connection = engine.connect()
     transaction = connection.begin()
-    # Commits inside the code under test become savepoints, so the rollback below still
-    # undoes everything.
-    session = Session(bind=connection, join_transaction_mode="create_savepoint")
+    try:
+        yield connection
+    finally:
+        transaction.rollback()
+        connection.close()
+
+
+@pytest.fixture
+def session_factory(connection: Connection) -> sessionmaker[Session]:
+    # Commits inside the code under test become savepoints, so the rollback in
+    # `connection` still undoes everything.
+    return sessionmaker(
+        bind=connection, join_transaction_mode="create_savepoint", expire_on_commit=False
+    )
+
+
+@pytest.fixture
+def session(session_factory: sessionmaker[Session]) -> Iterator[Session]:
+    session = session_factory()
     try:
         yield session
     finally:
         session.close()
-        transaction.rollback()
-        connection.close()

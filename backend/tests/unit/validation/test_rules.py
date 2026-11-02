@@ -315,3 +315,13 @@ def test_sku_punctuation_noise_still_matches_the_line() -> None:
         dn, lines=(evolve(dn.lines[0], sku="SKU.-001"), evolve(dn.lines[1], sku="sku 002"))
     )
     assert _run(make_purchase_order(), noisy, make_invoice()) == []
+
+
+def test_r8_ties_on_date_are_broken_by_arrival_not_by_id() -> None:
+    # Same date: the one received first is the original, whatever its id.
+    first, second = make_invoice("zzz-received-first"), make_invoice("aaa-received-second")
+    order = {"zzz-received-first": 1, "aaa-received-second": 2}
+    found = validate(
+        [make_purchase_order(), make_delivery_note(), first, second], received_order=order
+    )
+    assert [(d.rule, d.document_id) for d in found.discrepancies] == [("R8", "aaa-received-second")]
