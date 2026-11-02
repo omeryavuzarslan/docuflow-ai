@@ -2,6 +2,7 @@
 
 ingest_file       save the file, create the document row, queue one job (fast; the API calls it)
 process_document  parse -> extract -> store -> revalidate (slow; the worker calls it)
+apply_correction  record a person's fix to one field, rebuild the document, revalidate
 revalidate_owner  re-run the rules over all of an owner's documents and update findings
 
 Parser and LLM are passed in (`Services`) so tests run without Docling or the API.
@@ -21,13 +22,17 @@ from backend.app.db.mapping import (
     document_to_row,
 )
 from backend.app.db.models import (
+    CorrectionRow,
     DiscrepancyRow,
     DocumentRow,
     ExtractionRow,
     JobRow,
     ParseRow,
 )
+from backend.app.extraction.corrections import apply_corrections, get_field
 from backend.app.extraction.extract import extract_document
+from backend.app.extraction.normalise import to_domain
+from backend.app.extraction.schema import ExtractedDocument
 from backend.app.ingestion.models import ParsedDocument
 from backend.app.jobs.queue import enqueue
 from backend.app.llm.client import LLMClient
@@ -115,22 +120,85 @@ def process_document(session: Session, document_id: str, owner_id: str, services
         )
     )
 
-    # Replace whatever typed row an earlier run stored for this document.
+    _store_result(session, document, record.raw)
+    revalidate_owner(session, owner_id)
+
+
+def apply_correction(
+    session: Session, document_id: str, owner_id: str, field: str, new_value: str, author: str
+) -> CorrectionRow:
+    """Record a correction to the latest extraction, then rebuild the typed document from
+    the raw extraction plus all its corrections. Raises LookupError for a document the
+    owner does not have (so callers cannot tell "missing" from "someone else's") and
+    InvalidFieldError for a path that is not a text field."""
+    document = session.get(DocumentRow, document_id)
+    if document is None or document.owner_id != owner_id:
+        raise LookupError(f"no document {document_id}")
+    extraction = _latest_extraction(session, document_id)
+    if extraction is None:
+        raise LookupError(f"document {document_id} has not been extracted yet")
+
+    raw = ExtractedDocument.model_validate(extraction.raw)
+    current = apply_corrections(raw, _corrections_for(session, extraction.id))
+    old_value = get_field(current, field)
+    corrected = apply_corrections(current, [(field, new_value)])  # validates path and value
+
+    correction = CorrectionRow(
+        document_id=document_id,
+        owner_id=owner_id,
+        extraction_id=extraction.id,
+        field=field,
+        old_value=old_value,
+        new_value=new_value,
+        author=author,
+    )
+    session.add(correction)
+    _store_result(session, document, corrected)
+    revalidate_owner(session, owner_id)
+    return correction
+
+
+def corrected_extraction(session: Session, extraction: ExtractionRow) -> ExtractedDocument:
+    """The raw extraction with every recorded correction applied, in order."""
+    raw = ExtractedDocument.model_validate(extraction.raw)
+    return apply_corrections(raw, _corrections_for(session, extraction.id))
+
+
+def _store_result(session: Session, document: DocumentRow, raw: ExtractedDocument) -> None:
+    """Convert an (possibly corrected) extraction and store it as the document's typed row,
+    replacing any earlier one. Unconvertible documents go to review."""
     for row_class in ROW_CLASSES.values():
         old = session.get(row_class, document.id)
         if old is not None:
             session.delete(old)
     session.flush()
 
-    document.doc_type = record.raw.doc_type
-    if record.document is not None:
-        session.add(document_to_row(record.document, owner_id))
+    converted, _errors = to_domain(raw, document.id)
+    document.doc_type = raw.doc_type
+    if converted is not None:
+        session.add(document_to_row(converted, document.owner_id))
         document.status = "done"
     else:
         document.status = "needs_review"
     session.flush()
 
-    revalidate_owner(session, owner_id)
+
+def _latest_extraction(session: Session, document_id: str) -> ExtractionRow | None:
+    return session.scalars(
+        select(ExtractionRow)
+        .where(ExtractionRow.document_id == document_id)
+        .order_by(ExtractionRow.version.desc())
+        .limit(1)
+    ).first()
+
+
+def _corrections_for(session: Session, extraction_id: str) -> list[tuple[str, str]]:
+    rows = session.scalars(
+        select(CorrectionRow)
+        .where(CorrectionRow.extraction_id == extraction_id)
+        .order_by(CorrectionRow.seq)
+    )
+    return [(row.field, row.new_value) for row in rows]
 
 
 def revalidate_owner(session: Session, owner_id: str) -> None:
@@ -196,21 +264,16 @@ def _incomplete(session: Session, owner_id: str) -> list[IncompleteDocument]:
             DocumentRow.owner_id == owner_id, DocumentRow.status == "needs_review"
         )
     ):
-        latest = session.scalars(
-            select(ExtractionRow)
-            .where(ExtractionRow.document_id == document.id)
-            .order_by(ExtractionRow.version.desc())
-            .limit(1)
-        ).first()
+        latest = _latest_extraction(session, document.id)
         if latest is None:
             continue
-        raw = latest.raw
-        own = raw.get("doc_type") == "purchase_order"
+        raw = corrected_extraction(session, latest)
+        own = raw.doc_type == "purchase_order"
         pending.append(
             IncompleteDocument(
                 document_id=document.id,
-                doc_type=raw.get("doc_type", "other"),
-                po_number=raw.get("document_number" if own else "po_reference", ""),
+                doc_type=raw.doc_type,
+                po_number=raw.document_number if own else raw.po_reference,
             )
         )
     return pending
