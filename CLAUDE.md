@@ -33,6 +33,8 @@ explain every design decision in an interview.
 uv sync                              # install dependencies
 docker compose up -d db              # Postgres 17 + pgvector on localhost:5433
 uv run --env-file .env alembic upgrade head   # create/upgrade tables
+uv run --env-file .env python -m backend.app.pipeline.load_dataset --dataset data_generator/output/seed-42 --owner demo
+uv run --env-file .env python -m backend.app.worker --until-empty --cache-only   # process queue, no API spend
 uv run pytest                        # tests (fast; skips `slow`; DB tests need the db up)
 uv run pytest -m slow                # Docling model tests (~30 s)
 uv run --env-file .env pytest -m live   # paid Claude API tests

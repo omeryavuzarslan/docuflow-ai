@@ -21,14 +21,14 @@ is not also checked as if it were a second bill.
 """
 
 from collections import defaultdict
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass
 from decimal import ROUND_DOWN, Decimal
 from itertools import product
 
 from backend.app.domain.calculations import PENNY, round_money
 from backend.app.domain.documents import DeliveryNote, Invoice, PurchaseOrder
-from backend.app.matching.match import MatchGroup, match_documents, sku_key
+from backend.app.matching.match import MatchGroup, invoice_order, match_documents, sku_key
 from backend.app.validation.models import Discrepancy, DiscrepancyType, IncompleteDocument
 
 Document = PurchaseOrder | DeliveryNote | Invoice
@@ -44,16 +44,21 @@ class ValidationReport:
 
 
 def validate(
-    documents: Iterable[Document], incomplete: Iterable[IncompleteDocument] = ()
+    documents: Iterable[Document],
+    incomplete: Iterable[IncompleteDocument] = (),
+    received_order: Mapping[str, int] | None = None,
 ) -> ValidationReport:
+    """`received_order` ({document_id: arrival rank}) decides which of two identical
+    invoices is the original; without it, the document id breaks ties."""
     docs = list(documents)
     pending = list(incomplete)
     pending_orders = {_ref(p.po_number) for p in pending if p.doc_type == "purchase_order"}
     pending_deliveries = {_ref(p.po_number) for p in pending if p.doc_type == "delivery_note"}
     held: list[str] = []
-    match = match_documents(docs)
+    order = received_order or {}
+    match = match_documents(docs, order)
     invoices = sorted(
-        (d for d in docs if isinstance(d, Invoice)), key=lambda i: (i.issue_date, i.document_id)
+        (d for d in docs if isinstance(d, Invoice)), key=lambda i: invoice_order(i, order)
     )
     duplicates = _duplicates(invoices)
 

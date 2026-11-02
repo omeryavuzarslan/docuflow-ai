@@ -93,6 +93,18 @@ class LLMRefusalError(LLMError):
     """The model declined (stop_reason "refusal"). Not cached, so a retry can succeed."""
 
 
+class CacheOnlyClient:
+    """Use in place of the Anthropic client to guarantee no paid call is made: any request
+    that is not already cached fails instead of reaching the API."""
+
+    @property
+    def messages(self) -> "CacheOnlyClient":
+        return self
+
+    def parse(self, **_: Any) -> Any:
+        raise LLMError("response not cached and --cache-only is set; no API call made")
+
+
 class LLMClient:
     def __init__(self, cache_dir: Path, anthropic_client: Any = None) -> None:
         self.cache_dir = cache_dir

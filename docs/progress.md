@@ -68,4 +68,14 @@ Updated at the end of each session.
   domain <-> row mapping, Alembic with the initial migration, DB integration tests (schema
   matches migrations, round trip of every document type, owner-scoped uniqueness, raw vs
   corrected kept apart), `.env.example`, ADR-0003. DB tests skip when the database is down.
-- Next: 5b job queue + processing pipeline (worker), then 5c FastAPI endpoints.
+- Step 5a merged (PR #8).
+- Step 5b, worker (branch `feat/worker`): Postgres job queue (claim with FOR UPDATE SKIP
+  LOCKED, retries with 10/20/40 s backoff, stale-lock requeue), pipeline (ingest_file ->
+  process_document: parse, extract, versioned extraction rows, typed rows, revalidate owner;
+  needs_review + held checks; dismissed/resolved findings kept), worker CLI with
+  --until-empty / --cache-only, load_dataset CLI. Two migrations: `documents.received_seq`
+  (arrival order decides which identical invoice is the duplicate; UUID ordering made tests
+  flaky) and `extractions.cached` (spend reports must not count cache hits).
+  Real run: seed-42's 25 PDFs through Docling + cached Haiku -> all done, exactly the 6
+  injected errors in `discrepancies`, $0 spent.
+- Next: 5c FastAPI endpoints.
