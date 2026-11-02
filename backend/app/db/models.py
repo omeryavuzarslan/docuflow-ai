@@ -17,6 +17,7 @@ from datetime import date, datetime
 from decimal import Decimal
 from typing import Any
 
+from pgvector.sqlalchemy import Vector
 from sqlalchemy import (
     ARRAY,
     JSON,
@@ -26,6 +27,7 @@ from sqlalchemy import (
     DateTime,
     ForeignKey,
     Identity,
+    Index,
     Integer,
     MetaData,
     Numeric,
@@ -298,3 +300,38 @@ class JobRow(_Owned, _Timestamps, Base):
     locked_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     locked_by: Mapped[str | None] = mapped_column(String(64))
     last_error: Mapped[str | None] = mapped_column(Text)
+
+
+# --- retrieval -----------------------------------------------------------------------
+
+EMBEDDING_DIM = 384  # must match backend/app/rag/embeddings.py
+
+
+class ChunkRow(_Owned, _Timestamps, Base):
+    """A searchable piece of a document and its embedding (pgvector)."""
+
+    __tablename__ = "chunks"
+    __table_args__ = (
+        # Approximate nearest-neighbour index for cosine distance.
+        Index(
+            "ix_chunks_embedding_hnsw",
+            "embedding",
+            postgresql_using="hnsw",
+            postgresql_with={"m": 16, "ef_construction": 64},
+            postgresql_ops={"embedding": "vector_cosine_ops"},
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    document_id: Mapped[str] = mapped_column(
+        ForeignKey("documents.id", ondelete="CASCADE"), index=True
+    )
+    ordinal: Mapped[int] = mapped_column(Integer)
+    kind: Mapped[str] = mapped_column(String(16))  # section | row | fixed
+    heading: Mapped[str] = mapped_column(Text)
+    body: Mapped[str] = mapped_column(Text)  # shown to people
+    text: Mapped[str] = mapped_column(Text)  # embedded: context + heading + body
+    page: Mapped[int] = mapped_column(Integer)
+    bbox: Mapped[dict[str, Any]] = mapped_column(Json)
+    embedding: Mapped[list[float]] = mapped_column(Vector(EMBEDDING_DIM))
+    embedding_model: Mapped[str] = mapped_column(String(128))

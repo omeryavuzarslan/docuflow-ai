@@ -28,6 +28,7 @@ from backend.app.db.session import make_engine, make_session_factory
 from backend.app.jobs.queue import claim, complete, fail, requeue_stale
 from backend.app.llm.client import CacheOnlyClient, LLMClient
 from backend.app.pipeline.process import PROCESS_DOCUMENT, Services, process_document
+from backend.app.rag.embeddings import LocalEmbedder
 
 log = logging.getLogger("worker")
 
@@ -95,6 +96,7 @@ def _services(cache_only: bool) -> Services:
         llm=llm,
         model=os.environ.get("EXTRACTION_MODEL", DEFAULT_MODEL),
         storage_root=Path(os.environ.get("STORAGE_DIR", "storage")),
+        embedder=LocalEmbedder(),
     )
 
 

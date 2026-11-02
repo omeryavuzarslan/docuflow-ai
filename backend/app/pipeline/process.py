@@ -36,6 +36,8 @@ from backend.app.extraction.schema import ExtractedDocument
 from backend.app.ingestion.models import ParsedDocument
 from backend.app.jobs.queue import enqueue
 from backend.app.llm.client import LLMClient
+from backend.app.rag.embeddings import Embedder
+from backend.app.rag.index import index_document
 from backend.app.storage import save_file
 from backend.app.validation.models import IncompleteDocument
 from backend.app.validation.rules import Document, validate
@@ -49,6 +51,7 @@ class Services:
     llm: LLMClient
     model: str
     storage_root: Path
+    embedder: Embedder | None = None  # None: documents are not indexed for search
 
 
 def ingest_file(
@@ -121,6 +124,8 @@ def process_document(session: Session, document_id: str, owner_id: str, services
     )
 
     _store_result(session, document, record.raw)
+    if services.embedder is not None:
+        index_document(session, document, parsed, services.embedder)
     revalidate_owner(session, owner_id)
 
 
@@ -173,8 +178,14 @@ def _store_result(session: Session, document: DocumentRow, raw: ExtractedDocumen
             session.delete(old)
     session.flush()
 
-    converted, _errors = to_domain(raw, document.id)
     document.doc_type = raw.doc_type
+    if raw.doc_type == "other":
+        # Not a PO, delivery note or invoice (e.g. a supplier agreement): there are no
+        # fields to check, so nothing to review; it is still searchable.
+        document.status = "done"
+        session.flush()
+        return
+    converted, _errors = to_domain(raw, document.id)
     if converted is not None:
         session.add(document_to_row(converted, document.owner_id))
         document.status = "done"

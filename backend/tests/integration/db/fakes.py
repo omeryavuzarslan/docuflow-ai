@@ -17,6 +17,7 @@ from backend.app.llm.client import LLMClient
 from backend.app.pipeline.process import Services
 from backend.app.validation.rules import Document
 from backend.tests.unit.extraction.printed import printed
+from backend.tests.unit.rag.helpers import FakeEmbedder
 
 FAKE_PDF_PREFIX = b"%PDF-fake\n"
 
@@ -44,6 +45,7 @@ class FakeWorld:
             llm=LLMClient(cache_dir=tmp_path / "llm", anthropic_client=fake_anthropic),
             model="claude-haiku-5-5",
             storage_root=tmp_path / "storage",
+            embedder=FakeEmbedder(),
         )
 
     @property
@@ -70,7 +72,11 @@ class FakeWorld:
     def parse_llm(self, **kwargs: Any) -> SimpleNamespace:
         self.calls += 1
         truth_id = kwargs["messages"][0]["content"].split("\n")[1]
-        output: ExtractedDocument = printed(self.truth[truth_id])
+        output: ExtractedDocument = (
+            ExtractedDocument(doc_type="other")
+            if truth_id.startswith("agreement")
+            else printed(self.truth[truth_id])
+        )
         if truth_id in self.broken:
             output = output.model_copy(update={"supplier": ExtractedParty()})
         return SimpleNamespace(
