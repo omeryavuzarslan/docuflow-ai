@@ -18,28 +18,19 @@ reason every field is *required* in the schema the model sees (the API limits op
 fields), while Python code can still omit them thanks to the defaults.
 """
 
-from typing import Any, Literal
+from typing import Literal
 
-from pydantic import ConfigDict, Field
+from pydantic import Field
 
-from backend.app.domain.types import DomainModel
+from backend.app.llm.schema import LLMOutput
 
 DocType = Literal["purchase_order", "delivery_note", "invoice", "other"]
-
-
-def _all_required(schema: dict[str, Any]) -> None:
-    schema["required"] = list(schema.get("properties", {}))
-
-
-class _Extracted(DomainModel):
-    # Every property is listed as required in the JSON schema; defaults stay for Python.
-    model_config = ConfigDict(json_schema_extra=_all_required)
 
 
 _AS_PRINTED = "Copied exactly as printed, including any currency symbol; empty if absent."
 
 
-class ExtractedParty(_Extracted):
+class ExtractedParty(LLMOutput):
     name: str = ""
     vat_number: str = Field(default="", description="VAT registration number as printed.")
     address_line1: str = ""
@@ -48,7 +39,7 @@ class ExtractedParty(_Extracted):
     postcode: str = ""
 
 
-class ExtractedLine(_Extracted):
+class ExtractedLine(LLMOutput):
     line_no: str = ""
     sku: str = Field(default="", description="Item / product code.")
     description: str = ""
@@ -62,7 +53,7 @@ class ExtractedLine(_Extracted):
     line_vat: str = Field(default="", description="VAT amount of the line. " + _AS_PRINTED)
 
 
-class ExtractedDocument(_Extracted):
+class ExtractedDocument(LLMOutput):
     doc_type: DocType
     document_number: str = Field(
         default="",
