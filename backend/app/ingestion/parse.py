@@ -18,6 +18,7 @@ from docling.datamodel.pipeline_options import OcrAutoOptions, OcrMode, PdfPipel
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling_core.types.doc import (
     BoundingBox,
+    ContentLayer,
     CoordOrigin,
     DoclingDocument,
     ProvenanceItem,
@@ -36,7 +37,11 @@ from backend.app.ingestion.models import (
     TextBlock,
 )
 
-PARSER = f"docling {importlib.metadata.version('docling')}"
+# Bump PARSE_VERSION whenever our conversion changes what a ParsedDocument contains, so
+# caches built on parsed output are invalidated.
+#   2: include page headers/footers (Docling's "furniture" layer).
+PARSE_VERSION = 2
+PARSER = f"docling {importlib.metadata.version('docling')} parse-v{PARSE_VERSION}"
 
 
 def has_text_layer(path: Path) -> bool:
@@ -83,7 +88,11 @@ def _converter(ocr: bool) -> DocumentConverter:
 
 def _elements(document: DoclingDocument, pages: tuple[Page, ...]) -> list[Element]:
     elements: list[Element] = []
-    for item, _level in document.iterate_items():
+    # Docling puts page headers and footers in a separate "furniture" layer and leaves them
+    # out by default. On business documents that is where the issuer's address and VAT
+    # number often are, so we keep both layers.
+    layers = {ContentLayer.BODY, ContentLayer.FURNITURE}
+    for item, _level in document.iterate_items(included_content_layers=layers):
         if not isinstance(item, TextItem | TableItem) or not item.prov:
             continue  # pictures, groups, and anything without a position
         prov = _provenance(item.prov[0], pages)
