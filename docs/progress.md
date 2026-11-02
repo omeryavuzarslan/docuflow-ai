@@ -42,18 +42,19 @@ Updated at the end of each session.
   (OCR letter/digit and punctuation errors); see docs/experiments.md. Slow Docling tests are
   marked `slow` and skipped by default. Disk ran nearly full during model download; cleared
   the uv cache (~2.6 GB).
-- Step 3 decision: LLM provider is Claude (Anthropic API). Main model `claude-opus-5-5`;
-  `claude-sonnet-5-5` and `claude-haiku-5-5` proposed as cost comparisons (not yet confirmed).
-- Step 3 design (proposed, awaiting OK; no code yet):
-  - one `messages.parse()` call per document returns doc type + fields; amounts copied as
-    printed strings, Python converts to Decimal and builds the domain model (LLM does no math);
-  - provenance: Python locates each extracted value in the ParsedDocument (page + bbox);
-    not found => field flagged unverified (also a hallucination check);
-  - LLM wrapper in backend/app/llm with a disk cache keyed by (file sha256, prompt version,
-    model); versioned prompts; document text treated as data (prompt-injection rule);
-  - eval: doc-type accuracy, header field accuracy, line field accuracy, per digital/scan and
-    per model, with cost and latency;
-  - unit tests without API calls; one live test marked `slow`, skipped without a key.
-- Blocker for live runs: no ANTHROPIC_API_KEY on this machine. User to create a key and put
-  `ANTHROPIC_API_KEY=...` in `.env` (gitignored).
-- Next: user confirms design + comparison models, then implement on `feat/llm-extraction`.
+- Step 3, LLM extraction (branch `feat/llm-extraction`):
+  - `backend/app/extraction`: ExtractedDocument schema (all strings, as printed; empty
+    string = absent; every field required in the JSON schema, because the API rejected the
+    first schema as "too complex"), strict parsers to Decimal/date (no OCR "repairs"),
+    to_domain with per-field error list, provenance lookup in the ParsedDocument.
+  - `backend/app/llm`: LLMClient (`messages.parse`, effort low, disk cache keyed by file
+    hash + input-text hash + prompt version + model, USD cost as Decimal); versioned prompts
+    `extract-v1`, `extract-v2`.
+  - Parser fix (parse-v2): keep Docling's furniture layer; the modern template's header band
+    (issuer address + VAT number) was being dropped.
+  - Eval `eval/runners/extraction_eval.py` with `--estimate` and `--max-cost`.
+  - Results (docs/experiments.md): v1 all three models, $1.95; v2 Haiku: digital 100% of
+    documents fully correct, scans 80%, $0.0007/doc. Default extractor: Haiku 5.5.
+  - API spend so far ~$2.04 of $5 credit.
+- Next: commit + PR for step 3; then roadmap step 4 (matching + rule engine), design first.
+  Optional later: re-run Sonnet/Opus on v2 (~$2), stronger OCR for scans.
