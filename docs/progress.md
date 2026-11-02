@@ -78,4 +78,13 @@ Updated at the end of each session.
   flaky) and `extractions.cached` (spend reports must not count cache hits).
   Real run: seed-42's 25 PDFs through Docling + cached Haiku -> all done, exactly the 6
   injected errors in `discrepancies`, $0 spent.
-- Next: 5c FastAPI endpoints.
+- Step 5b merged (PR #9).
+- Step 5c, API (branch `feat/api`): FastAPI app (`backend/app/api`) with health, upload
+  (PDF magic-byte check, 20 MB limit, dedupe -> 200), document list/detail (typed document,
+  latest raw extraction, provenance, corrections, findings), original file download,
+  corrections (field paths, raw kept, document rebuilt, revalidated; moves needs_review
+  documents to done), findings list/filter and status update, job status. Owner via
+  `X-Owner-Id`; other owners get 404. Migration: `corrections.seq` (ordering). Shared test
+  fakes in `backend/tests/integration/db/fakes.py`. Tried live: /docs page and
+  GET /discrepancies on the demo data return the 6 findings.
+- Next: commit + PR for 5c; then roadmap step 6 (RAG v1: eval set first).

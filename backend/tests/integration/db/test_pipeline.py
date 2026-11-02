@@ -1,80 +1,17 @@
 """The processing pipeline end to end against Postgres, with a fake parser and a fake LLM:
 no Docling, no API calls, no cost."""
 
-import hashlib
 from pathlib import Path
-from types import SimpleNamespace
-from typing import Any
 
 import pytest
 from sqlalchemy import select
 from sqlalchemy.orm import Session, sessionmaker
 
 from backend.app.db.models import DiscrepancyRow, DocumentRow, ExtractionRow, InvoiceRow, JobRow
-from backend.app.domain.document_set import DocumentSet
-from backend.app.extraction.schema import ExtractedDocument, ExtractedParty
-from backend.app.ingestion.models import BBox, Page, ParsedDocument, Provenance, TextBlock
-from backend.app.llm.client import LLMClient
-from backend.app.pipeline.process import Services, ingest_file, process_document
-from backend.app.validation.rules import Document
+from backend.app.pipeline.process import ingest_file, process_document
 from backend.app.worker import run_until_empty
-from backend.tests.unit.extraction.printed import printed
+from backend.tests.integration.db.fakes import OWNER, FakeWorld, fake_pdf
 from data_generator.generate import generate
-
-OWNER = "owner-a"
-PROV = Provenance(page=1, bbox=BBox(left=0, top=0, right=1, bottom=1))
-
-
-class FakeWorld:
-    """Fake files are just the generated document id as bytes. The fake parser turns them
-    into a one-block ParsedDocument; the fake LLM answers with the perfect extraction of
-    that document, unless told to break one."""
-
-    def __init__(self, sets: list[DocumentSet], tmp_path: Path) -> None:
-        self.truth: dict[str, Document] = {}
-        for s in sets:
-            documents: list[Document] = [s.purchase_order, s.delivery_note, *s.invoices]
-            for d in documents:
-                self.truth[d.document_id] = d
-        self.broken: set[str] = set()
-        self.calls = 0
-        fake_anthropic = SimpleNamespace(messages=SimpleNamespace(parse=self.parse_llm))
-        self.services = Services(
-            parse=self.parse_pdf,
-            llm=LLMClient(cache_dir=tmp_path / "llm", anthropic_client=fake_anthropic),
-            model="claude-haiku-5-5",
-            storage_root=tmp_path / "storage",
-        )
-
-    def parse_pdf(self, path: Path) -> ParsedDocument:
-        data = path.read_bytes()
-        return ParsedDocument(
-            source=path.name,
-            sha256=hashlib.sha256(data).hexdigest(),
-            parser="fake",
-            ocr=False,
-            pages=(Page(number=1, width=595, height=842),),
-            elements=(TextBlock(label="text", text=data.decode(), prov=PROV),),
-            markdown="",
-        )
-
-    # Stands in for anthropic.Anthropic().messages
-    def parse_llm(self, **kwargs: Any) -> SimpleNamespace:
-        self.calls += 1
-        truth_id = kwargs["messages"][0]["content"].split("\n")[1]
-        output: ExtractedDocument = printed(self.truth[truth_id])
-        if truth_id in self.broken:
-            output = output.model_copy(update={"supplier": ExtractedParty()})
-        return SimpleNamespace(
-            parsed_output=output,
-            stop_reason="end_turn",
-            usage=SimpleNamespace(
-                input_tokens=1000,
-                output_tokens=300,
-                cache_read_input_tokens=0,
-                cache_creation_input_tokens=0,
-            ),
-        )
 
 
 @pytest.fixture
@@ -87,7 +24,7 @@ def _ingest_all(session: Session, world: FakeWorld, owner: str = OWNER) -> dict[
     ids = {}
     for truth_id in world.truth:
         row, _ = ingest_file(
-            session, owner, f"{truth_id}.pdf", truth_id.encode(), world.services.storage_root
+            session, owner, f"{truth_id}.pdf", fake_pdf(truth_id), world.services.storage_root
         )
         ids[truth_id] = row.id
     session.commit()
@@ -105,15 +42,21 @@ def _found(session: Session, owner: str = OWNER) -> list[tuple[str, str]]:
 
 
 def test_ingest_stores_the_file_and_queues_one_job(session: Session, world: FakeWorld) -> None:
-    row, job = ingest_file(session, OWNER, "a.pdf", b"set-001-po", world.services.storage_root)
+    row, job = ingest_file(
+        session, OWNER, "a.pdf", fake_pdf("set-001-po"), world.services.storage_root
+    )
     assert row.status == "queued"
-    assert Path(row.storage_path or "").read_bytes() == b"set-001-po"
+    assert Path(row.storage_path or "").read_bytes() == fake_pdf("set-001-po")
     assert job is not None and job.payload == {"document_id": row.id}
 
 
 def test_uploading_the_same_file_again_does_nothing_new(session: Session, world: FakeWorld) -> None:
-    first, _ = ingest_file(session, OWNER, "a.pdf", b"set-001-po", world.services.storage_root)
-    again, job = ingest_file(session, OWNER, "copy.pdf", b"set-001-po", world.services.storage_root)
+    first, _ = ingest_file(
+        session, OWNER, "a.pdf", fake_pdf("set-001-po"), world.services.storage_root
+    )
+    again, job = ingest_file(
+        session, OWNER, "copy.pdf", fake_pdf("set-001-po"), world.services.storage_root
+    )
     assert again.id == first.id
     assert job is None
     assert len(session.scalars(select(JobRow)).all()) == 1
@@ -155,7 +98,9 @@ def test_unreadable_document_goes_to_review_without_knock_on_alarms(
 def test_reprocessing_adds_a_new_extraction_version_and_keeps_the_old(
     session: Session, world: FakeWorld
 ) -> None:
-    row, _ = ingest_file(session, OWNER, "inv.pdf", b"set-003-inv-1", world.services.storage_root)
+    row, _ = ingest_file(
+        session, OWNER, "inv.pdf", fake_pdf("set-003-inv-1"), world.services.storage_root
+    )
     process_document(session, row.id, OWNER, world.services)
     process_document(session, row.id, OWNER, world.services)
 
@@ -206,7 +151,7 @@ def test_owners_never_see_each_others_documents(session: Session, world: FakeWor
                 session,
                 "owner-b",
                 f"{truth_id}.pdf",
-                truth_id.encode(),
+                fake_pdf(truth_id),
                 world.services.storage_root,
             )
             ids_b[truth_id] = row.id

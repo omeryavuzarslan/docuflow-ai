@@ -139,6 +139,8 @@ class CorrectionRow(_Owned, _Timestamps, Base):
     __tablename__ = "corrections"
 
     id: Mapped[str] = mapped_column(String(36), primary_key=True, default=_uuid)
+    # Order of application; timestamps can tie inside one transaction.
+    seq: Mapped[int] = mapped_column(BigInteger, Identity(), unique=True)
     document_id: Mapped[str] = mapped_column(
         ForeignKey("documents.id", ondelete="CASCADE"), index=True
     )
