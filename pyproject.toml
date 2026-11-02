@@ -6,6 +6,7 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
+    "anthropic>=2.3.0",
     "docling>=2.145.0",
     "jinja2>=3.1.6",
     "numpy>=2.5.4",
@@ -62,7 +63,8 @@ warn_required_dynamic_aliases = true
 [tool.pytest.ini_options]
 testpaths = ["backend/tests", "data_generator/tests", "eval/tests"]
 pythonpath = ["."]
-addopts = "-ra --strict-markers -m 'not slow'"
+addopts = "-ra --strict-markers -m 'not slow and not live'"
 markers = [
     "slow: runs the Docling models (model load + OCR); run with `uv run pytest -m slow`",
+    "live: calls the paid Claude API; run with `uv run --env-file .env pytest -m live`",
 ]

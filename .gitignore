@@ -7,6 +7,8 @@ build/
 dist/
 
 # Tool caches
+# LLM responses and parsed PDFs, keyed by content hash
+.cache/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/

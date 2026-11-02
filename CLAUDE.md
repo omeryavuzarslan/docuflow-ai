@@ -33,10 +33,12 @@ explain every design decision in an interview.
 uv sync                              # install dependencies
 uv run pytest                        # tests (fast; skips `slow`)
 uv run pytest -m slow                # Docling model tests (~30 s)
+uv run --env-file .env pytest -m live   # paid Claude API tests
 uv run ruff check . && uv run ruff format .
 uv run mypy backend data_generator eval
 uv run python -m data_generator --seed 42 --sets 8
 uv run python -m eval.runners.parse_eval --dataset data_generator/output/seed-42
+uv run --env-file .env python -m eval.runners.extraction_eval --dataset data_generator/output/seed-42 --estimate
 ```
 
 macOS needs `brew install pango` for WeasyPrint. Docling downloads ~500 MB of models to
@@ -56,9 +58,11 @@ macOS needs `brew install pango` for WeasyPrint. Docling downloads ~500 MB of mo
 - Pydantic domain models in `backend/app/domain/` are the single source of truth for the
   data generator and extraction schemas. SQLAlchemy models are written separately with
   explicit mapping functions to/from the domain models; a test checks they stay in sync.
-- LLM calls go through one client wrapper with a cache keyed by
-  `(file_hash, prompt_version, model)`. Prompts are versioned. LLM provider and model:
-  to be decided at roadmap step 3.
+- LLM calls go through one client wrapper (`backend/app/llm/client.py`) with a disk cache
+  keyed by `(file_hash, input_text_hash, prompt_version, model)`. Prompts are versioned
+  files and never edited once results depend on them. Provider: Claude (Anthropic API);
+  default extractor `claude-haiku-5-5` (see docs/experiments.md). Every paid run first
+  prints an estimate and respects `--max-cost`.
 - Store provenance (page + bbox) for every extracted field.
 - Keep raw LLM extraction and human-corrected values separate and versioned.
 - The LLM never writes SQL. Structured questions use fixed, parameterised query functions.
