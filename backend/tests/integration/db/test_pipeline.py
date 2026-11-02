@@ -165,3 +165,23 @@ def test_owners_never_see_each_others_documents(session: Session, world: FakeWor
     assert "unmatched_document" in types_b
     with pytest.raises(PermissionError):
         process_document(session, ids_a["set-001-po"], "owner-b", world.services)
+
+
+def test_processed_documents_are_searchable_and_agreements_need_no_review(
+    session: Session, world: FakeWorld
+) -> None:
+    from backend.app.db.models import ChunkRow
+    from backend.app.rag.retrieve import search
+
+    invoice, _ = ingest_file(session, OWNER, "inv.pdf", fake_pdf("set-003-inv-1"), world.root)
+    agreement, _ = ingest_file(session, OWNER, "sa.pdf", fake_pdf("agreement-001"), world.root)
+    process_document(session, invoice.id, OWNER, world.services)
+    process_document(session, agreement.id, OWNER, world.services)
+
+    assert (agreement.status, agreement.doc_type) == ("done", "other")
+    assert session.scalars(
+        select(ChunkRow.document_id).where(ChunkRow.document_id == agreement.id)
+    ).first()
+    assert world.services.embedder is not None
+    hits = search(session, OWNER, "set-003-inv-1", world.services.embedder, k=1)
+    assert hits[0].document_id == invoice.id

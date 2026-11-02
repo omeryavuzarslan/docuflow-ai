@@ -94,4 +94,12 @@ Updated at the end of each session.
 - 6a (branch `feat/supplier-agreements`): SupplierAgreement domain model (typed terms,
   price list, prose sections), generator with one agreement per supplier/buyer pair
   (15, varied phrasing per clause), PDF template, dataset output under `agreements/`.
-- Next: 6b.
+- 6a merged (PR #11).
+- 6b (branch `feat/retrieval`): chunking (structure-aware: one chunk per section and per
+  table row, each prefixed with the document's title/reference line; fixed-size windows as
+  the baseline), local embeddings (BAAI/bge-small-en-v1.5, 384-d, normalised, query prefix),
+  `chunks` table with pgvector + HNSW cosine index (migration also ensures the extension),
+  owner-scoped `search`, `index_document`; the worker indexes every processed document;
+  documents of type "other" (agreements) are `done`, not `needs_review`. Slow test: the real
+  model finds the right clause of the right contract among 15 near-identical agreements.
+- Next: 6c retrieval eval set (Recall@K, MRR) and the structure-vs-fixed experiment.
