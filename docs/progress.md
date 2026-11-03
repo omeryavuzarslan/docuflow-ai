@@ -113,4 +113,11 @@ Updated at the end of each session.
   GIN, migration), code tokens without hyphens, code-match list, RRF hybrid, doc-type filter,
   metadata context line for extracted documents, header-less table fix, deterministic ties.
   Eval: hybrid + type filter -> Recall@5 100% on both clause and code questions (exact NN).
-- Next: 7b query router (Haiku, structured output, fixed SQL functions), then 7c answers.
+- 7a merged (PR #14).
+- 7b (branch `feat/query-router`): fixed SQL query functions (invoice totals, document lookup,
+  findings; owner-scoped, LIKE-escaped, Decimal sums), `LLMOutput` base for structured outputs,
+  router prompt `route-v1` + `route_question` (Haiku, cached) + `dispatch` (validates dates,
+  maps doc types to the search filter, unsupported does nothing). Router eval: 43/43 correct
+  incl. SQL results; $0.0077. Limit: templated questions.
+- 7b committed locally on `feat/query-router` (not pushed, not merged): push + PR + merge first next session.
+- Next: 7c answers with citations and POST /ask.
