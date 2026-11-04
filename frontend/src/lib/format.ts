@@ -37,6 +37,6 @@ export function shortName(filename: string): string {
 
 /** "quantity_mismatch" -> "Quantity mismatch" */
 export function humanise(text: string) {
-  const s = text.replace(/_/g, " ");
+  const s = text.replace(/_/g, " ").replace(/\b(vat|po|dn|sku)\b/gi, (w) => w.toUpperCase());
   return s.charAt(0).toUpperCase() + s.slice(1);
 }

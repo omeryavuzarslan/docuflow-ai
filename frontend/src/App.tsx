@@ -6,6 +6,7 @@ import { Sidebar } from "./components/Sidebar";
 import { ComingSoon } from "./pages/ComingSoon";
 import { DocumentPage } from "./pages/DocumentPage";
 import { DocumentsPage } from "./pages/DocumentsPage";
+import { FindingsPage } from "./pages/FindingsPage";
 
 export default function App() {
   const openFindings = useQuery({
@@ -21,10 +22,7 @@ export default function App() {
           <Route path="/" element={<Navigate to="/documents" replace />} />
           <Route path="/documents" element={<DocumentsPage />} />
           <Route path="/documents/:id" element={<DocumentPage />} />
-          <Route
-            path="/findings"
-            element={<ComingSoon title="Findings" description="Every discrepancy in one inbox, with resolve and dismiss, arrives in 8c." />}
-          />
+          <Route path="/findings" element={<FindingsPage />} />
           <Route
             path="/ask"
             element={<ComingSoon title="Ask" description="Questions answered from your documents, with citations, arrive in 8d." />}
