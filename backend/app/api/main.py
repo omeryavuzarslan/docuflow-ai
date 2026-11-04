@@ -14,6 +14,8 @@ import os
 import re
 from collections.abc import AsyncIterator, Iterator
 from contextlib import asynccontextmanager
+from dataclasses import asdict
+from datetime import date
 from pathlib import Path
 from typing import Annotated
 
@@ -33,6 +35,8 @@ from sqlalchemy import select, text
 from sqlalchemy.orm import Session, sessionmaker
 
 from backend.app.api.schemas import (
+    AskIn,
+    AskOut,
     CorrectionIn,
     CorrectionOut,
     DiscrepancyOut,
@@ -47,22 +51,31 @@ from backend.app.db.mapping import ROW_CLASSES, DocumentRowType, document_from_r
 from backend.app.db.models import CorrectionRow, DiscrepancyRow, DocumentRow, ExtractionRow, JobRow
 from backend.app.db.session import make_engine, make_session_factory
 from backend.app.extraction.corrections import InvalidFieldError
+from backend.app.llm.client import LLMClient
 from backend.app.pipeline.process import apply_correction, ingest_file, revalidate_owner
+from backend.app.query.answer import answer_question
+from backend.app.rag.embeddings import Embedder, LocalEmbedder
 
 MAX_UPLOAD_BYTES = 20 * 1024 * 1024
 _OWNER = re.compile(r"[A-Za-z0-9_-]{1,64}")
 
 
 def create_app(
-    session_factory: sessionmaker[Session] | None = None, storage_root: Path | None = None
+    session_factory: sessionmaker[Session] | None = None,
+    storage_root: Path | None = None,
+    llm: LLMClient | None = None,
+    embedder: Embedder | None = None,
 ) -> FastAPI:
-    """Build the app. Tests pass their own session factory and storage; the server builds
-    them from DATABASE_URL and STORAGE_DIR."""
+    """Build the app. Tests pass their own session factory, storage, LLM client and
+    embedder; the server builds them from DATABASE_URL, STORAGE_DIR and LLM_CACHE_DIR."""
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         app.state.session_factory = session_factory or make_session_factory(make_engine())
         app.state.storage_root = storage_root or Path(os.environ.get("STORAGE_DIR", "storage"))
+        app.state.llm = llm or LLMClient(Path(os.environ.get("LLM_CACHE_DIR", ".cache/llm")))
+        app.state.embedder = embedder or LocalEmbedder()  # loads the model on first use
+        app.state.model = os.environ.get("ANSWER_MODEL", "claude-haiku-5-5")
         yield
 
     app = FastAPI(
@@ -256,6 +269,21 @@ def _routes(app: FastAPI) -> None:
         if result is None:  # reopened, and the rules no longer find it
             raise HTTPException(status.HTTP_404_NOT_FOUND, "discrepancy no longer applies")
         return result
+
+    @app.post("/ask", response_model=AskOut)
+    def ask(body: AskIn, request: Request, session: SessionDep, owner: OwnerDep) -> AskOut:
+        """Answer a question about the owner's documents. Numbers come from SQL; text
+        answers cite the passages they rely on (file, page and box)."""
+        result = answer_question(
+            session,
+            owner,
+            body.question,
+            request.app.state.llm,
+            request.app.state.embedder,
+            request.app.state.model,
+            date.today(),
+        )
+        return AskOut.model_validate(asdict(result))
 
     @app.get("/jobs/{job_id}", response_model=JobOut)
     def get_job(job_id: str, session: SessionDep, owner: OwnerDep) -> JobRow:

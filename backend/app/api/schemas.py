@@ -87,3 +87,29 @@ class JobOut(_Out):
     max_attempts: int
     last_error: str | None
     created_at: datetime
+
+
+class AskIn(BaseModel):
+    question: str = Field(min_length=1, max_length=1000)
+
+
+class CitationOut(BaseModel):
+    number: int
+    document_id: str
+    filename: str
+    heading: str
+    page: int
+    bbox: dict[str, Any]
+    text: str
+
+
+class AskOut(BaseModel):
+    question: str
+    intent: str
+    answer: str
+    answerable: bool
+    citations: list[CitationOut]
+    sources: list[CitationOut]
+    data: dict[str, Any]
+    cost_usd: Decimal
+    warnings: list[str]

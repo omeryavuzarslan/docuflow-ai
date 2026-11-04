@@ -38,7 +38,8 @@ class Hit:
     document_id: str
     filename: str
     heading: str
-    body: str
+    body: str  # the passage itself, for display
+    text: str  # context line + heading + body: what was embedded, and what an LLM needs
     page: int
     bbox: dict[str, Any]
     score: float  # dense: cosine similarity; keyword: ts_rank; hybrid: RRF score
@@ -68,6 +69,7 @@ def _hit(chunk: ChunkRow, filename: str, score: float) -> Hit:
         filename=filename,
         heading=chunk.heading,
         body=chunk.body,
+        text=chunk.text,
         page=chunk.page,
         bbox=chunk.bbox,
         score=score,
