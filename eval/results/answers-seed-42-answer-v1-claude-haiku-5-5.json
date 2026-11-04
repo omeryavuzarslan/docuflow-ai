@@ -1,0 +1,966 @@
+{
+  "summary": {
+    "model": "claude-haiku-5-5",
+    "prompts": [
+      "route-v1",
+      "answer-v1"
+    ],
+    "answerable_questions": 50,
+    "routed_to_search": 1.0,
+    "fact_in_answer": 1.0,
+    "correct_citation": 1.0,
+    "numbers_grounded": 1.0,
+    "unanswerable_questions": 10,
+    "abstained_correctly": 1.0,
+    "spent_usd": "0.0120656"
+  },
+  "results": [
+    {
+      "id": "agreement-014:returns_window",
+      "kind": "returns_window",
+      "question": "Until when can Linden Logistics Ltd send unused goods back to Northgate Packaging Ltd?",
+      "answer": "Under the Framework Supply Agreement SA-2025-014 between Northgate Packaging Ltd and Linden Logistics Ltd, unused goods in original packaging may be returned within 14 days for a full credit. The sources do not state a calendar date for this deadline. Source 5 gives a 28-day return period, but it belongs to a different agreement, SA-2025-008 with BrightWay Hygiene Ltd, so it does not apply here.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-014.pdf / 5. Shortages, damage and returns",
+        "agreement-008.pdf / 5. Shortages, damage and returns"
+      ]
+    },
+    {
+      "id": "agreement-010:price_fixed",
+      "kind": "price_fixed",
+      "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Harbour & Hale Retail plc fixed?",
+      "answer": "Under framework supply agreement SA-2025-010 between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc, prices are those in Schedule 1 and remain unchanged for 6 months from the effective date.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-010.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-001:minimum_order",
+      "kind": "minimum_order",
+      "question": "What is the smallest order Harbour & Hale Retail plc may place with Kestrel Office Supplies Ltd?",
+      "answer": "Under framework supply agreement SA-2025-001 between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc, each purchase order must have a value of at least \u00a3150.00 excluding VAT.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-001.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-002:lead_time",
+      "kind": "lead_time",
+      "question": "How quickly does Kestrel Office Supplies Ltd have to deliver an order placed by Linden Logistics Ltd?",
+      "answer": "Under Framework Supply Agreement SA-2025-002 between Kestrel Office Supplies Ltd and Linden Logistics Ltd, the Supplier shall deliver within 2 working days of receiving a purchase order. Partial deliveries are permitted, with the balance delivered as soon as available.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-002.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-011:price_notice",
+      "kind": "price_notice",
+      "question": "How much notice must Fenwick Industrial Supplies Ltd give Linden Logistics Ltd before increasing prices?",
+      "answer": "Under framework supply agreement SA-2025-011 between Fenwick Industrial Supplies Ltd and Linden Logistics Ltd, any price increase after the first 6 months from the effective date is capped at 5% per review and requires 90 days' notice in writing.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-011.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-007:shortage_window",
+      "kind": "shortage_window",
+      "question": "How soon must Harbour & Hale Retail plc tell BrightWay Hygiene Ltd about missing or damaged goods?",
+      "answer": "Under framework supply agreement SA-2025-007, Harbour & Hale Retail plc must report any shortage or damage to BrightWay Hygiene Ltd within 72 hours of delivery.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-007.pdf / 5. Shortages, damage and returns"
+      ]
+    },
+    {
+      "id": "agreement-006:lead_time",
+      "kind": "lead_time",
+      "question": "How quickly does Paperline Direct Ltd have to deliver an order placed by Ashcombe Hotels Ltd?",
+      "answer": "Under framework supply agreement SA-2025-006 between Paperline Direct Ltd and Ashcombe Hotels Ltd, the Supplier shall deliver within 2 working days of receiving a purchase order. Partial deliveries are permitted, with the balance delivered as soon as available.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-006.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-010:price_notice",
+      "kind": "price_notice",
+      "question": "How much notice must Fenwick Industrial Supplies Ltd give Harbour & Hale Retail plc before increasing prices?",
+      "answer": "Under Framework Supply Agreement SA-2025-010 between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc, after the initial 6-month price freeze the Supplier may increase prices by no more than 5% at any one review and requires 60 days' notice in writing.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-010.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-001:lead_time",
+      "kind": "lead_time",
+      "question": "How quickly does Kestrel Office Supplies Ltd have to deliver an order placed by Harbour & Hale Retail plc?",
+      "answer": "Under framework supply agreement SA-2025-001 between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc, the Supplier shall deliver within 10 working days of receiving a purchase order.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-001.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-008:price_notice",
+      "kind": "price_notice",
+      "question": "How much notice must BrightWay Hygiene Ltd give Linden Logistics Ltd before increasing prices?",
+      "answer": "BrightWay Hygiene Ltd must give Linden Logistics Ltd 90 days' notice in writing before increasing prices, under the Framework Supply Agreement SA-2025-008; prices are fixed for the first 6 months and any increase is capped at 6% per review.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-008.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-005:minimum_order",
+      "kind": "minimum_order",
+      "question": "What is the smallest order Linden Logistics Ltd may place with Paperline Direct Ltd?",
+      "answer": "Under framework supply agreement SA-2025-005, the Buyer (Linden Logistics Ltd) will not place orders below \u00a3150.00 (net of VAT), so \u00a3150.00 net of VAT is the smallest order it may place with Paperline Direct Ltd.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-005.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-007:price_list",
+      "kind": "price_list",
+      "question": "What unit price did Harbour & Hale Retail plc agree with BrightWay Hygiene Ltd for Hand soap refill, 5 litre?",
+      "answer": "Under Framework Supply Agreement SA-2025-007 between BrightWay Hygiene Ltd and Harbour & Hale Retail plc, Schedule 1 lists the unit price for Hand soap refill, 5 litre (Item Code CL-2005) as \u00a311.48.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-007.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-014:price_cap",
+      "kind": "price_cap",
+      "question": "By how much may Northgate Packaging Ltd raise its prices to Linden Logistics Ltd at a review?",
+      "answer": "Under framework supply agreement SA-2025-014 between Northgate Packaging Ltd and Linden Logistics Ltd, after the initial 6-month price freeze the supplier may increase prices by no more than 5% at any one review, with 30 days' notice in writing.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-014.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-001:price_fixed",
+      "kind": "price_fixed",
+      "question": "For how long are Kestrel Office Supplies Ltd's prices to Harbour & Hale Retail plc fixed?",
+      "answer": "Kestrel Office Supplies Ltd's prices to Harbour & Hale Retail plc are fixed for 12 months from the effective date, under framework supply agreement SA-2025-001 (clause 3, Prices and price review). Any later increase is capped at 5% per review and requires 30 days' notice in writing.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-001.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-003:lead_time",
+      "kind": "lead_time",
+      "question": "How quickly does Kestrel Office Supplies Ltd have to deliver an order placed by Ashcombe Hotels Ltd?",
+      "answer": "Under framework supply agreement SA-2025-003 between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd, goods are to be delivered no later than 10 working days after the order is accepted. Partial deliveries are permitted, with the balance delivered as soon as available.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-003.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-012:price_notice",
+      "kind": "price_notice",
+      "question": "How much notice must Fenwick Industrial Supplies Ltd give Ashcombe Hotels Ltd before increasing prices?",
+      "answer": "Under the Framework Supply Agreement SA-2025-012 between Fenwick Industrial Supplies Ltd and Ashcombe Hotels Ltd, the Supplier must give at least 30 days' written notice before increasing prices, and any increase is capped at 3% per review after prices remain unchanged for 6 months from the effective date.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-012.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-013:shortage_window",
+      "kind": "shortage_window",
+      "question": "How soon must Harbour & Hale Retail plc tell Northgate Packaging Ltd about missing or damaged goods?",
+      "answer": "Under framework supply agreement SA-2025-013 between Northgate Packaging Ltd and Harbour & Hale Retail plc, shortages and damaged goods must be notified to the Supplier within 48 hours. This is different from agreement SA-2025-015 with Ashcombe Hotels Ltd, which states 72 hours, but that agreement does not apply to Harbour & Hale.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-013.pdf / 5. Shortages, damage and returns",
+        "agreement-013.pdf / 1. Parties and term",
+        "agreement-015.pdf / 5. Shortages, damage and returns"
+      ]
+    },
+    {
+      "id": "agreement-011:price_fixed",
+      "kind": "price_fixed",
+      "question": "For how long are Fenwick Industrial Supplies Ltd's prices to Linden Logistics Ltd fixed?",
+      "answer": "According to the Framework Supply Agreement SA-2025-011 between Fenwick Industrial Supplies Ltd and Linden Logistics Ltd, prices are those in Schedule 1 and remain unchanged for 6 months from the effective date.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-011.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-006:price_list",
+      "kind": "price_list",
+      "question": "What unit price did Ashcombe Hotels Ltd agree with Paperline Direct Ltd for Whiteboard markers, assorted, pack of 4?",
+      "answer": "Under Framework Supply Agreement SA-2025-006 between Paperline Direct Ltd and Ashcombe Hotels Ltd, the unit price for Whiteboard markers, assorted, pack of 4 (item code OF-1006) is \u00a35.77.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-006.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-004:termination",
+      "kind": "termination",
+      "question": "How much notice ends the agreement between Paperline Direct Ltd and Harbour & Hale Retail plc?",
+      "answer": "Either party may end the Framework Supply Agreement SA-2025-004 between Paperline Direct Ltd and Harbour & Hale Retail plc by giving 60 days' written notice.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-004.pdf / 6. Termination"
+      ]
+    },
+    {
+      "id": "agreement-004:price_cap",
+      "kind": "price_cap",
+      "question": "By how much may Paperline Direct Ltd raise its prices to Harbour & Hale Retail plc at a review?",
+      "answer": "Under framework supply agreement SA-2025-004 between Paperline Direct Ltd and Harbour & Hale Retail plc, prices remain unchanged for 12 months from the effective date, and any later increase is capped at 4% per review, with at least 90 days' written notice.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-004.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-014:minimum_order",
+      "kind": "minimum_order",
+      "question": "What is the smallest order Linden Logistics Ltd may place with Northgate Packaging Ltd?",
+      "answer": "Linden Logistics Ltd may not place orders below \u00a3150.00 (net of VAT) with Northgate Packaging Ltd, according to the Framework Supply Agreement SA-2025-014.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-014.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-010:payment_terms",
+      "kind": "payment_terms",
+      "question": "How many days does Harbour & Hale Retail plc have to pay invoices from Fenwick Industrial Supplies Ltd?",
+      "answer": "Under framework supply agreement SA-2025-010 between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc, the Buyer must pay undisputed invoices within 14 days of the invoice date.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-010.pdf / 4. Invoicing and payment"
+      ]
+    },
+    {
+      "id": "agreement-002:payment_terms",
+      "kind": "payment_terms",
+      "question": "How many days does Linden Logistics Ltd have to pay invoices from Kestrel Office Supplies Ltd?",
+      "answer": "Under framework supply agreement SA-2025-002 between Kestrel Office Supplies Ltd and Linden Logistics Ltd, the Buyer shall pay undisputed invoices within 14 days of the invoice date.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-002.pdf / 4. Invoicing and payment"
+      ]
+    },
+    {
+      "id": "agreement-001:termination",
+      "kind": "termination",
+      "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc?",
+      "answer": "The framework supply agreement SA-2025-001 between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc may be terminated by either party on 60 days' notice in writing.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-001.pdf / 6. Termination"
+      ]
+    },
+    {
+      "id": "agreement-003:shortage_window",
+      "kind": "shortage_window",
+      "question": "How soon must Ashcombe Hotels Ltd tell Kestrel Office Supplies Ltd about missing or damaged goods?",
+      "answer": "Under framework supply agreement SA-2025-003, shortages and damaged goods must be notified to the Supplier, Kestrel Office Supplies Ltd, within 72 hours.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-003.pdf / 5. Shortages, damage and returns"
+      ]
+    },
+    {
+      "id": "agreement-014:price_fixed",
+      "kind": "price_fixed",
+      "question": "For how long are Northgate Packaging Ltd's prices to Linden Logistics Ltd fixed?",
+      "answer": "According to the Framework Supply Agreement SA-2025-014 between Northgate Packaging Ltd and Linden Logistics Ltd, prices in Schedule 1 remain unchanged for 6 months from the effective date.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-014.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-011:late_interest",
+      "kind": "late_interest",
+      "question": "What interest can Fenwick Industrial Supplies Ltd charge Linden Logistics Ltd on late payments?",
+      "answer": "Under framework supply agreement SA-2025-011 between Fenwick Industrial Supplies Ltd and Linden Logistics Ltd, late payments carry interest at 4% a year above the Bank of England base rate.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-011.pdf / 4. Invoicing and payment"
+      ]
+    },
+    {
+      "id": "agreement-011:returns_window",
+      "kind": "returns_window",
+      "question": "Until when can Linden Logistics Ltd send unused goods back to Fenwick Industrial Supplies Ltd?",
+      "answer": "Under framework supply agreement SA-2025-011 between Fenwick Industrial Supplies Ltd and Linden Logistics Ltd, returns are accepted for 14 days if the goods are unused and in their original packaging. The sources do not state a specific calendar date for this, and the 14 days are not explicitly stated to run from delivery.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-011.pdf / 5. Shortages, damage and returns"
+      ]
+    },
+    {
+      "id": "agreement-008:late_interest",
+      "kind": "late_interest",
+      "question": "What interest can BrightWay Hygiene Ltd charge Linden Logistics Ltd on late payments?",
+      "answer": "Under framework supply agreement SA-2025-008 between BrightWay Hygiene Ltd and Linden Logistics Ltd, interest on overdue sums runs at 8% per annum over base rate.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-008.pdf / 4. Invoicing and payment"
+      ]
+    },
+    {
+      "id": "agreement-005:termination",
+      "kind": "termination",
+      "question": "How much notice ends the agreement between Paperline Direct Ltd and Linden Logistics Ltd?",
+      "answer": "Under the Framework Supply Agreement SA-2025-005 between Paperline Direct Ltd and Linden Logistics Ltd, either party may end the agreement by giving 60 days' written notice. Orders placed before termination remain binding.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-005.pdf / 6. Termination"
+      ]
+    },
+    {
+      "id": "agreement-003:termination",
+      "kind": "termination",
+      "question": "How much notice ends the agreement between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd?",
+      "answer": "The framework supply agreement SA-2025-003 between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd may be terminated by either party on 30 days' notice in writing. Orders placed before termination remain binding.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-003.pdf / 6. Termination"
+      ]
+    },
+    {
+      "id": "agreement-015:price_fixed",
+      "kind": "price_fixed",
+      "question": "For how long are Northgate Packaging Ltd's prices to Ashcombe Hotels Ltd fixed?",
+      "answer": "Under the Framework Supply Agreement SA-2025-015 between Northgate Packaging Ltd and Ashcombe Hotels Ltd, the Schedule 1 prices remain unchanged for 6 months from the effective date. Any later increase is capped at 5% per review, with at least 90 days' written notice.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-015.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-009:minimum_order",
+      "kind": "minimum_order",
+      "question": "What is the smallest order Ashcombe Hotels Ltd may place with BrightWay Hygiene Ltd?",
+      "answer": "The smallest order Ashcombe Hotels Ltd may place with BrightWay Hygiene Ltd is a purchase order with a value of at least \u00a3150.00 excluding VAT, as stated in framework supply agreement SA-2025-009.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-009.pdf / 2. Orders and delivery"
+      ]
+    },
+    {
+      "id": "agreement-007:payment_terms",
+      "kind": "payment_terms",
+      "question": "How many days does Harbour & Hale Retail plc have to pay invoices from BrightWay Hygiene Ltd?",
+      "answer": "Under framework supply agreement SA-2025-007 between BrightWay Hygiene Ltd and Harbour & Hale Retail plc, payment terms are 30 days from the date of invoice.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-007.pdf / 4. Invoicing and payment"
+      ]
+    },
+    {
+      "id": "agreement-013:payment_terms",
+      "kind": "payment_terms",
+      "question": "How many days does Harbour & Hale Retail plc have to pay invoices from Northgate Packaging Ltd?",
+      "answer": "Under framework supply agreement SA-2025-013 between Northgate Packaging Ltd and Harbour & Hale Retail plc, payment terms are 60 days from the date of invoice.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-013.pdf / 4. Invoicing and payment"
+      ]
+    },
+    {
+      "id": "agreement-015:late_interest",
+      "kind": "late_interest",
+      "question": "What interest can Northgate Packaging Ltd charge Ashcombe Hotels Ltd on late payments?",
+      "answer": "Under framework supply agreement SA-2025-015 between Northgate Packaging Ltd and Ashcombe Hotels Ltd, interest on overdue sums runs at 8% per annum over base rate.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-015.pdf / 4. Invoicing and payment"
+      ]
+    },
+    {
+      "id": "agreement-009:price_notice",
+      "kind": "price_notice",
+      "question": "How much notice must BrightWay Hygiene Ltd give Ashcombe Hotels Ltd before increasing prices?",
+      "answer": "BrightWay Hygiene Ltd must give at least 60 days' written notice before increasing prices under Framework Supply Agreement SA-2025-009, and any increase is capped at 8% per review after the initial 6-month price freeze.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-009.pdf / 3. Prices and price review"
+      ]
+    },
+    {
+      "id": "agreement-011:price_list",
+      "kind": "price_list",
+      "question": "What unit price did Linden Logistics Ltd agree with Fenwick Industrial Supplies Ltd for Polypropylene twine, per kg?",
+      "answer": "Under framework supply agreement SA-2025-011 between Fenwick Industrial Supplies Ltd and Linden Logistics Ltd, Schedule 1 sets the unit price for Polypropylene twine, per kg (item WH-3006) at \u00a36.29, excluding VAT.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-011.pdf / Schedule 1: Price list",
+        "agreement-011.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-002:price_list",
+      "kind": "price_list",
+      "question": "What unit price did Linden Logistics Ltd agree with Kestrel Office Supplies Ltd for Whiteboard markers, assorted, pack of 4?",
+      "answer": "Under Framework Supply Agreement SA-2025-002 between Kestrel Office Supplies Ltd and Linden Logistics Ltd, the unit price for Whiteboard markers, assorted, pack of 4 (OF-1006) is \u00a34.65.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-002.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-001:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item OF-1010 between Harbour & Hale Retail plc and Kestrel Office Supplies Ltd?",
+      "answer": "The agreed unit price for item OF-1010 (USB-C cable, 2m) under framework supply agreement SA-2025-001 between Kestrel Office Supplies Ltd and Harbour & Hale Retail plc is \u00a38.83.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-001.pdf / Schedule 1: Price list",
+        "agreement-001.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-002:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item OF-1008 between Linden Logistics Ltd and Kestrel Office Supplies Ltd?",
+      "answer": "The agreed unit price for item OF-1008 (Shipping labels, 99x38mm, per label) between Kestrel Office Supplies Ltd and Linden Logistics Ltd under framework supply agreement SA-2025-002 is \u00a30.0192.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-002.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-003:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item OF-1003 between Ashcombe Hotels Ltd and Kestrel Office Supplies Ltd?",
+      "answer": "The agreed unit price for item OF-1003 in framework supply agreement SA-2025-003 between Kestrel Office Supplies Ltd and Ashcombe Hotels Ltd is \u00a321.48 (lever arch files, A4, pack of 10), as stated in Schedule 1 price list.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-003.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-004:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item OF-1002 between Harbour & Hale Retail plc and Paperline Direct Ltd?",
+      "answer": "The agreed unit price for item OF-1002 (ballpoint pens, blue, box of 50) under framework supply agreement SA-2025-004 between Paperline Direct Ltd and Harbour & Hale Retail plc is \u00a311.48, excluding VAT.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-004.pdf / Schedule 1: Price list",
+        "agreement-004.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-005:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item OF-1010 between Linden Logistics Ltd and Paperline Direct Ltd?",
+      "answer": "The agreed unit price for item OF-1010 (USB-C cable, 2m) between Paperline Direct Ltd and Linden Logistics Ltd is \u00a37.62, as stated in Schedule 1 of Framework Supply Agreement SA-2025-005. Schedule 1 also states that the agreed unit prices exclude VAT.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-005.pdf / Schedule 1: Price list",
+        "agreement-005.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-006:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item OF-1007 between Ashcombe Hotels Ltd and Paperline Direct Ltd?",
+      "answer": "The agreed unit price for item OF-1007 (Desk organiser, mesh, black) under the Framework Supply Agreement SA-2025-006 between Paperline Direct Ltd and Ashcombe Hotels Ltd is \u00a316.59.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-006.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-007:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item CL-2009 between Harbour & Hale Retail plc and BrightWay Hygiene Ltd?",
+      "answer": "The agreed unit price for item CL-2009 (Washroom air freshener refill) between Harbour & Hale Retail plc and BrightWay Hygiene Ltd under Framework Supply Agreement SA-2025-007 is \u00a32.65.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-007.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-008:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item CL-2008 between Linden Logistics Ltd and BrightWay Hygiene Ltd?",
+      "answer": "The agreed unit price for item CL-2008 (disinfectant wipes, tub of 200) under the Framework Supply Agreement SA-2025-008 between BrightWay Hygiene Ltd and Linden Logistics Ltd is \u00a35.20.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-008.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-009:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item CL-2005 between Ashcombe Hotels Ltd and BrightWay Hygiene Ltd?",
+      "answer": "The agreed unit price for item CL-2005 (Hand soap refill, 5 litre) under framework supply agreement SA-2025-009 between BrightWay Hygiene Ltd and Ashcombe Hotels Ltd is \u00a315.51.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-009.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-010:sku_price",
+      "kind": "sku_price",
+      "question": "What is the agreed unit price for item WH-3005 between Harbour & Hale Retail plc and Fenwick Industrial Supplies Ltd?",
+      "answer": "The agreed unit price for item WH-3005 (Stretch wrap film, 500mm x 250m) under framework supply agreement SA-2025-010 between Fenwick Industrial Supplies Ltd and Harbour & Hale Retail plc is \u00a314.50.",
+      "answerable": true,
+      "intent": "search",
+      "expect_answer": true,
+      "fact_ok": true,
+      "citation_ok": true,
+      "numbers_grounded": true,
+      "abstained_ok": null,
+      "cited": [
+        "agreement-010.pdf / Schedule 1: Price list"
+      ]
+    },
+    {
+      "id": "agreement-001:none0",
+      "kind": "unanswerable",
+      "question": "What warranty period does Kestrel Office Supplies Ltd give Harbour & Hale Retail plc on its goods?",
+      "answer": "The documents provided do not state the warranty period that Kestrel Office Supplies Ltd gives Harbour & Hale Retail plc on its goods; the framework supply agreement SA-2025-001 covers parties and term, prices, shortages and returns, and governing law, but no warranty period.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-007:none1",
+      "kind": "unanswerable",
+      "question": "What insurance cover must BrightWay Hygiene Ltd hold under its agreement with Harbour & Hale Retail plc?",
+      "answer": "The documents provided do not state what insurance cover BrightWay Hygiene Ltd must hold under agreement SA-2025-007 with Harbour & Hale Retail plc.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-004:none2",
+      "kind": "unanswerable",
+      "question": "Who is the named account manager at Paperline Direct Ltd for Harbour & Hale Retail plc?",
+      "answer": "The documents provided do not state the named account manager at Paperline Direct Ltd for Harbour & Hale Retail plc. The agreement SA-2025-004 names the parties and signature blocks but gives no account manager name.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-015:none3",
+      "kind": "unanswerable",
+      "question": "What discount does Northgate Packaging Ltd give Ashcombe Hotels Ltd for paying early?",
+      "answer": "The documents provided do not state an early payment discount that Northgate Packaging Ltd gives Ashcombe Hotels Ltd under framework supply agreement SA-2025-015.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-006:none4",
+      "kind": "unanswerable",
+      "question": "Which courier does Paperline Direct Ltd use for deliveries to Ashcombe Hotels Ltd?",
+      "answer": "The documents provided do not state which courier Paperline Direct Ltd uses for deliveries to Ashcombe Hotels Ltd. The sources only cover a delivery note from Fenwick Industrial Supplies Ltd.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-011:none5",
+      "kind": "unanswerable",
+      "question": "What happens if Fenwick Industrial Supplies Ltd delivers late to Linden Logistics Ltd: is there a penalty per day?",
+      "answer": "The documents provided do not state a penalty per day for late delivery. The framework supply agreement SA-2025-011 only requires goods to be delivered no later than 7 working days after the order is accepted, and it does not set out any consequence for late delivery.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-008:none6",
+      "kind": "unanswerable",
+      "question": "Can Linden Logistics Ltd buy from BrightWay Hygiene Ltd in euros, and at what exchange rate?",
+      "answer": "The documents provided do not state whether Linden Logistics Ltd can buy from BrightWay Hygiene Ltd in euros or any exchange rate; the framework supply agreement SA-2025-008 covers pricing only by reference to a price list in Schedule 1, which is not included in the sources.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-003:none7",
+      "kind": "unanswerable",
+      "question": "What are Kestrel Office Supplies Ltd's opening hours for Ashcombe Hotels Ltd's orders?",
+      "answer": "The documents provided do not state Kestrel Office Supplies Ltd's opening hours for Ashcombe Hotels Ltd's orders.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-013:none8",
+      "kind": "unanswerable",
+      "question": "Does the agreement between Northgate Packaging Ltd and Harbour & Hale Retail plc cover software licences?",
+      "answer": "No. The documents provided do not state that the Framework Supply Agreement SA-2025-013 between Northgate Packaging Ltd and Harbour & Hale Retail plc covers software licences; the sources only cover parties and term, orders and delivery, governing law, and a price list.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    },
+    {
+      "id": "agreement-014:none9",
+      "kind": "unanswerable",
+      "question": "What carbon-reporting obligations does Northgate Packaging Ltd have towards Linden Logistics Ltd?",
+      "answer": "The documents provided do not state any carbon-reporting obligations that Northgate Packaging Ltd has towards Linden Logistics Ltd under framework supply agreement SA-2025-014.",
+      "answerable": false,
+      "intent": "search",
+      "expect_answer": false,
+      "fact_ok": null,
+      "citation_ok": null,
+      "numbers_grounded": null,
+      "abstained_ok": true,
+      "cited": []
+    }
+  ]
+}

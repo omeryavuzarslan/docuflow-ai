@@ -28,6 +28,7 @@ class Question:
     document_id: str
     evidence: tuple[str, ...]
     doc_type: str = "other"  # type of the answering document (agreements are "other")
+    fact: str = ""  # the answer as printed, e.g. "60 days" (used by the answer eval)
 
 
 def _norm(text: str) -> str:
@@ -137,8 +138,10 @@ def build_questions(agreements: tuple[SupplierAgreement, ...], seed: int) -> lis
             if kind == "price_list":
                 item = next(i for i in a.price_list if i.sku == fact)
                 evidence: tuple[str, ...] = (item.sku, format_price(item.unit_price))
+                answer = format_price(item.unit_price)
             else:
                 evidence = (_span(_section(a, heading), fact),)
+                answer = fact
             questions.append(
                 Question(
                     id=f"{a.document_id}:{kind}",
@@ -146,6 +149,7 @@ def build_questions(agreements: tuple[SupplierAgreement, ...], seed: int) -> lis
                     question=text,
                     document_id=a.document_id,
                     evidence=evidence,
+                    fact=answer,
                 )
             )
     return questions
@@ -170,6 +174,7 @@ def build_lookup_questions(
                 ),
                 document_id=a.document_id,
                 evidence=(item.sku, format_price(item.unit_price)),
+                fact=format_price(item.unit_price),
             )
         )
     for doc_set in sets:

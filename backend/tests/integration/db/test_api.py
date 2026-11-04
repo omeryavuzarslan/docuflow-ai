@@ -1,6 +1,9 @@
 """The HTTP API end to end: real Postgres (rolled back), fake parser and LLM, no cost."""
 
 from collections.abc import Iterator
+from decimal import Decimal
+from pathlib import Path
+from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
@@ -250,3 +253,55 @@ def test_owners_cannot_see_or_touch_each_others_data(
         json={"field": "net_total", "new_value": "1", "author": "x"},
     )
     assert response.status_code == 404
+
+
+# --- ask -----------------------------------------------------------------------------
+
+
+def test_ask_answers_with_sql_numbers_and_is_owner_scoped(
+    session_factory: sessionmaker[Session], world: FakeWorld, tmp_path: Path
+) -> None:
+    from types import SimpleNamespace
+
+    from backend.app.llm.client import LLMClient
+    from backend.app.query.router import Route
+    from backend.tests.unit.rag.helpers import FakeEmbedder
+
+    def parse(**kwargs: Any) -> SimpleNamespace:
+        return SimpleNamespace(
+            parsed_output=Route(intent="totals"),
+            stop_reason="end_turn",
+            usage=SimpleNamespace(
+                input_tokens=1,
+                output_tokens=1,
+                cache_read_input_tokens=0,
+                cache_creation_input_tokens=0,
+            ),
+        )
+
+    llm = LLMClient(
+        tmp_path / "llm", anthropic_client=SimpleNamespace(messages=SimpleNamespace(parse=parse))
+    )
+    app = create_app(
+        session_factory=session_factory, storage_root=world.root, llm=llm, embedder=FakeEmbedder()
+    )
+    with TestClient(app) as c:
+        for truth_id in world.truth:
+            c.post(
+                "/documents",
+                headers=A,
+                files={"file": (f"{truth_id}.pdf", fake_pdf(truth_id), "application/pdf")},
+            )
+        run_until_empty(session_factory, world.services, worker_id="test")
+
+        mine = c.post("/ask", headers=A, json={"question": "How much did we spend?"}).json()
+        theirs = c.post("/ask", headers=B, json={"question": "How much did we spend?"}).json()
+
+    gross = sum((i.gross_total for s in generate(42, 8) for i in s.invoices), Decimal(0))
+    assert mine["intent"] == "totals" and mine["data"]["gross"] == str(gross)
+    assert f"£{gross:,.2f}" in mine["answer"]
+    assert theirs["data"] == {"count": 0}  # another owner sees nothing
+
+
+def test_ask_rejects_an_empty_question(client: TestClient) -> None:
+    assert client.post("/ask", headers=A, json={"question": ""}).status_code == 422

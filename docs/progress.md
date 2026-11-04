@@ -119,5 +119,11 @@ Updated at the end of each session.
   router prompt `route-v1` + `route_question` (Haiku, cached) + `dispatch` (validates dates,
   maps doc types to the search filter, unsupported does nothing). Router eval: 43/43 correct
   incl. SQL results; $0.0077. Limit: templated questions.
-- 7b committed locally on `feat/query-router` (not pushed, not merged): push + PR + merge first next session.
-- Next: 7c answers with citations and POST /ask.
+- 7b merged (PR #15).
+- 7c (branch `feat/cited-answers`): `answer_question` (router -> dispatch -> Python-written
+  answers for totals/lookups/findings; Haiku answer with numbered sources for search; cited
+  numbers validated; all sources returned for the UI), prompt `answer-v1`, `POST /ask`.
+  Answer eval (60 questions): 100% fact / citation / grounded numbers / abstention after
+  giving the model each passage's context line (first run: 92% / 78% / 44% / 100%). $0.035
+  total. Step 7 complete.
+- Next: roadmap step 8, React UI.

@@ -2,6 +2,48 @@
 
 Every component has to earn its place with a measured result. Newest first.
 
+## 2026-11-03 — Cited answers v1 (router -> hybrid retrieval -> Haiku 5.5)
+
+**Question.** Through the full `/ask` path, are answers correct, cited with the right passage,
+free of invented numbers, and honest when the documents do not answer?
+
+**Setup.** Corpus as retrieval v2 (agreements + seed-42 POs/DNs/invoices, metadata context,
+exact NN). 50 answerable questions (40 sampled agreement-clause questions, 10 SKU price
+questions) with the answer as printed ("60 days", "£25.28"), and 10 questions the agreements
+do not answer (warranty, insurance, early-payment discount, courier, late-delivery penalty,
+...). Top 5 passages, prompt `answer-v1`, router `route-v1`, Haiku 5.5, effort low.
+Metrics: *fact in answer*; *correct citation* (at least one cited passage is from the right
+agreement and contains the evidence); *numbers grounded* (every number in the answer occurs
+in a passage the model was given, or in the question); *abstained correctly* (unanswerable
+-> answerable = false, no citations). Runner: `eval/runners/answer_eval.py`.
+Raw: `eval/results/answers-seed-42-answer-v1-claude-haiku-5-5.json`.
+
+| run | fact in answer | correct citation | numbers grounded | abstained correctly | cost |
+|---|---|---|---|---|---|
+| first | 92% | 78% | 44%* | 100% | $0.023 |
+| **sources carry their context line** | **100%** | **100%** | **100%** | **100%** | $0.012 |
+
+\*First run measured grounding against cited passages only, which was too strict (the model
+named the agreement number it read in an uncited "Parties" passage).
+
+**What the first run showed.** The answer step was given each passage's *body* only, without
+the context line retrieval had used ("SA-2025-007 · BrightWay ... and Harbour & Hale ..."). On
+price questions the model saw several near-identical price lists and correctly refused: "the
+documents do not state which agreement is between Harbour & Hale and BrightWay" (9 of 10
+SKU questions). The fix is in code, not the prompt: sources now include the context line.
+
+**Conclusions.**
+- With the context line, all 50 answerable questions are answered with the right fact and a
+  correct citation, and no answer contains a number that is not in the given passages.
+- All 10 unanswerable questions were declined, with no citations: the model did not invent
+  warranty periods or penalties.
+- Totals, lookups and findings never reach the answer model: Python writes those sentences
+  from SQL results.
+
+**Limits.** Template questions over generated agreements; 60 questions; one model. A judge for
+answer quality beyond "contains the fact" (completeness, tone) is advanced-stage work, and
+needs validating against human ratings first.
+
 ## 2026-11-02 — Query router v1 (Haiku 5.5, structured output)
 
 **Question.** Can one cheap structured-output call send each question to the right tool with
