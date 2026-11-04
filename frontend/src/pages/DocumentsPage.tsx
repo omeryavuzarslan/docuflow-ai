@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { AlertTriangle, ChevronRight, FileStack, Loader2, Search, ShieldAlert } from "lucide-react";
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { api, type Discrepancy, type DocumentSummary } from "../api/client";
 import { DocTypeIcon } from "../components/DocTypeIcon";
+import { Stat } from "../components/Stat";
 import { StatusBadge } from "../components/StatusBadge";
 import { TopBar } from "../components/TopBar";
 import { UploadDropzone } from "../components/UploadDropzone";
@@ -34,18 +35,6 @@ function useOpenFindings() {
     queryKey: ["discrepancies", "open"],
     queryFn: async () => (await api.GET("/discrepancies", { params: { query: { status: "open" } } })).data ?? [],
   });
-}
-
-function Stat({ label, value, icon, tone }: { label: string; value: number | string; icon: ReactNode; tone: string }) {
-  return (
-    <div className="flex items-center gap-4 rounded-2xl border border-slate-200/80 bg-white p-5 shadow-card">
-      <span className={clsx("grid size-10 place-items-center rounded-xl", tone)}>{icon}</span>
-      <div>
-        <div className="text-2xl font-semibold tracking-tight tabular">{value}</div>
-        <div className="text-xs font-medium text-slate-500">{label}</div>
-      </div>
-    </div>
-  );
 }
 
 export function DocumentsPage() {

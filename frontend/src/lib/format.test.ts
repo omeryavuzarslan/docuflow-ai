@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { docTypeLabel, formatMoney, formatRelative, shortName } from "./format";
+import { docTypeLabel, formatMoney, formatRelative, humanise, shortName } from "./format";
 
 describe("formatMoney", () => {
   it("groups thousands and keeps two decimals without float arithmetic", () => {
@@ -35,5 +35,12 @@ describe("labels", () => {
   });
   it("drops folders from file names", () => {
     expect(shortName("set-003/inv-1.pdf")).toBe("inv-1.pdf");
+  });
+});
+
+describe("humanise", () => {
+  it("turns snake case into a label and keeps acronyms upper case", () => {
+    expect(humanise("quantity_mismatch")).toBe("Quantity mismatch");
+    expect(humanise("vat_error")).toBe("VAT error");
   });
 });
