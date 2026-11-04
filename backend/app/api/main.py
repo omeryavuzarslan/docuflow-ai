@@ -262,7 +262,8 @@ def _routes(app: FastAPI) -> None:
         )
         return DocumentDetail.model_validate(
             {
-                **DocumentSummary.model_validate(document).model_dump(),
+                **_summary_fields(document),
+                **_document_facts(session, owner, [document_id]).get(document_id, {}),
                 "document": typed,
                 "extraction": ExtractionOut.model_validate(extraction) if extraction else None,
                 "corrections": [CorrectionOut.model_validate(c) for c in corrections],

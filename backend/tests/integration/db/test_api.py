@@ -319,3 +319,6 @@ def test_document_list_shows_number_supplier_and_amount(
     assert row["amount"] == str(invoice.gross_total)  # type: ignore[union-attr]
     dn = rows[ids["set-003-dn"]]
     assert dn["number"] and dn["amount"] is None
+    # The detail page shows the same facts.
+    detail = client.get(f"/documents/{ids['set-003-inv-1']}", headers=A).json()
+    assert (detail["number"], detail["amount"]) == (row["number"], row["amount"])

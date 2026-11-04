@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { api } from "./api/client";
 import { Sidebar } from "./components/Sidebar";
 import { ComingSoon } from "./pages/ComingSoon";
+import { DocumentPage } from "./pages/DocumentPage";
 import { DocumentsPage } from "./pages/DocumentsPage";
 
 export default function App() {
@@ -19,10 +20,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/documents" replace />} />
           <Route path="/documents" element={<DocumentsPage />} />
-          <Route
-            path="/documents/:id"
-            element={<ComingSoon title="Document" description="The PDF viewer with highlighted fields and corrections arrives in 8b." />}
-          />
+          <Route path="/documents/:id" element={<DocumentPage />} />
           <Route
             path="/findings"
             element={<ComingSoon title="Findings" description="Every discrepancy in one inbox, with resolve and dismiss, arrives in 8c." />}
