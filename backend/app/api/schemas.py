@@ -18,6 +18,10 @@ class DocumentSummary(_Out):
     status: str
     doc_type: str | None
     created_at: datetime
+    # From the stored document, when it has been extracted: what a person recognises it by.
+    number: str | None = None  # invoice / PO / delivery-note number
+    counterparty: str | None = None  # the supplier
+    amount: Decimal | None = None  # invoice gross total, PO net total; None for delivery notes
 
 
 class UploadResult(DocumentSummary):
