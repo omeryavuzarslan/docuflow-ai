@@ -34,3 +34,9 @@ export function formatRelative(iso: string, now: Date = new Date()): string {
 export function shortName(filename: string): string {
   return filename.split("/").pop() ?? filename;
 }
+
+/** "quantity_mismatch" -> "Quantity mismatch" */
+export function humanise(text: string) {
+  const s = text.replace(/_/g, " ");
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
