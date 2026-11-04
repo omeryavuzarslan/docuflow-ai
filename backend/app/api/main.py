@@ -48,7 +48,16 @@ from backend.app.api.schemas import (
     UploadResult,
 )
 from backend.app.db.mapping import ROW_CLASSES, DocumentRowType, document_from_row
-from backend.app.db.models import CorrectionRow, DiscrepancyRow, DocumentRow, ExtractionRow, JobRow
+from backend.app.db.models import (
+    CorrectionRow,
+    DeliveryNoteRow,
+    DiscrepancyRow,
+    DocumentRow,
+    ExtractionRow,
+    InvoiceRow,
+    JobRow,
+    PurchaseOrderRow,
+)
 from backend.app.db.session import make_engine, make_session_factory
 from backend.app.extraction.corrections import InvalidFieldError
 from backend.app.llm.client import LLMClient
@@ -128,6 +137,43 @@ def _discrepancies(session: Session, owner: str, **filters: str | None) -> list[
     ]
 
 
+def _summary_fields(row: DocumentRow) -> dict[str, object]:
+    return {f: getattr(row, f) for f in ("id", "filename", "status", "doc_type", "created_at")}
+
+
+def _document_facts(session: Session, owner: str, ids: list[str]) -> dict[str, dict[str, object]]:
+    """Number, supplier and amount per document, read from the typed tables in three
+    queries (not one per row)."""
+    facts: dict[str, dict[str, object]] = {}
+    if not ids:
+        return facts
+    for row in session.scalars(
+        select(InvoiceRow).where(InvoiceRow.owner_id == owner, InvoiceRow.document_id.in_(ids))
+    ):
+        facts[row.document_id] = {
+            "number": row.invoice_number,
+            "counterparty": row.supplier_name,
+            "amount": row.gross_total,
+        }
+    for po in session.scalars(
+        select(PurchaseOrderRow).where(
+            PurchaseOrderRow.owner_id == owner, PurchaseOrderRow.document_id.in_(ids)
+        )
+    ):
+        facts[po.document_id] = {
+            "number": po.po_number,
+            "counterparty": po.supplier_name,
+            "amount": po.net_total,
+        }
+    for dn in session.scalars(
+        select(DeliveryNoteRow).where(
+            DeliveryNoteRow.owner_id == owner, DeliveryNoteRow.document_id.in_(ids)
+        )
+    ):
+        facts[dn.document_id] = {"number": dn.dn_number, "counterparty": dn.supplier_name}
+    return facts
+
+
 def _columns(row: DiscrepancyRow) -> dict[str, object]:
     return {c.key: getattr(row, c.key) for c in DiscrepancyRow.__table__.columns}
 
@@ -178,12 +224,17 @@ def _routes(app: FastAPI) -> None:
         status_filter: Annotated[str | None, Query(alias="status")] = None,
         limit: Annotated[int, Query(ge=1, le=500)] = 100,
         offset: Annotated[int, Query(ge=0)] = 0,
-    ) -> list[DocumentRow]:
+    ) -> list[DocumentSummary]:
         query = select(DocumentRow).where(DocumentRow.owner_id == owner)
         if status_filter is not None:
             query = query.where(DocumentRow.status == status_filter)
         query = query.order_by(DocumentRow.received_seq).limit(limit).offset(offset)
-        return list(session.scalars(query))
+        rows = list(session.scalars(query))
+        facts = _document_facts(session, owner, [r.id for r in rows])
+        return [
+            DocumentSummary.model_validate({**_summary_fields(r), **facts.get(r.id, {})})
+            for r in rows
+        ]
 
     @app.get("/documents/{document_id}", response_model=DocumentDetail)
     def get_document(document_id: str, session: SessionDep, owner: OwnerDep) -> DocumentDetail:

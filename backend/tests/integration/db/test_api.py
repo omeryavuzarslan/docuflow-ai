@@ -305,3 +305,17 @@ def test_ask_answers_with_sql_numbers_and_is_owner_scoped(
 
 def test_ask_rejects_an_empty_question(client: TestClient) -> None:
     assert client.post("/ask", headers=A, json={"question": ""}).status_code == 422
+
+
+def test_document_list_shows_number_supplier_and_amount(
+    client: TestClient, world: FakeWorld, session_factory: sessionmaker[Session]
+) -> None:
+    ids = _upload_all_and_process(client, world, session_factory)
+    rows = {d["id"]: d for d in client.get("/documents", headers=A).json()}
+    invoice = world.truth["set-003-inv-1"]
+    row = rows[ids["set-003-inv-1"]]
+    assert row["number"] == invoice.invoice_number  # type: ignore[union-attr]
+    assert row["counterparty"] == invoice.supplier.name
+    assert row["amount"] == str(invoice.gross_total)  # type: ignore[union-attr]
+    dn = rows[ids["set-003-dn"]]
+    assert dn["number"] and dn["amount"] is None

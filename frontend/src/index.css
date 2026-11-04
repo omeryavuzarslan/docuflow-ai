@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.06);
+  --shadow-lift: 0 8px 24px -8px rgb(15 23 42 / 0.18);
+  --animate-fade-in: fade-in 0.25s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; font-feature-settings: "cv11", "ss01"; }
+  body { @apply bg-slate-50 text-slate-900; }
+  ::selection { @apply bg-brand-100 text-brand-700; }
+}
+
+.tabular { font-variant-numeric: tabular-nums; }
